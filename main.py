@@ -227,7 +227,7 @@ def change_folder(folder_name):
             # если файл - скачиваем
             else:
                 new_current_dir = full_current_dir
-                # сохранение файла чет не работает
+                # сохранение файла
                 response = requests.get(f'{full_current_dir}/{folder_name}')
                 if response.status_code == 200:
                     return send_file(BytesIO(response.content), download_name=folder_name, as_attachment=True)
