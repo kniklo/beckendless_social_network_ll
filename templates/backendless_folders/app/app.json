@@ -1,0 +1,2284 @@
+{
+	"libraryPath": "../../library",
+	"hasPagesJSON": true,
+	"mainPage": "followingPosts",
+	"isFunctionsMigrated": true,
+	"isFunctionsRenamedToUid": true,
+	"publishedPath": "web/register",
+	"customFunctionsMap": {
+		"30e6b79b85ff0a1d11773b745fc245aa": "getUserFilesDirectory",
+		"5a16854754a90b444dc8e7a6d99bb9e3": "ensureCurrentUser"
+	},
+	"shownInViewer": false,
+	"viewport": {
+		"width": null,
+		"height": null,
+		"initialScale": 1,
+		"minScale": 1,
+		"maxScale": 5,
+		"userScalable": true
+	},
+	"metaTags": {},
+	"externalLibraries": [],
+	"faviconHash": "",
+	"container": "default",
+	"backupsPolicy": {
+		"backupsTTLinDays": 30,
+		"backupsTTLEnabled": true,
+		"lastBackupsLimit": 100,
+		"lastBackupsLimitEnabled": false,
+		"deleteCustomBackups": false
+	},
+	"devConsoleURL": "https://develop.backendless.com",
+	"pages": {
+		"404": {
+			"label": "Not Found Page",
+			"style": {
+				"padding": "20px 20px 20px 20px",
+				"background-color": "#dfdfdf"
+			},
+			"components": {
+				"page": {
+					"type": "page",
+					"handlers": {}
+				},
+				"902c9641de4ec9e73427e7192a118d14": {
+					"id": "Button - 1",
+					"type": "button",
+					"handlers": {
+						"onClick": {
+							"dependencies": []
+						}
+					}
+				}
+			},
+			"usedComponentTypes": [
+				"block",
+				"text",
+				"button"
+			],
+			"dataBinding": {},
+			"attrs": {},
+			"html": "<div data-module-type=\"block\" data-display=\"true\" id=\"Workspace\" data-uid=\"21d5f9fadce8fdf1b49baf38628a1cc5\" style=\"display:flex;flex-shrink:1;flex-direction:column;padding:20px 20px 20px 20px;overflow:auto;max-width:450px;margin:auto auto auto auto;width:100%;\"><div data-module-type=\"block\" data-display=\"true\" id=\"Block - 1\" data-uid=\"7da30375d84e75a3f345ea8ece36e337\" style=\"display:flex;flex-shrink:0;flex-direction:column;padding:10px;min-width:100px;\"><span data-module-type=\"text\" data-display=\"true\" id=\"Title\" data-uid=\"386240bb5267c5112e747c5c291cd593\" style=\"align-self:center;font-size:46px;font-weight:700;color:#afafaf;\">404</span></div><div data-module-type=\"block\" data-display=\"true\" id=\"Block - 2\" data-uid=\"97845d79e133e1e3384fad6608b5536e\" style=\"display:flex;flex-shrink:0;flex-direction:column;padding:10px;min-width:100px;\"><span data-module-type=\"text\" data-display=\"true\" id=\"Text - 1\" data-uid=\"0b931ba32749959d7fcc190e512468ac\" style=\"align-self:center;font-size:26px;font-weight:700;color:#afafaf;\">Page Not Found</span></div><button data-label=\"Go To Main Page\" data-module-type=\"button\" data-raised=\"true\" data-display=\"true\" id=\"Button - 1\" data-uid=\"902c9641de4ec9e73427e7192a118d14\" data-variant=\"contained\" style=\"background-color:#1f72e3;margin:20px 20px 20px 20px;\"></button></div>"
+		},
+		"addPost": {
+			"style": {
+				"background-color": "#fafafa"
+			},
+			"usedComponentTypes": [
+				"block",
+				"text",
+				"form",
+				"file-uploader-button",
+				"image",
+				"textarea",
+				"button",
+				"icon"
+			],
+			"components": {
+				"page": {
+					"type": "page",
+					"moduleType": "system",
+					"moduleId": "page",
+					"handlers": {
+						"onEnter": {
+							"dependencies": [
+								"./functions/5a16854754a90b444dc8e7a6d99bb9e3/code.js"
+							]
+						}
+					}
+				},
+				"6c711467430630ad3e643c34faaa9c65": {
+					"id": "Followers Posts",
+					"type": "icon",
+					"moduleType": "system",
+					"moduleId": "icon",
+					"handlers": {
+						"onClick": {
+							"dependencies": []
+						}
+					}
+				},
+				"ebf8edb75159fa254839d9f573a6e4ed": {
+					"id": "All Posts",
+					"type": "icon",
+					"moduleType": "system",
+					"moduleId": "icon",
+					"handlers": {
+						"onClick": {
+							"dependencies": []
+						}
+					}
+				},
+				"182f34b38219bc2f7ff6d2fa348d6463": {
+					"id": "Add Post",
+					"type": "icon",
+					"moduleType": "system",
+					"moduleId": "icon",
+					"handlers": {
+						"onClick": {
+							"dependencies": []
+						}
+					}
+				},
+				"7faa3c7a197334df021b1b6913c7e7d4": {
+					"id": "Profile",
+					"type": "icon",
+					"moduleType": "system",
+					"moduleId": "icon",
+					"handlers": {
+						"onClick": {
+							"dependencies": []
+						}
+					}
+				},
+				"23eef22b5c313da3b0c90962a99b42c5": {
+					"id": "",
+					"type": "file-uploader-button",
+					"moduleType": "system",
+					"moduleId": "file-uploader-button",
+					"handlers": {
+						"onDisplayAssignment": {
+							"dependencies": []
+						},
+						"onDirectoryAssignment": {
+							"dependencies": [
+								"./functions/30e6b79b85ff0a1d11773b745fc245aa/code.js"
+							]
+						},
+						"onFileNameAssignment": {
+							"dependencies": []
+						}
+					}
+				},
+				"06345f2bdaecc1aa7a08132ae38135bc": {
+					"id": "",
+					"type": "image",
+					"moduleType": "system",
+					"moduleId": "image",
+					"handlers": {}
+				},
+				"bb5ada8e9d94fa6a225cc5aa02236794": {
+					"id": "Image Description",
+					"type": "textarea",
+					"moduleType": "system",
+					"moduleId": "textarea",
+					"handlers": {}
+				},
+				"609885542943085abe1a49544fbddf5c": {
+					"id": "Post Form",
+					"type": "form",
+					"moduleType": "system",
+					"moduleId": "form",
+					"handlers": {
+						"onSubmit": {
+							"dependencies": []
+						}
+					}
+				},
+				"89aa8f06c6495d53dd6dd069a2389c3d": {
+					"id": "Publish Btn",
+					"type": "button",
+					"moduleType": "system",
+					"moduleId": "button",
+					"handlers": {
+						"onDisabledStateAssignment": {
+							"dependencies": []
+						}
+					}
+				}
+			},
+			"dataBinding": {},
+			"attrs": {},
+			"html": "<div data-module-type=\"block\" data-display=\"true\" data-uid=\"f4a4ae1f99141bfe086e89d910ef0aba\" style=\"display:flex;flex-shrink:0;flex-direction:column;padding:10px;min-height:50px;position:absolute;width:100%;background-color:#f1efef;top:0;justify-content:center;align-items:center;z-index:1000;\"><span data-module-type=\"text\" data-display=\"true\" data-uid=\"3121ec4e9b7ae20e1b15d963f57e7585\" data-content=\"InstagramLess\" style=\"font-family:Comic Sans MS, cursive, sans-serif;font-size:18px;color:#333;font-weight:400;\">InstagramLess</span></div><div data-module-type=\"block\" data-display=\"true\" data-uid=\"84cd66bb4f27ffade0a23fced595ff7d\" style=\"display:flex;flex-shrink:0;flex-direction:column;padding:50px 0 50px 0;min-height:50px;flex-grow:1;overflow:auto;height:100%;\"><div data-module-type=\"block\" data-display=\"true\" data-uid=\"2f1128c831ecd1f2c026c2c7024cd2ad\" style=\"display:flex;flex-shrink:0;flex-direction:column;padding:10px;min-height:50px;flex-grow:1;max-width:700px;width:100%;align-self:center;\"><span data-module-type=\"text\" data-display=\"true\" data-uid=\"16e98195bce8f38d63b2a1b9a5843c4d\" data-content=\"Upload new Photo\" style=\"text-align:center;\">Upload new Photo</span><form data-module-type=\"form\" data-display=\"true\" id=\"Post Form\" data-uid=\"609885542943085abe1a49544fbddf5c\" style=\"display:flex;flex-shrink:0;min-height:50px;padding:10px;margin-top:10px;flex-direction:column;\"><div data-module-type=\"block\" data-display=\"true\" data-uid=\"60aaa5f3035af46ea9bdabb330be87a9\" style=\"display:flex;flex-shrink:0;flex-direction:column;padding:10px;min-height:50px;\"><button data-upload-success-msg=\"Uploaded!\" data-upload-fail-msg=\"Could not upload!\" data-upload-progress-msg=\"Uploading...\" data-module-type=\"file-uploader-button\" data-display=\"true\" data-accept=\"image/*\" data-button-label=\"Upload File\" data-uid=\"23eef22b5c313da3b0c90962a99b42c5\" data-binding_onuploadsuccess=\"image\" data-overwrite=\"true\" data-directory=\"temp\" data-raised-button=\"false\" data-outlined-button=\"false\" data-disabled=\"false\" data-variant=\"contained\" style=\"cursor:pointer;\"></button><img data-url=\"\" data-module-type=\"image\" data-display=\"false\" data-uid=\"06345f2bdaecc1aa7a08132ae38135bc\" data-binding_ondisplayassignment=\"image\" data-binding_onsourceurlassignment=\"image\" style=\"width:100%;\"/></div><div data-module-type=\"block\" data-display=\"true\" data-uid=\"a34f18d29e8bdaa88b62feccbe755ccf\" style=\"display:flex;flex-shrink:0;flex-direction:column;padding:10px;min-height:50px;\"><div data-module-type=\"textarea\" data-label=\"Description\" data-display=\"true\" data-uid=\"bb5ada8e9d94fa6a225cc5aa02236794\" data-binding_onvalueassignment=\"description\" id=\"Image Description\" data-variant=\"outlined\" data-max-length=\"499\"></div></div><div data-module-type=\"block\" data-display=\"true\" data-uid=\"06ab58baec44f0f6a46e6ad829b926c7\" style=\"display:flex;flex-shrink:0;flex-direction:column;padding:10px;min-height:50px;\"><button data-label=\"Publish\" data-module-type=\"button\" data-display=\"true\" data-unelevated=\"false\" data-uid=\"89aa8f06c6495d53dd6dd069a2389c3d\" data-raised=\"true\" id=\"Publish Btn\" data-variant=\"contained\" type=\"submit\" style=\"background-color:#4f9bf4;color:#fff;cursor:pointer;\"></button></div></form></div></div><div data-module-type=\"block\" data-display=\"true\" data-uid=\"42ced319173b5f7acd3a0b6506cd3d2e\" style=\"display:flex;flex-shrink:0;padding:10px;min-height:50px;position:absolute;width:100%;bottom:0;background-color:#ede8e8;flex-direction:row;justify-content:space-around;z-index:1000;\"><i data-icon=\"home\" data-module-type=\"icon\" data-display=\"true\" id=\"Followers Posts\" data-uid=\"6c711467430630ad3e643c34faaa9c65\" class=\"material-icons-round\" style=\"font-size:26px;align-self:flex-start;color:#696b6e;cursor:pointer;\"></i><i data-icon=\"search\" data-module-type=\"icon\" data-display=\"true\" id=\"All Posts\" data-uid=\"ebf8edb75159fa254839d9f573a6e4ed\" class=\"material-icons-round\" style=\"font-size:26px;align-self:flex-start;color:#696b6e;cursor:pointer;\"></i><i data-icon=\"add_box\" data-module-type=\"icon\" data-display=\"true\" id=\"Add Post\" data-uid=\"182f34b38219bc2f7ff6d2fa348d6463\" class=\"material-icons-round\" style=\"font-size:26px;align-self:flex-start;color:#375f8a;cursor:pointer;\"></i><i data-icon=\"person_outline\" data-module-type=\"icon\" data-display=\"true\" id=\"Profile\" data-uid=\"7faa3c7a197334df021b1b6913c7e7d4\" class=\"material-icons-round\" style=\"font-size:26px;align-self:flex-start;color:#696b6e;cursor:pointer;\"></i></div>"
+		},
+		"allPosts": {
+			"style": {
+				"background-color": "#fafafa"
+			},
+			"usedComponentTypes": [
+				"block",
+				"text",
+				"spinner",
+				"image",
+				"icon"
+			],
+			"components": {
+				"page": {
+					"type": "page",
+					"moduleType": "system",
+					"moduleId": "page",
+					"handlers": {
+						"onEnter": {
+							"dependencies": [
+								"./functions/5a16854754a90b444dc8e7a6d99bb9e3/code.js"
+							]
+						}
+					}
+				},
+				"6c711467430630ad3e643c34faaa9c65": {
+					"id": "Followers Posts",
+					"type": "icon",
+					"moduleType": "system",
+					"moduleId": "icon",
+					"handlers": {
+						"onClick": {
+							"dependencies": []
+						}
+					}
+				},
+				"ebf8edb75159fa254839d9f573a6e4ed": {
+					"id": "All Posts",
+					"type": "icon",
+					"moduleType": "system",
+					"moduleId": "icon",
+					"handlers": {
+						"onClick": {
+							"dependencies": [
+								"./functions/5a16854754a90b444dc8e7a6d99bb9e3/code.js"
+							]
+						}
+					}
+				},
+				"182f34b38219bc2f7ff6d2fa348d6463": {
+					"id": "Add Post",
+					"type": "icon",
+					"moduleType": "system",
+					"moduleId": "icon",
+					"handlers": {
+						"onClick": {
+							"dependencies": []
+						}
+					}
+				},
+				"7faa3c7a197334df021b1b6913c7e7d4": {
+					"id": "Profile",
+					"type": "icon",
+					"moduleType": "system",
+					"moduleId": "icon",
+					"handlers": {
+						"onClick": {
+							"dependencies": []
+						}
+					}
+				},
+				"6b8f2442743a88cb0b8949d32b28fa89": {
+					"id": "",
+					"type": "spinner",
+					"moduleType": "system",
+					"moduleId": "spinner",
+					"handlers": {}
+				},
+				"08b798a9738f1dc1e87488055e88a2e4": {
+					"id": "Posts List",
+					"type": "block",
+					"moduleType": "system",
+					"moduleId": "block",
+					"handlers": {}
+				},
+				"ccc54293bae7c6650d258a71892dc1f5": {
+					"id": "",
+					"type": "block",
+					"moduleType": "system",
+					"moduleId": "block",
+					"handlers": {}
+				},
+				"51b6203343d2c8833c021e3523948188": {
+					"id": "",
+					"type": "image",
+					"moduleType": "system",
+					"moduleId": "image",
+					"handlers": {}
+				},
+				"7b76dfef57bcb3baf7b8d5376563edb4": {
+					"id": "",
+					"type": "text",
+					"moduleType": "system",
+					"moduleId": "text",
+					"handlers": {}
+				},
+				"40e3f0b772b5cef5f2385db874a22307": {
+					"id": "Loading Panel",
+					"type": "block",
+					"moduleType": "system",
+					"moduleId": "block",
+					"handlers": {
+						"onDisplayAssignment": {
+							"dependencies": []
+						}
+					}
+				},
+				"b1f852319893c7a4d8f61e52d0c9116f": {
+					"id": "",
+					"type": "text",
+					"moduleType": "system",
+					"moduleId": "text",
+					"handlers": {}
+				},
+				"77b1ac744e34c45d91a561f67b773beb": {
+					"id": "User Avatar",
+					"type": "image",
+					"moduleType": "system",
+					"moduleId": "image",
+					"handlers": {
+						"onClick": {
+							"dependencies": []
+						},
+						"onSourceUrlAssignment": {
+							"dependencies": []
+						}
+					}
+				},
+				"7864788fbfeef05753975fe81b0ef3d9": {
+					"id": "Like Icon",
+					"type": "icon",
+					"moduleType": "system",
+					"moduleId": "icon",
+					"handlers": {
+						"onClick": {
+							"dependencies": []
+						},
+						"onIconAssignment": {
+							"dependencies": []
+						}
+					}
+				},
+				"489eaaf5397700ae5eca533f15b8e871": {
+					"id": "Likes Count Label",
+					"type": "text",
+					"moduleType": "system",
+					"moduleId": "text",
+					"handlers": {
+						"onContentAssignment": {
+							"dependencies": []
+						},
+						"onClick": {
+							"dependencies": []
+						}
+					}
+				},
+				"a8dc1bc4bf3ab722fa18cd187d3fb296": {
+					"id": "",
+					"type": "text",
+					"moduleType": "system",
+					"moduleId": "text",
+					"handlers": {
+						"onContentAssignment": {
+							"dependencies": []
+						}
+					}
+				},
+				"6ebb358d8edb4e48384e629739919fbe": {
+					"id": "Following Toggler",
+					"type": "block",
+					"moduleType": "system",
+					"moduleId": "block",
+					"handlers": {}
+				},
+				"639b3f060b765f7730defc3200eb5e54": {
+					"id": "Follow Btn",
+					"type": "text",
+					"moduleType": "system",
+					"moduleId": "text",
+					"handlers": {
+						"onClick": {
+							"dependencies": []
+						},
+						"onDisplayAssignment": {
+							"dependencies": []
+						}
+					}
+				},
+				"35fd4d0bbdc8220d1335be9f7af2caf3": {
+					"id": "Following Btn",
+					"type": "text",
+					"moduleType": "system",
+					"moduleId": "text",
+					"handlers": {
+						"onClick": {
+							"dependencies": []
+						}
+					}
+				},
+				"114ae55fc55a85e7444d0d0e89fcf2bf": {
+					"id": "Post Publisher",
+					"type": "block",
+					"moduleType": "system",
+					"moduleId": "block",
+					"handlers": {
+						"onContainerDataAssignment": {
+							"dependencies": []
+						}
+					}
+				},
+				"ed6a93068b28b0755f0410cca2a17a3b": {
+					"id": "",
+					"type": "text",
+					"moduleType": "system",
+					"moduleId": "text",
+					"handlers": {}
+				},
+				"ebf85a63857a11cc7d9fa1b8ca8b9205": {
+					"id": "Comments Block",
+					"type": "block",
+					"moduleType": "system",
+					"moduleId": "block",
+					"handlers": {
+						"onClick": {
+							"dependencies": []
+						}
+					}
+				},
+				"b2e11b47ccee01923de1459d2db93e25": {
+					"id": "No Items Label",
+					"type": "text",
+					"moduleType": "system",
+					"moduleId": "text",
+					"handlers": {
+						"onDisplayAssignment": {
+							"dependencies": []
+						}
+					}
+				},
+				"38d2a107340250da0cb3721cc9918891": {
+					"id": "Workspace",
+					"type": "block",
+					"moduleType": "system",
+					"moduleId": "block",
+					"handlers": {}
+				},
+				"626cea018816e864743d4aed721ee9a2": {
+					"id": "",
+					"type": "icon",
+					"moduleType": "system",
+					"moduleId": "icon",
+					"handlers": {}
+				},
+				"667392286a932b3a8596e929fa2d0be3": {
+					"id": "",
+					"type": "block",
+					"moduleType": "system",
+					"moduleId": "block",
+					"handlers": {}
+				}
+			},
+			"dataBinding": {},
+			"attrs": {},
+			"html": "<div data-module-type=\"block\" data-display=\"true\" data-uid=\"718cae9ef3a8b4fa725fb5c4707c6e2f\" style=\"display:flex;flex-shrink:0;flex-direction:column;padding:10px;min-height:50px;position:absolute;width:100%;background-color:#f1efef;top:0;justify-content:center;align-items:center;z-index:1000;\"><span data-module-type=\"text\" data-display=\"true\" data-uid=\"2bbc5fc51b35099f4eb78a55233dfc79\" data-content=\"InstagramLess\" style=\"font-family:Comic Sans MS, cursive, sans-serif;font-size:18px;color:#333;font-weight:400;\">InstagramLess</span></div><div data-module-type=\"block\" data-display=\"true\" data-uid=\"667392286a932b3a8596e929fa2d0be3\" style=\"display:flex;flex-shrink:0;flex-direction:column;padding:50px 0 50px 0;min-height:50px;flex-grow:1;overflow:auto;height:100%;\"><div data-module-type=\"block\" data-display=\"true\" data-uid=\"ccc54293bae7c6650d258a71892dc1f5\" style=\"display:flex;flex-shrink:0;flex-direction:column;padding:10px 0 10px 0;min-height:50px;flex-grow:1;max-width:700px;width:100%;align-self:center;\"><div data-module-type=\"block\" data-display=\"false\" data-uid=\"40e3f0b772b5cef5f2385db874a22307\" id=\"Loading Panel\" style=\"display:flex;flex-shrink:0;flex-direction:column;padding:10px;min-height:50px;align-items:center;\"><svg data-module-type=\"spinner\" data-display=\"true\" data-uid=\"6b8f2442743a88cb0b8949d32b28fa89\" class=\"base-spinner\" style=\"color:#942bab;\"></svg></div><div data-module-type=\"block\" data-display=\"false\" id=\"Workspace\" data-uid=\"38d2a107340250da0cb3721cc9918891\" data-binding_ondisplayassignment=\"loaded\" style=\"display:flex;flex-shrink:0;flex-direction:column;padding:10px;min-height:50px;min-width:50px;\"><span data-module-type=\"text\" data-display=\"false\" id=\"No Items Label\" data-uid=\"b2e11b47ccee01923de1459d2db93e25\" data-content=\"There are no posts yet!\" style=\"border-radius:0 0 0 0;font-size:26px;color:#c0c0c0;align-self:center;\">There are no posts yet!</span><div data-module-type=\"block\" data-display=\"true\" data-uid=\"08b798a9738f1dc1e87488055e88a2e4\" data-dynamic-list-behaviour=\"true\" data-binding_ondynamicitemsassignment=\"posts\" id=\"Posts List\" style=\"display:flex;flex-shrink:0;flex-direction:column;flex-grow:1;min-height:50px;padding-bottom:10px;\"><div data-module-type=\"block\" data-data-container=\"true\" data-display=\"true\" id=\"Post Item\" data-uid=\"c84cd284b4f41b3b1e83717604092d54\" style=\"display:flex;flex-shrink:0;min-height:50px;padding:0 0 20px 0;margin-top:10px;flex-direction:column;margin:0 0 10px 0;\"><div data-module-type=\"block\" data-display=\"true\" data-data-container=\"true\" data-uid=\"114ae55fc55a85e7444d0d0e89fcf2bf\" id=\"Post Publisher\" style=\"display:flex;flex-shrink:0;padding:10px 5px 10px 5px;min-height:50px;flex-direction:row;align-items:center;\"><img data-url=\"/user.png\" data-module-type=\"image\" data-display=\"true\" id=\"User Avatar\" data-uid=\"77b1ac744e34c45d91a561f67b773beb\" data-binding_onsourceurlassignment=\"avatar\" style=\"width:40px;height:40px;border-radius:50% 50% 50% 50%;cursor:pointer;\"/><span data-module-type=\"text\" data-display=\"true\" data-uid=\"b1f852319893c7a4d8f61e52d0c9116f\" data-binding_oncontentassignment=\"displayName\" data-content=\"User DisplayName\" style=\"margin:0 0 0 10px;\">User DisplayName</span><div data-module-type=\"block\" data-display=\"true\" data-uid=\"6ebb358d8edb4e48384e629739919fbe\" id=\"Following Toggler\" style=\"display:flex;flex-shrink:0;padding:10px;min-width:50px;flex-direction:row;align-items:center;\"><span data-module-type=\"text\" data-display=\"true\" data-uid=\"a05f2cd4bb5f56b1109673a5065b6b35\" data-content=\"•\">•</span><span data-module-type=\"text\" data-display=\"false\" id=\"Follow Btn\" data-uid=\"639b3f060b765f7730defc3200eb5e54\" data-content=\"Follow\" style=\"margin:0 0 0 10px;font-size:13px;color:#0b84ec;cursor:pointer;\">Follow</span><span data-module-type=\"text\" data-display=\"false\" id=\"Following Btn\" data-uid=\"35fd4d0bbdc8220d1335be9f7af2caf3\" data-content=\"Following\" data-binding_ondisplayassignment=\"following\" style=\"margin:0 0 0 10px;font-size:13px;cursor:pointer;\">Following</span></div></div><img data-url=\"\" data-module-type=\"image\" data-display=\"true\" data-uid=\"51b6203343d2c8833c021e3523948188\" data-binding_onsourceurlassignment=\"image\" style=\"width:100%;\"/><div data-module-type=\"block\" data-display=\"true\" data-uid=\"9dd65df3449a9b02c24ee5b94c81b61b\" style=\"display:flex;flex-shrink:0;padding:10px;min-height:50px;flex-direction:row;justify-content:space-between;\"><div data-module-type=\"block\" data-display=\"true\" data-uid=\"4b6c9da7219f87544942d41c0dbbd4ec\" style=\"display:flex;flex-shrink:0;padding:0 0 0 0;flex-direction:row;align-self:center;cursor:pointer;\"><i data-icon=\"favorite_border\" data-module-type=\"icon\" data-display=\"true\" data-uid=\"7864788fbfeef05753975fe81b0ef3d9\" id=\"Like Icon\" class=\"material-icons-round\" style=\"font-size:26px;align-self:flex-start;color:#696b6e;\"></i><span data-module-type=\"text\" data-display=\"true\" id=\"Likes Count Label\" data-uid=\"489eaaf5397700ae5eca533f15b8e871\" data-binding_ondisplayassignment=\"totalLikesCount\" data-content=\"Likes Count\" style=\"align-self:center;font-size:13px;margin:0 0 0 5px;color:#0b84ec;\">Likes Count</span></div><div data-module-type=\"block\" data-display=\"true\" id=\"Comments Block\" data-uid=\"ebf85a63857a11cc7d9fa1b8ca8b9205\" style=\"display:flex;flex-shrink:0;padding:0 0 0 0;flex-direction:row;align-self:center;cursor:pointer;\"><span data-module-type=\"text\" data-display=\"false\" data-uid=\"ed6a93068b28b0755f0410cca2a17a3b\" data-binding_ondisplayassignment=\"totalCommentsCount\" data-binding_oncontentassignment=\"totalCommentsCount\" data-content=\"Comments Count\" style=\"color:#0b84ec;font-size:13px;margin:-4px 5px 0 0;align-self:center;\">Comments Count</span><i data-icon=\"comment\" data-module-type=\"icon\" data-display=\"true\" data-uid=\"626cea018816e864743d4aed721ee9a2\" class=\"material-icons-round\" style=\"font-size:26px;align-self:flex-start;color:#696b6e;\"></i></div></div><span data-module-type=\"text\" data-display=\"false\" data-uid=\"7b76dfef57bcb3baf7b8d5376563edb4\" data-binding_oncontentassignment=\"description\" data-binding_ondisplayassignment=\"description\" data-content=\"Post description\" data-classes=\"b-w\" style=\"font-size:13px;padding:5px 10px 5px 10px;\">Post description</span><span data-module-type=\"text\" data-display=\"true\" data-uid=\"a8dc1bc4bf3ab722fa18cd187d3fb296\" data-content=\"Publish date\" style=\"padding:5px 10px 5px 10px;font-size:13px;color:#868686;\">Publish date</span></div></div></div></div></div><div data-module-type=\"block\" data-display=\"true\" data-uid=\"fa9b2ec6ea52e5c46ef85c8db923a8dc\" style=\"display:flex;flex-shrink:0;padding:10px;min-height:50px;position:absolute;width:100%;bottom:0;background-color:#ede8e8;flex-direction:row;justify-content:space-around;z-index:1000;\"><i data-icon=\"home\" data-module-type=\"icon\" data-display=\"true\" id=\"Followers Posts\" data-uid=\"6c711467430630ad3e643c34faaa9c65\" class=\"material-icons-round\" style=\"font-size:26px;align-self:flex-start;color:#696b6e;cursor:pointer;\"></i><i data-icon=\"search\" data-module-type=\"icon\" data-display=\"true\" id=\"All Posts\" data-uid=\"ebf8edb75159fa254839d9f573a6e4ed\" class=\"material-icons-round\" style=\"font-size:26px;align-self:flex-start;color:#375f8a;cursor:pointer;\"></i><i data-icon=\"add_box\" data-module-type=\"icon\" data-display=\"true\" id=\"Add Post\" data-uid=\"182f34b38219bc2f7ff6d2fa348d6463\" class=\"material-icons-round\" style=\"font-size:26px;align-self:flex-start;color:#696b6e;cursor:pointer;\"></i><i data-icon=\"person_outline\" data-module-type=\"icon\" data-display=\"true\" id=\"Profile\" data-uid=\"7faa3c7a197334df021b1b6913c7e7d4\" class=\"material-icons-round\" style=\"font-size:26px;align-self:flex-start;color:#696b6e;cursor:pointer;\"></i></div>"
+		},
+		"followerUsers": {
+			"style": {
+				"background-color": "#fafafa"
+			},
+			"components": {
+				"page": {
+					"type": "page",
+					"moduleType": "system",
+					"moduleId": "page",
+					"handlers": {
+						"onEnter": {
+							"dependencies": [
+								"./functions/5a16854754a90b444dc8e7a6d99bb9e3/code.js"
+							]
+						}
+					}
+				},
+				"6b8f2442743a88cb0b8949d32b28fa89": {
+					"id": "",
+					"type": "spinner",
+					"moduleType": "system",
+					"moduleId": "spinner",
+					"handlers": {}
+				},
+				"08b798a9738f1dc1e87488055e88a2e4": {
+					"id": "Users List",
+					"type": "block",
+					"moduleType": "system",
+					"moduleId": "block",
+					"handlers": {}
+				},
+				"ccc54293bae7c6650d258a71892dc1f5": {
+					"id": "",
+					"type": "block",
+					"moduleType": "system",
+					"moduleId": "block",
+					"handlers": {}
+				},
+				"40e3f0b772b5cef5f2385db874a22307": {
+					"id": "Loading Panel",
+					"type": "block",
+					"moduleType": "system",
+					"moduleId": "block",
+					"handlers": {
+						"onDisplayAssignment": {
+							"dependencies": []
+						}
+					}
+				},
+				"d87f0d5cdb2c954f19cb8a2899355e34": {
+					"id": "",
+					"type": "image",
+					"moduleType": "system",
+					"moduleId": "image",
+					"handlers": {
+						"onClick": {
+							"dependencies": []
+						},
+						"onSourceUrlAssignment": {
+							"dependencies": []
+						}
+					}
+				},
+				"5c6ce464cae7b5f9b40649a68948f4a5": {
+					"id": "",
+					"type": "text",
+					"moduleType": "system",
+					"moduleId": "text",
+					"handlers": {}
+				},
+				"d2ee87c2a9d9fb8f64d371849a134162": {
+					"id": "User Actions",
+					"type": "block",
+					"moduleType": "system",
+					"moduleId": "block",
+					"handlers": {
+						"onDisplayAssignment": {
+							"dependencies": []
+						}
+					}
+				},
+				"14d3acae8ee6e26769088e81df6df479": {
+					"id": "Back Button",
+					"type": "block",
+					"moduleType": "system",
+					"moduleId": "block",
+					"handlers": {
+						"onClick": {
+							"dependencies": []
+						}
+					}
+				},
+				"0536dfc2b108a5384b344c08c887836f": {
+					"id": "FollowingBtn",
+					"type": "text",
+					"moduleType": "system",
+					"moduleId": "text",
+					"handlers": {
+						"onClick": {
+							"dependencies": []
+						}
+					}
+				},
+				"80cc601d42d13fe760550a279b3b152f": {
+					"id": "FollowBtn",
+					"type": "button",
+					"moduleType": "system",
+					"moduleId": "button",
+					"handlers": {
+						"onDisplayAssignment": {
+							"dependencies": []
+						},
+						"onClick": {
+							"dependencies": []
+						}
+					}
+				},
+				"82e46e8b0732a84977af8e5a3c6665d4": {
+					"id": "",
+					"type": "text",
+					"moduleType": "system",
+					"moduleId": "text",
+					"handlers": {
+						"onDisplayAssignment": {
+							"dependencies": []
+						}
+					}
+				},
+				"217920fb0f5c07d11475f31ad825d919": {
+					"id": "Workspace",
+					"type": "block",
+					"moduleType": "system",
+					"moduleId": "block",
+					"handlers": {}
+				}
+			},
+			"usedComponentTypes": [
+				"block",
+				"icon",
+				"text",
+				"spinner",
+				"image",
+				"button",
+				"divider"
+			],
+			"dataBinding": {},
+			"attrs": {},
+			"html": "<div data-module-type=\"block\" data-display=\"true\" data-uid=\"191e883254ab5afb2b816fcd19f27bbb\" style=\"display:flex;flex-shrink:0;padding:0 10px 0 10px;min-height:50px;position:absolute;width:100%;background-color:#f1efef;top:0;justify-content:center;align-items:center;z-index:1000;flex-direction:row;\"><div data-module-type=\"block\" data-display=\"true\" id=\"Back Button\" data-uid=\"14d3acae8ee6e26769088e81df6df479\" style=\"display:flex;flex-shrink:0;padding:10px 5px 10px;margin:0 auto 0 0;flex-direction:row;align-items:center;width:70px;cursor:pointer;\"><i data-icon=\"arrow_back_ios\" data-module-type=\"icon\" data-display=\"true\" data-uid=\"ddf575ab81e257a9e58e40bd264609b1\" class=\"material-icons-round\" style=\"font-size:20px;align-self:flex-start;color:#696b6e;\"></i><span data-module-type=\"text\" data-display=\"true\" data-uid=\"d26e4c5ae81e414ed9e4138c9a5ae09e\" data-content=\"Back\" style=\"font-size:14px;\">Back</span></div><span data-module-type=\"text\" data-display=\"true\" data-uid=\"f6c232c44d8f4981157eb7a6841f4ba5\" data-content=\"Followers\" style=\"font-family:Comic Sans MS, cursive, sans-serif;font-size:18px;color:#333;font-weight:400;\">Followers</span><div data-module-type=\"block\" data-display=\"true\" data-uid=\"1ab798b4254b92e5463a3c34f98d99a5\" style=\"display:flex;flex-shrink:0;flex-direction:column;padding:0 10px 0 10px;min-height:50px;min-width:50px;margin:0 0 0 auto;width:70px;\"></div></div><div data-module-type=\"block\" data-display=\"true\" data-uid=\"b1f5f6813043f8380a8baee85167d796\" style=\"display:flex;flex-shrink:0;flex-direction:column;padding:50px 0 50px 0;min-height:50px;flex-grow:1;overflow:auto;height:100%;\"><div data-module-type=\"block\" data-display=\"true\" data-uid=\"ccc54293bae7c6650d258a71892dc1f5\" style=\"display:flex;flex-shrink:0;flex-direction:column;padding:10px 0 10px 0;min-height:50px;flex-grow:1;max-width:700px;width:100%;align-self:center;\"><div data-module-type=\"block\" data-display=\"false\" data-uid=\"40e3f0b772b5cef5f2385db874a22307\" id=\"Loading Panel\" style=\"display:flex;flex-shrink:0;flex-direction:column;padding:10px;min-height:50px;align-items:center;\"><svg data-module-type=\"spinner\" data-display=\"true\" data-uid=\"6b8f2442743a88cb0b8949d32b28fa89\" class=\"base-spinner\" style=\"color:#942bab;\"></svg></div><div data-module-type=\"block\" data-display=\"false\" id=\"Workspace\" data-uid=\"217920fb0f5c07d11475f31ad825d919\" data-binding_ondisplayassignment=\"loaded\" style=\"display:flex;flex-shrink:0;flex-direction:column;padding:10px;min-height:50px;min-width:50px;flex-grow:1;\"><span data-module-type=\"text\" data-display=\"false\" data-uid=\"82e46e8b0732a84977af8e5a3c6665d4\" data-content=\"The user has no followers.\" style=\"font-size:26px;color:#c0c0c0;align-self:center;\">The user has no followers.</span><div data-module-type=\"block\" data-display=\"true\" data-uid=\"08b798a9738f1dc1e87488055e88a2e4\" data-dynamic-list-behaviour=\"true\" data-binding_ondynamicitemsassignment=\"users\" id=\"Users List\" style=\"display:flex;flex-shrink:0;flex-direction:column;flex-grow:1;min-height:50px;padding-bottom:10px;\"><div data-module-type=\"block\" data-data-container=\"true\" data-display=\"true\" id=\"User Item\" data-uid=\"0d59ea771ec3382c6db712fab92418ad\" style=\"display:flex;flex-shrink:0;min-height:50px;padding:0 0 0 0;margin-top:10px;margin:0 0 10px 0;justify-content:space-between;flex-direction:column;\"><div data-module-type=\"block\" data-display=\"true\" data-uid=\"63fbd64efb13a802994af5955da63a1f\" style=\"display:flex;flex-shrink:0;padding:5px 10px 5px 10px;min-height:50px;min-width:50px;flex-direction:row;justify-content:space-between;\"><div data-module-type=\"block\" data-display=\"true\" data-uid=\"264424684d424b09522f21d9313c2489\" style=\"display:flex;flex-shrink:0;padding:0 0 0 0;min-height:50px;min-width:50px;flex-direction:row;align-items:center;\"><img data-url=\"/user.png\" data-module-type=\"image\" data-display=\"true\" data-uid=\"d87f0d5cdb2c954f19cb8a2899355e34\" data-binding_onsourceurlassignment=\"avatar\" style=\"width:40px;height:40px;border-radius:50% 50% 50% 50%;cursor:pointer;\"/><span data-module-type=\"text\" data-display=\"true\" data-uid=\"5c6ce464cae7b5f9b40649a68948f4a5\" data-binding_oncontentassignment=\"displayName\" data-content=\"User DisplayName\" style=\"margin:0 0 0 10px;\">User DisplayName</span></div><div data-module-type=\"block\" data-display=\"false\" data-uid=\"d2ee87c2a9d9fb8f64d371849a134162\" id=\"User Actions\" style=\"display:flex;flex-shrink:0;padding:0 0 0 0;min-height:50px;min-width:50px;flex-direction:row;align-items:center;\"><span data-module-type=\"text\" data-display=\"false\" id=\"FollowingBtn\" data-uid=\"0536dfc2b108a5384b344c08c887836f\" data-binding_ondisplayassignment=\"following\" data-content=\"Following\" style=\"font-size:13px;cursor:pointer;\">Following</span><button data-label=\"Follow\" data-module-type=\"button\" data-display=\"false\" data-raised=\"true\" id=\"FollowBtn\" data-uid=\"80cc601d42d13fe760550a279b3b152f\" data-variant=\"contained\" style=\"background-color:#1a81e8;font-size:13px;cursor:pointer;\"></button></div></div><hr data-module-type=\"divider\" data-display=\"true\" data-uid=\"14ee7eb877f19a618cb857ca2417fbaa\" style=\"width:100%;border:1px solid #e1e1e1;margin:4px 0 4px 0;\"/></div></div></div></div></div>"
+		},
+		"followingPosts": {
+			"style": {
+				"background-color": "#fafafa"
+			},
+			"usedComponentTypes": [
+				"block",
+				"text",
+				"spinner",
+				"image",
+				"icon"
+			],
+			"components": {
+				"page": {
+					"type": "page",
+					"moduleType": "system",
+					"moduleId": "page",
+					"handlers": {
+						"onEnter": {
+							"dependencies": [
+								"./functions/5a16854754a90b444dc8e7a6d99bb9e3/code.js"
+							]
+						}
+					}
+				},
+				"6c711467430630ad3e643c34faaa9c65": {
+					"id": "Followers Posts",
+					"type": "icon",
+					"moduleType": "system",
+					"moduleId": "icon",
+					"handlers": {
+						"onClick": {
+							"dependencies": [
+								"./functions/5a16854754a90b444dc8e7a6d99bb9e3/code.js"
+							]
+						}
+					}
+				},
+				"ebf8edb75159fa254839d9f573a6e4ed": {
+					"id": "All Posts",
+					"type": "icon",
+					"moduleType": "system",
+					"moduleId": "icon",
+					"handlers": {
+						"onClick": {
+							"dependencies": []
+						}
+					}
+				},
+				"182f34b38219bc2f7ff6d2fa348d6463": {
+					"id": "Add Post",
+					"type": "icon",
+					"moduleType": "system",
+					"moduleId": "icon",
+					"handlers": {
+						"onClick": {
+							"dependencies": []
+						}
+					}
+				},
+				"7faa3c7a197334df021b1b6913c7e7d4": {
+					"id": "Profile",
+					"type": "icon",
+					"moduleType": "system",
+					"moduleId": "icon",
+					"handlers": {
+						"onClick": {
+							"dependencies": []
+						}
+					}
+				},
+				"6b8f2442743a88cb0b8949d32b28fa89": {
+					"id": "",
+					"type": "spinner",
+					"moduleType": "system",
+					"moduleId": "spinner",
+					"handlers": {}
+				},
+				"08b798a9738f1dc1e87488055e88a2e4": {
+					"id": "Posts List",
+					"type": "block",
+					"moduleType": "system",
+					"moduleId": "block",
+					"handlers": {}
+				},
+				"ccc54293bae7c6650d258a71892dc1f5": {
+					"id": "FeedWrapper",
+					"type": "block",
+					"moduleType": "system",
+					"moduleId": "block",
+					"handlers": {}
+				},
+				"51b6203343d2c8833c021e3523948188": {
+					"id": "Post Image",
+					"type": "image",
+					"moduleType": "system",
+					"moduleId": "image",
+					"handlers": {}
+				},
+				"7b76dfef57bcb3baf7b8d5376563edb4": {
+					"id": "PostDescriptionText",
+					"type": "text",
+					"moduleType": "system",
+					"moduleId": "text",
+					"handlers": {}
+				},
+				"40e3f0b772b5cef5f2385db874a22307": {
+					"id": "Loading Panel",
+					"type": "block",
+					"moduleType": "system",
+					"moduleId": "block",
+					"handlers": {
+						"onDisplayAssignment": {
+							"usedCustomFunctions": []
+						}
+					}
+				},
+				"b1f852319893c7a4d8f61e52d0c9116f": {
+					"id": "DisplayName Label",
+					"type": "text",
+					"moduleType": "system",
+					"moduleId": "text",
+					"handlers": {}
+				},
+				"77b1ac744e34c45d91a561f67b773beb": {
+					"id": "User Avatar",
+					"type": "image",
+					"moduleType": "system",
+					"moduleId": "image",
+					"handlers": {
+						"onClick": {
+							"dependencies": []
+						},
+						"onSourceUrlAssignment": {
+							"dependencies": []
+						}
+					}
+				},
+				"7864788fbfeef05753975fe81b0ef3d9": {
+					"id": "Like Icon",
+					"type": "icon",
+					"moduleType": "system",
+					"moduleId": "icon",
+					"handlers": {
+						"onClick": {
+							"dependencies": []
+						},
+						"onIconAssignment": {
+							"dependencies": []
+						}
+					}
+				},
+				"489eaaf5397700ae5eca533f15b8e871": {
+					"id": "Likes Count Label",
+					"type": "text",
+					"moduleType": "system",
+					"moduleId": "text",
+					"handlers": {
+						"onContentAssignment": {
+							"dependencies": []
+						},
+						"onClick": {
+							"dependencies": []
+						}
+					}
+				},
+				"a8dc1bc4bf3ab722fa18cd187d3fb296": {
+					"id": "PublishDateLabel",
+					"type": "text",
+					"moduleType": "system",
+					"moduleId": "text",
+					"handlers": {
+						"onContentAssignment": {
+							"dependencies": []
+						}
+					}
+				},
+				"6ebb358d8edb4e48384e629739919fbe": {
+					"id": "Following Toggler",
+					"type": "block",
+					"moduleType": "system",
+					"moduleId": "block",
+					"handlers": {
+						"onDisplayAssignment": {
+							"dependencies": []
+						}
+					}
+				},
+				"639b3f060b765f7730defc3200eb5e54": {
+					"id": "Follow Btn",
+					"type": "text",
+					"moduleType": "system",
+					"moduleId": "text",
+					"handlers": {
+						"onDisplayAssignment": {
+							"dependencies": []
+						},
+						"onClick": {
+							"dependencies": []
+						}
+					}
+				},
+				"35fd4d0bbdc8220d1335be9f7af2caf3": {
+					"id": "Following Btn",
+					"type": "text",
+					"moduleType": "system",
+					"moduleId": "text",
+					"handlers": {
+						"onDisplayAssignment": {
+							"dependencies": []
+						},
+						"onClick": {
+							"dependencies": []
+						}
+					}
+				},
+				"116d00d9a0056e525d656e1952a98ce8": {
+					"id": "Post Publisher",
+					"type": "block",
+					"moduleType": "system",
+					"moduleId": "block",
+					"handlers": {
+						"onContainerDataAssignment": {
+							"dependencies": []
+						}
+					}
+				},
+				"ed6a93068b28b0755f0410cca2a17a3b": {
+					"id": "",
+					"type": "text",
+					"moduleType": "system",
+					"moduleId": "text",
+					"handlers": {}
+				},
+				"93a31cfad028ac45f4751cef309621bc": {
+					"id": "Comments Block",
+					"type": "block",
+					"moduleType": "system",
+					"moduleId": "block",
+					"handlers": {
+						"onClick": {
+							"dependencies": []
+						}
+					}
+				},
+				"4eb98ced459b5956a00f0a9e75be5682": {
+					"id": "No Items Label",
+					"type": "text",
+					"moduleType": "system",
+					"moduleId": "text",
+					"handlers": {
+						"onDisplayAssignment": {
+							"dependencies": []
+						}
+					}
+				},
+				"97afccf820d9f1444786c94986af821d": {
+					"id": "Workspace",
+					"type": "block",
+					"moduleType": "system",
+					"moduleId": "block",
+					"handlers": {}
+				},
+				"9345d91141976156678ac6068d323deb": {
+					"id": "Post Item",
+					"type": "block",
+					"moduleType": "system",
+					"moduleId": "block",
+					"handlers": {}
+				},
+				"57fa57c7ec895c436ea988bf4f52d54a": {
+					"id": "",
+					"type": "block",
+					"moduleType": "system",
+					"moduleId": "block",
+					"handlers": {
+						"onScroll": {
+							"dependencies": []
+						}
+					}
+				},
+				"6e678af306bcb1729e8cf3d7d76801b4": {
+					"id": "Load More Spinner",
+					"type": "block",
+					"moduleType": "system",
+					"moduleId": "block",
+					"handlers": {}
+				}
+			},
+			"dataBinding": {},
+			"attrs": {},
+			"pods": {},
+			"html": "<div data-module-type=\"block\" data-display=\"true\" data-uid=\"d5c4d35751fa5085f82b1e05487a4d1d\" style=\"display:flex;flex-shrink:0;flex-direction:column;padding:10px;min-height:50px;position:absolute;width:100%;background-color:#f1efef;top:0;justify-content:center;align-items:center;z-index:1000;\"><span data-module-type=\"text\" data-display=\"true\" data-uid=\"cdb85fd8014ae30da04e34b32319fd01\" data-content=\"LuminaryLens\" style=\"font-family:Comic Sans MS, cursive, sans-serif;font-size:18px;color:#333;font-weight:400;cursor:default;\">InstagramLess</span></div><div data-module-type=\"block\" data-display=\"true\" data-uid=\"57fa57c7ec895c436ea988bf4f52d54a\" style=\"display:flex;flex-shrink:0;flex-direction:column;padding:50px 0 50px 0;min-height:50px;overflow:scroll;position:relative;height:100%;\"><div data-module-type=\"block\" data-display=\"true\" data-uid=\"ccc54293bae7c6650d258a71892dc1f5\" id=\"FeedWrapper\" style=\"display:flex;flex-shrink:0;flex-direction:column;padding:10px 0 10px 0;min-height:50px;flex-grow:1;max-width:700px;width:100%;align-self:center;position:static;overflow:visible;\"><div data-module-type=\"block\" data-display=\"false\" data-uid=\"40e3f0b772b5cef5f2385db874a22307\" id=\"Loading Panel\" style=\"display:flex;flex-shrink:0;flex-direction:column;padding:10px;min-height:50px;align-items:center;\"><svg data-module-type=\"spinner\" data-display=\"true\" data-uid=\"6b8f2442743a88cb0b8949d32b28fa89\" class=\"base-spinner\" style=\"color:#942bab;\"></svg></div><div data-module-type=\"block\" data-display=\"false\" id=\"Workspace\" data-uid=\"97afccf820d9f1444786c94986af821d\" data-binding_ondisplayassignment=\"loaded\" style=\"display:flex;flex-shrink:0;flex-direction:column;padding:10px;min-height:50px;min-width:50px;flex-grow:1;overflow:visible;\"><span data-module-type=\"text\" data-display=\"false\" id=\"No Items Label\" data-uid=\"4eb98ced459b5956a00f0a9e75be5682\" data-content=\"There are no posts yet!\" style=\"font-size:26px;align-self:center;color:#c0c0c0;\">There are no posts yet!</span><div data-module-type=\"block\" data-display=\"true\" data-uid=\"08b798a9738f1dc1e87488055e88a2e4\" data-dynamic-list-behaviour=\"true\" data-binding_ondynamicitemsassignment=\"posts\" id=\"Posts List\" style=\"display:flex;flex-shrink:0;flex-direction:column;flex-grow:1;min-height:50px;padding-bottom:10px;\"><div data-module-type=\"block\" data-data-container=\"true\" data-display=\"true\" id=\"Post Item\" data-uid=\"9345d91141976156678ac6068d323deb\" style=\"display:flex;flex-shrink:0;min-height:50px;padding:0 0 20px 0;margin-top:10px;flex-direction:column;margin:0 0 10px 0;flex-basis:auto%;border-radius:0 0 0 0;\"><div data-module-type=\"block\" data-display=\"true\" id=\"Post Publisher\" data-data-container=\"true\" data-uid=\"116d00d9a0056e525d656e1952a98ce8\" style=\"display:flex;flex-shrink:0;padding:10px 5px 10px 5px;min-height:50px;flex-direction:row;align-items:center;\"><img data-url=\"/user.png\" data-module-type=\"image\" data-display=\"true\" id=\"User Avatar\" data-uid=\"77b1ac744e34c45d91a561f67b773beb\" data-binding_onsourceurlassignment=\"avatar\" data-load-mode=\"lazy\" style=\"width:40px;height:40px;border-radius:50% 50% 50% 50%;\"/><span data-module-type=\"text\" data-display=\"true\" data-uid=\"b1f852319893c7a4d8f61e52d0c9116f\" data-binding_oncontentassignment=\"displayName\" id=\"DisplayName Label\" data-content=\"User DisplayName\" style=\"margin:0 0 0 10px;\">User DisplayName</span><div data-module-type=\"block\" data-display=\"false\" data-uid=\"6ebb358d8edb4e48384e629739919fbe\" id=\"Following Toggler\" style=\"display:flex;flex-shrink:0;padding:10px;min-width:50px;flex-direction:row;align-items:center;\"><span data-module-type=\"text\" data-display=\"true\" data-uid=\"52b5bc497d2ad0e20417ceba56c2a4b6\" data-content=\"•\">•</span><span data-module-type=\"text\" data-display=\"false\" id=\"Follow Btn\" data-uid=\"639b3f060b765f7730defc3200eb5e54\" data-content=\"Follow\" style=\"margin:0 0 0 10px;font-size:13px;color:#0b84ec;cursor:pointer;\">Follow</span><span data-module-type=\"text\" data-display=\"false\" id=\"Following Btn\" data-uid=\"35fd4d0bbdc8220d1335be9f7af2caf3\" data-content=\"Following\" style=\"margin:0 0 0 10px;font-size:13px;cursor:pointer;\">Following</span></div></div><img data-url=\"\" data-module-type=\"image\" data-display=\"true\" data-uid=\"51b6203343d2c8833c021e3523948188\" data-binding_onsourceurlassignment=\"image\" id=\"Post Image\" data-load-mode=\"lazy\" style=\"width:100%;\"/><div data-module-type=\"block\" data-display=\"true\" data-uid=\"108bdb492223c0dee296879c9c1bf151\" id=\"Controls\" style=\"display:flex;flex-shrink:0;padding:10px;min-height:50px;flex-direction:row;justify-content:space-between;\"><div data-module-type=\"block\" data-display=\"true\" data-uid=\"f47e98f21977f709f68b86daed4ff48b\" style=\"display:flex;flex-shrink:0;padding:0 0 0 0;flex-direction:row;align-self:center;cursor:pointer;\"><i data-icon=\"favorite_border\" data-module-type=\"icon\" data-display=\"true\" data-uid=\"7864788fbfeef05753975fe81b0ef3d9\" id=\"Like Icon\" class=\"material-icons-round\" style=\"font-size:26px;align-self:flex-start;color:#696b6e;\"></i><span data-module-type=\"text\" data-display=\"true\" id=\"Likes Count Label\" data-uid=\"489eaaf5397700ae5eca533f15b8e871\" data-binding_ondisplayassignment=\"totalLikesCount\" data-content=\"Likes Count\" style=\"align-self:center;font-size:13px;margin:0 0 0 5px;color:#0b84ec;\">Likes Count</span></div><div data-module-type=\"block\" data-display=\"true\" id=\"Comments Block\" data-uid=\"93a31cfad028ac45f4751cef309621bc\" style=\"display:flex;flex-shrink:0;padding:0 0 0 0;flex-direction:row;align-self:center;cursor:pointer;\"><span data-module-type=\"text\" data-display=\"false\" data-uid=\"ed6a93068b28b0755f0410cca2a17a3b\" data-binding_ondisplayassignment=\"totalCommentsCount\" data-binding_oncontentassignment=\"totalCommentsCount\" data-content=\"Comments Count\" style=\"color:#0b84ec;font-size:13px;margin:-4px 5px 0 0;align-self:center;\">Comments Count</span><i data-icon=\"comment\" data-module-type=\"icon\" data-display=\"true\" data-uid=\"89cbd3ffebd2f7adec7ec93200da5c14\" class=\"material-icons-round\" style=\"font-size:26px;align-self:flex-start;color:#696b6e;\"></i></div></div><span data-module-type=\"text\" data-display=\"false\" data-uid=\"7b76dfef57bcb3baf7b8d5376563edb4\" data-binding_oncontentassignment=\"description\" data-binding_ondisplayassignment=\"description\" id=\"PostDescriptionText\" data-content=\"Post description\" data-classes=\"b-w\" style=\"font-size:13px;padding:5px 10px 5px 10px;\">Post description</span><span data-module-type=\"text\" data-display=\"true\" data-uid=\"a8dc1bc4bf3ab722fa18cd187d3fb296\" id=\"PublishDateLabel\" data-content=\"Publish date\" style=\"padding:5px 10px 5px 10px;font-size:13px;color:#868686;\">Publish date</span></div></div><div data-module-type=\"block\" data-display=\"false\" id=\"Load More Spinner\" data-uid=\"6e678af306bcb1729e8cf3d7d76801b4\" data-binding_ondisplayassignment=\"loadingMore\" style=\"display:flex;flex-shrink:0;flex-direction:column;padding:10px;min-height:50px;min-width:50px;align-items:center;\"><svg data-module-type=\"spinner\" data-display=\"true\" data-uid=\"88e7fc5679346b3ff8a55c464ba1165e\" class=\"base-spinner\"></svg></div></div></div></div><div data-module-type=\"block\" data-display=\"true\" data-uid=\"e4540e9e66a1858a05d1c102370dabc5\" style=\"display:flex;flex-shrink:0;padding:10px;min-height:50px;position:absolute;width:100%;bottom:0;background-color:#ede8e8;flex-direction:row;justify-content:space-around;z-index:1000;\"><i data-icon=\"home\" data-module-type=\"icon\" data-display=\"true\" id=\"Followers Posts\" data-uid=\"6c711467430630ad3e643c34faaa9c65\" class=\"material-icons-round\" style=\"font-size:26px;align-self:flex-start;color:#375f8a;cursor:pointer;\"></i><i data-icon=\"search\" data-module-type=\"icon\" data-display=\"true\" id=\"All Posts\" data-uid=\"ebf8edb75159fa254839d9f573a6e4ed\" class=\"material-icons-round\" style=\"font-size:26px;align-self:flex-start;color:#696b6e;cursor:pointer;\"></i><i data-icon=\"add_box\" data-module-type=\"icon\" data-display=\"true\" id=\"Add Post\" data-uid=\"182f34b38219bc2f7ff6d2fa348d6463\" class=\"material-icons-round\" style=\"font-size:26px;align-self:flex-start;color:#696b6e;cursor:pointer;\"></i><i data-icon=\"person_outline\" data-module-type=\"icon\" data-display=\"true\" id=\"Profile\" data-uid=\"7faa3c7a197334df021b1b6913c7e7d4\" class=\"material-icons-round\" style=\"font-size:26px;align-self:flex-start;color:#696b6e;cursor:pointer;\"></i></div>"
+		},
+		"followingUsers": {
+			"style": {
+				"background-color": "#fafafa"
+			},
+			"components": {
+				"page": {
+					"type": "page",
+					"moduleType": "system",
+					"moduleId": "page",
+					"handlers": {
+						"onEnter": {
+							"dependencies": [
+								"./functions/5a16854754a90b444dc8e7a6d99bb9e3/code.js"
+							]
+						}
+					}
+				},
+				"6b8f2442743a88cb0b8949d32b28fa89": {
+					"id": "",
+					"type": "spinner",
+					"moduleType": "system",
+					"moduleId": "spinner",
+					"handlers": {}
+				},
+				"08b798a9738f1dc1e87488055e88a2e4": {
+					"id": "Users List",
+					"type": "block",
+					"moduleType": "system",
+					"moduleId": "block",
+					"handlers": {}
+				},
+				"ccc54293bae7c6650d258a71892dc1f5": {
+					"id": "",
+					"type": "block",
+					"moduleType": "system",
+					"moduleId": "block",
+					"handlers": {}
+				},
+				"40e3f0b772b5cef5f2385db874a22307": {
+					"id": "Loading Panel",
+					"type": "block",
+					"moduleType": "system",
+					"moduleId": "block",
+					"handlers": {
+						"onDisplayAssignment": {
+							"dependencies": []
+						}
+					}
+				},
+				"d87f0d5cdb2c954f19cb8a2899355e34": {
+					"id": "",
+					"type": "image",
+					"moduleType": "system",
+					"moduleId": "image",
+					"handlers": {
+						"onClick": {
+							"dependencies": []
+						},
+						"onSourceUrlAssignment": {
+							"dependencies": []
+						}
+					}
+				},
+				"5c6ce464cae7b5f9b40649a68948f4a5": {
+					"id": "",
+					"type": "text",
+					"moduleType": "system",
+					"moduleId": "text",
+					"handlers": {}
+				},
+				"d2ee87c2a9d9fb8f64d371849a134162": {
+					"id": "User Actions",
+					"type": "block",
+					"moduleType": "system",
+					"moduleId": "block",
+					"handlers": {
+						"onDisplayAssignment": {
+							"dependencies": []
+						}
+					}
+				},
+				"14d3acae8ee6e26769088e81df6df479": {
+					"id": "Back Button",
+					"type": "block",
+					"moduleType": "system",
+					"moduleId": "block",
+					"handlers": {
+						"onClick": {
+							"dependencies": []
+						}
+					}
+				},
+				"0536dfc2b108a5384b344c08c887836f": {
+					"id": "FollowingBtn",
+					"type": "text",
+					"moduleType": "system",
+					"moduleId": "text",
+					"handlers": {
+						"onClick": {
+							"dependencies": []
+						}
+					}
+				},
+				"80cc601d42d13fe760550a279b3b152f": {
+					"id": "FollowBtn",
+					"type": "button",
+					"moduleType": "system",
+					"moduleId": "button",
+					"handlers": {
+						"onDisplayAssignment": {
+							"dependencies": []
+						},
+						"onClick": {
+							"dependencies": []
+						}
+					}
+				},
+				"315d845c3ef4d229f1027fa23df3cbaf": {
+					"id": "",
+					"type": "text",
+					"moduleType": "system",
+					"moduleId": "text",
+					"handlers": {
+						"onDisplayAssignment": {
+							"dependencies": []
+						}
+					}
+				},
+				"e938a907d37616fe6894f8dfce2a0de6": {
+					"id": "Workspace",
+					"type": "block",
+					"moduleType": "system",
+					"moduleId": "block",
+					"handlers": {}
+				}
+			},
+			"usedComponentTypes": [
+				"block",
+				"icon",
+				"text",
+				"spinner",
+				"image",
+				"button",
+				"divider"
+			],
+			"dataBinding": {},
+			"attrs": {},
+			"html": "<div data-module-type=\"block\" data-display=\"true\" data-uid=\"1ca94051b6de66190c9dfdfe3d41c464\" style=\"display:flex;flex-shrink:0;padding:0 10px 0 10px;min-height:50px;position:absolute;width:100%;background-color:#f1efef;top:0;justify-content:center;align-items:center;z-index:1000;flex-direction:row;\"><div data-module-type=\"block\" data-display=\"true\" id=\"Back Button\" data-uid=\"14d3acae8ee6e26769088e81df6df479\" style=\"display:flex;flex-shrink:0;padding:10px 5px 10px;margin:0 auto 0 0;flex-direction:row;align-items:center;width:70px;cursor:pointer;\"><i data-icon=\"arrow_back_ios\" data-module-type=\"icon\" data-display=\"true\" data-uid=\"5ecdffacea7b56f76522fbe991019f05\" class=\"material-icons-round\" style=\"font-size:20px;align-self:flex-start;color:#696b6e;\"></i><span data-module-type=\"text\" data-display=\"true\" data-uid=\"ca92c8a9b5323d9b5168bff8908503e3\" data-content=\"Back\" style=\"font-size:14px;\">Back</span></div><span data-module-type=\"text\" data-display=\"true\" data-uid=\"dfea91732e2832bbbffd903f366da989\" data-content=\"Following Users\" style=\"font-family:Comic Sans MS, cursive, sans-serif;font-size:18px;color:#333;font-weight:400;\">Following Users</span><div data-module-type=\"block\" data-display=\"true\" data-uid=\"6dcf0cc2e44e1a1faf4f80a4805cd843\" style=\"display:flex;flex-shrink:0;flex-direction:column;padding:0 10px 0 10px;min-height:50px;min-width:50px;margin:0 0 0 auto;width:70px;\"></div></div><div data-module-type=\"block\" data-display=\"true\" data-uid=\"b77dd9bb17ad13ea69baf53e0f1d3b9d\" style=\"display:flex;flex-shrink:0;flex-direction:column;padding:50px 0 50px 0;min-height:50px;flex-grow:1;overflow:auto;height:100%;\"><div data-module-type=\"block\" data-display=\"true\" data-uid=\"ccc54293bae7c6650d258a71892dc1f5\" style=\"display:flex;flex-shrink:0;flex-direction:column;padding:10px 0 10px 0;min-height:50px;flex-grow:1;max-width:700px;width:100%;align-self:center;\"><div data-module-type=\"block\" data-display=\"false\" data-uid=\"40e3f0b772b5cef5f2385db874a22307\" id=\"Loading Panel\" style=\"display:flex;flex-shrink:0;flex-direction:column;padding:10px;min-height:50px;align-items:center;\"><svg data-module-type=\"spinner\" data-display=\"true\" data-uid=\"6b8f2442743a88cb0b8949d32b28fa89\" class=\"base-spinner\" style=\"color:#942bab;\"></svg></div><div data-module-type=\"block\" data-display=\"false\" id=\"Workspace\" data-uid=\"e938a907d37616fe6894f8dfce2a0de6\" data-binding_ondisplayassignment=\"loaded\" style=\"display:flex;flex-shrink:0;flex-direction:column;padding:0 0 0 0;min-height:50px;min-width:50px;flex-basis:auto%;border-radius:0 0 0 0;flex-grow:1;\"><span data-module-type=\"text\" data-display=\"false\" data-uid=\"315d845c3ef4d229f1027fa23df3cbaf\" data-content=\"The user doesn't follow to anyone yet.\" style=\"font-size:26px;color:#c0c0c0;align-self:center;\">The user doesn't follow to anyone yet.</span><div data-module-type=\"block\" data-display=\"true\" data-uid=\"08b798a9738f1dc1e87488055e88a2e4\" data-dynamic-list-behaviour=\"true\" data-binding_ondynamicitemsassignment=\"users\" id=\"Users List\" style=\"display:flex;flex-shrink:0;flex-direction:column;flex-grow:1;min-height:50px;padding-bottom:10px;\"><div data-module-type=\"block\" data-data-container=\"true\" data-display=\"true\" id=\"User Item\" data-uid=\"c052364ed67f33e5ea0d6737a4f6b32a\" style=\"display:flex;flex-shrink:0;min-height:50px;padding:0 0 0 0;margin-top:10px;margin:0 0 10px 0;justify-content:space-between;flex-direction:column;\"><div data-module-type=\"block\" data-display=\"true\" data-uid=\"f1af6d38c8bfa86a7d056668f58f0446\" style=\"display:flex;flex-shrink:0;padding:5px 10px 5px 10px;min-height:50px;min-width:50px;flex-direction:row;justify-content:space-between;\"><div data-module-type=\"block\" data-display=\"true\" data-uid=\"348b9a6fb15568b78c27b933f703c044\" style=\"display:flex;flex-shrink:0;padding:0 0 0 0;min-height:50px;min-width:50px;flex-direction:row;align-items:center;\"><img data-url=\"/user.png\" data-module-type=\"image\" data-display=\"true\" data-uid=\"d87f0d5cdb2c954f19cb8a2899355e34\" data-binding_onsourceurlassignment=\"avatar\" style=\"width:40px;height:40px;border-radius:50% 50% 50% 50%;cursor:pointer;\"/><span data-module-type=\"text\" data-display=\"true\" data-uid=\"5c6ce464cae7b5f9b40649a68948f4a5\" data-binding_oncontentassignment=\"displayName\" data-content=\"User DisplayName\" style=\"margin:0 0 0 10px;\">User DisplayName</span></div><div data-module-type=\"block\" data-display=\"false\" data-uid=\"d2ee87c2a9d9fb8f64d371849a134162\" id=\"User Actions\" style=\"display:flex;flex-shrink:0;padding:0 0 0 0;min-height:50px;min-width:50px;flex-direction:row;align-items:center;\"><span data-module-type=\"text\" data-display=\"false\" id=\"FollowingBtn\" data-uid=\"0536dfc2b108a5384b344c08c887836f\" data-binding_ondisplayassignment=\"following\" data-content=\"Following\" style=\"font-size:13px;cursor:pointer;\">Following</span><button data-label=\"Follow\" data-module-type=\"button\" data-display=\"false\" data-raised=\"true\" id=\"FollowBtn\" data-uid=\"80cc601d42d13fe760550a279b3b152f\" data-variant=\"contained\" style=\"background-color:#1a81e8;font-size:13px;cursor:pointer;\"></button></div></div><hr data-module-type=\"divider\" data-display=\"true\" data-uid=\"3484f50ebcf5e206fb437a14d45796bc\" style=\"width:100%;border:1px solid #e1e1e1;margin:4px 0 4px 0;\"/></div></div></div></div></div>"
+		},
+		"landing": {
+			"style": {},
+			"components": {},
+			"usedComponentTypes": [],
+			"dataBinding": {},
+			"attrs": {},
+			"pods": {},
+			"html": ""
+		},
+		"layout": {
+			"style": {
+				"background-color": "#fafafa"
+			},
+			"components": {
+				"page": {
+					"type": "page",
+					"moduleType": "system",
+					"moduleId": "page",
+					"handlers": {
+						"onEnter": {
+							"dependencies": [
+								"./functions/5a16854754a90b444dc8e7a6d99bb9e3/code.js"
+							]
+						}
+					}
+				},
+				"6c711467430630ad3e643c34faaa9c65": {
+					"id": "Followers Posts",
+					"type": "icon",
+					"moduleType": "system",
+					"moduleId": "icon",
+					"handlers": {
+						"onClick": {
+							"dependencies": []
+						}
+					}
+				},
+				"ebf8edb75159fa254839d9f573a6e4ed": {
+					"id": "All Posts",
+					"type": "icon",
+					"moduleType": "system",
+					"moduleId": "icon",
+					"handlers": {
+						"onClick": {
+							"dependencies": []
+						}
+					}
+				},
+				"182f34b38219bc2f7ff6d2fa348d6463": {
+					"id": "Add Post",
+					"type": "icon",
+					"moduleType": "system",
+					"moduleId": "icon",
+					"handlers": {
+						"onClick": {
+							"dependencies": []
+						}
+					}
+				},
+				"7faa3c7a197334df021b1b6913c7e7d4": {
+					"id": "Profile",
+					"type": "icon",
+					"moduleType": "system",
+					"moduleId": "icon",
+					"handlers": {
+						"onClick": {
+							"dependencies": []
+						}
+					}
+				}
+			},
+			"usedComponentTypes": [
+				"block",
+				"text",
+				"icon"
+			],
+			"dataBinding": {},
+			"attrs": {},
+			"html": "<div data-module-type=\"block\" data-display=\"true\" data-uid=\"dd8a36a5b3bd458ba8d383f11dd97285\" style=\"display:flex;flex-shrink:0;flex-direction:column;padding:10px;min-height:50px;position:absolute;width:100%;background-color:#f1efef;top:0;justify-content:center;align-items:center;z-index:1000;\"><span data-module-type=\"text\" data-display=\"true\" data-uid=\"854636bdeb4c9887636f1cac43b96d27\" data-content=\"InstagramLess\" style=\"font-family:Comic Sans MS, cursive, sans-serif;font-size:18px;color:#333;font-weight:400;\">InstagramLess</span></div><div data-module-type=\"block\" data-display=\"true\" data-uid=\"e09d148a28fe3a63b4e71792cd72e3db\" style=\"display:flex;flex-shrink:0;flex-direction:column;padding:50px 0 50px 0;min-height:50px;flex-grow:1;\"><div data-module-type=\"block\" data-display=\"true\" data-uid=\"a743fa2a060ca3e4128a8d3daa51e311\" style=\"display:flex;flex-shrink:0;flex-direction:column;padding:10px;min-height:50px;flex-grow:1;\"></div></div><div data-module-type=\"block\" data-display=\"true\" data-uid=\"d6d4decc4feb4f9ae0550bebeaafb0da\" style=\"display:flex;flex-shrink:0;padding:10px;min-height:50px;position:absolute;width:100%;bottom:0;background-color:#ede8e8;flex-direction:row;justify-content:space-around;z-index:1000;\"><i data-icon=\"home\" data-module-type=\"icon\" data-display=\"true\" id=\"Followers Posts\" data-uid=\"6c711467430630ad3e643c34faaa9c65\" class=\"material-icons-round\" style=\"font-size:26px;align-self:flex-start;color:#696b6e;cursor:pointer;\"></i><i data-icon=\"search\" data-module-type=\"icon\" data-display=\"true\" id=\"All Posts\" data-uid=\"ebf8edb75159fa254839d9f573a6e4ed\" class=\"material-icons-round\" style=\"font-size:26px;align-self:flex-start;color:#696b6e;cursor:pointer;\"></i><i data-icon=\"add_box\" data-module-type=\"icon\" data-display=\"true\" id=\"Add Post\" data-uid=\"182f34b38219bc2f7ff6d2fa348d6463\" class=\"material-icons-round\" style=\"font-size:26px;align-self:flex-start;color:#696b6e;cursor:pointer;\"></i><i data-icon=\"person_outline\" data-module-type=\"icon\" data-display=\"true\" id=\"Profile\" data-uid=\"7faa3c7a197334df021b1b6913c7e7d4\" class=\"material-icons-round\" style=\"font-size:26px;align-self:flex-start;color:#696b6e;cursor:pointer;\"></i></div>"
+		},
+		"login": {
+			"style": {},
+			"usedComponentTypes": [
+				"block",
+				"r_26e3eafab7923b4ef3aa9778035e1345",
+				"text",
+				"form",
+				"input",
+				"button",
+				"link"
+			],
+			"components": {
+				"468e9e6bfef5aedec6584a416f6742b4": {
+					"id": "Error Alert",
+					"type": "block",
+					"moduleType": "system",
+					"moduleId": "block",
+					"handlers": {}
+				},
+				"6baf51bf9ededdb44cfc0712f893543c": {
+					"id": "Error Message",
+					"type": "text",
+					"moduleType": "system",
+					"moduleId": "text",
+					"handlers": {}
+				},
+				"page": {
+					"type": "page",
+					"moduleType": "system",
+					"moduleId": "page",
+					"handlers": {
+						"onEnter": {
+							"dependencies": []
+						}
+					}
+				},
+				"d9c356e580c317f851756188ec14ee9f": {
+					"id": "Nickname",
+					"type": "input",
+					"moduleType": "system",
+					"moduleId": "input",
+					"handlers": {}
+				},
+				"8aae761907cbcf4a7b876b6178a9d27e": {
+					"id": "Password",
+					"type": "input",
+					"moduleType": "system",
+					"moduleId": "input",
+					"handlers": {}
+				},
+				"52cacce32bd47b066d06f61f20bff7a6": {
+					"id": "Sign In",
+					"type": "form",
+					"moduleType": "system",
+					"moduleId": "form",
+					"handlers": {
+						"onSubmit": {
+							"dependencies": []
+						}
+					}
+				},
+				"0deea665b809587ae836ee53f9d38bd2": {
+					"id": "Login Button",
+					"type": "button",
+					"moduleType": "system",
+					"moduleId": "button",
+					"handlers": {
+						"onLabelAssignment": {
+							"dependencies": []
+						}
+					}
+				}
+			},
+			"dataBinding": {},
+			"attrs": {},
+			"pods": {},
+			"html": "<div data-module-type=\"block\" data-display=\"true\" data-uid=\"a5877e26b4b2a6e3925b9753aa2ba416\" style=\"display:flex;flex-shrink:0;padding:50px 0 50px 0;min-height:50px;flex-grow:1;background-color:#fafafa;flex-direction:column;justify-content:center;\"><div data-module-type=\"block\" data-display=\"true\" data-uid=\"cf3e0fae29fb6196ef6d4131e0a590d6\" style=\"display:flex;flex-shrink:0;flex-direction:column;padding:10px;min-height:50px;\"><div data-module-type=\"block\" data-display=\"true\" id=\"Sign In Panel\" data-data-container=\"true\" data-uid=\"6cb26a84965de01223cefd0cd256f861\" style=\"display:flex;flex-shrink:0;padding:10px;min-height:50px;max-width:400px;margin:0 0 0 0;flex-grow:1;justify-content:center;flex-direction:column;align-self:center;width:100%;background-color:#fff;border:1px solid #e6e6e6;\"><div data-module-type=\"block\" data-display=\"true\" data-uid=\"884dc6ba4daaac1b949f28917d32930c\" style=\"display:flex;flex-shrink:0;flex-direction:column;padding:10px;min-height:50px;margin:0 0 30px 0;\"><div data-module-type=\"reusable\" data-module-id=\"r_26e3eafab7923b4ef3aa9778035e1345\" data-display=\"true\" data-uid=\"8b07cef3abc67e2bda1d6609c731b7fb\"></div></div><div data-module-type=\"block\" data-display=\"false\" data-uid=\"468e9e6bfef5aedec6584a416f6742b4\" data-binding_ondisplayassignment=\"signInError\" id=\"Error Alert\" style=\"display:flex;flex-shrink:0;flex-direction:column;padding:10px;min-height:50px;margin:0 20px 0 20px;background-color:#ff9797;border:1px solid #bc5454;justify-content:center;\"><span data-module-type=\"text\" data-display=\"true\" data-uid=\"6baf51bf9ededdb44cfc0712f893543c\" data-binding_oncontentassignment=\"signInError\" id=\"Error Message\" data-content=\"Error Message\" style=\"font-size:13px;color:#ffffff;text-align:center;\">Error Message</span></div><form data-module-type=\"form\" data-display=\"true\" id=\"Sign In\" data-uid=\"52cacce32bd47b066d06f61f20bff7a6\" style=\"display:flex;flex-shrink:0;min-height:50px;padding:10px;margin-top:10px;flex-direction:column;\"><div data-module-type=\"block\" data-display=\"true\" data-uid=\"921a35da8f9a587b82813079f215d08d\" style=\"display:flex;flex-shrink:0;flex-direction:column;padding:10px;min-height:50px;\"><div data-module-type=\"input\" type=\"text\" name=\"\" placeholder=\"\" data-label=\"nickname\" data-display=\"true\" data-placeholder=\"\" data-required=\"true\" id=\"Nickname\" data-uid=\"d9c356e580c317f851756188ec14ee9f\" data-binding_onvalueassignment=\"nickname\" data-variant=\"outlined\" style=\"font-size:12px;height:45px;\"></div></div><div data-module-type=\"block\" data-display=\"true\" data-uid=\"4579157de80ef6ec0494c19aa0378361\" style=\"display:flex;flex-shrink:0;flex-direction:column;padding:10px;min-height:50px;\"><div data-module-type=\"input\" type=\"text\" name=\"\" placeholder=\"\" data-label=\"password\" data-display=\"true\" data-placeholder=\"\" data-required=\"true\" id=\"Password\" data-uid=\"8aae761907cbcf4a7b876b6178a9d27e\" data-binding_onvalueassignment=\"password\" data-type=\"password\" data-variant=\"outlined\" style=\"font-size:12px;height:45px;\"></div></div><div data-module-type=\"block\" data-display=\"true\" data-uid=\"b29d8fb3491db391278eab8ffdaaf84d\" style=\"display:flex;flex-shrink:0;flex-direction:column;padding:10px;min-height:50px;\"><button data-label=\"Log In\" data-module-type=\"button\" data-display=\"true\" data-raised=\"true\" data-unelevated=\"false\" data-dense=\"false\" id=\"Login Button\" data-uid=\"0deea665b809587ae836ee53f9d38bd2\" data-binding_ondisabledstateassignment=\"isLogging\" data-variant=\"contained\" type=\"submit\" style=\"color:#fff;background-color:#2f87f1;cursor:pointer;\"></button></div></form></div><div data-module-type=\"block\" data-display=\"true\" data-uid=\"abb29fdf8095233bc7899ed90c0e5018\" style=\"display:flex;flex-shrink:0;padding:10px;min-height:50px;max-width:400px;margin:10px 0 0 0;flex-grow:1;justify-content:center;flex-direction:column;align-self:center;width:100%;background-color:#fff;border:1px solid #e6e6e6;\"><div data-module-type=\"block\" data-display=\"true\" data-uid=\"e3ed7ca8a568846f82dec07950b9804f\" style=\"display:flex;flex-shrink:0;padding:10px;min-height:50px;flex-direction:row;align-items:center;align-self:center;\"><span data-module-type=\"text\" data-display=\"true\" data-uid=\"70d5b513f8fc3943a951ea525be79617\" data-content=\"\"><span data-display=\"true\" data-content=\"Don't have an account?\" style=\"color:rgb(38, 38, 38);font-family:-apple-system, system-ui, &quot;Segoe UI&quot;, Roboto, Helvetica, Arial, sans-serif;font-size:14px;text-align:center;\">Don't have an account?</span></span><a href=\"\" data-text=\"Sign up\" data-module-type=\"link\" data-display=\"true\" data-target-type=\"\" data-target-path=\"\" data-uid=\"576425ded2f69512bfa4be72f0197179\" id=\"Sign Up Link\" data-page-name=\"register\" style=\"margin:0 0 0 10px;font-size:14px;color:#268bf1;\"></a></div></div></div></div>"
+		},
+		"postComments": {
+			"style": {
+				"background-color": "#fafafa"
+			},
+			"components": {
+				"page": {
+					"type": "page",
+					"moduleType": "system",
+					"moduleId": "page",
+					"handlers": {
+						"onEnter": {
+							"dependencies": [
+								"./functions/5a16854754a90b444dc8e7a6d99bb9e3/code.js"
+							]
+						}
+					}
+				},
+				"6b8f2442743a88cb0b8949d32b28fa89": {
+					"id": "",
+					"type": "spinner",
+					"moduleType": "system",
+					"moduleId": "spinner",
+					"handlers": {}
+				},
+				"08b798a9738f1dc1e87488055e88a2e4": {
+					"id": "Comments List",
+					"type": "block",
+					"moduleType": "system",
+					"moduleId": "block",
+					"handlers": {}
+				},
+				"ccc54293bae7c6650d258a71892dc1f5": {
+					"id": "",
+					"type": "block",
+					"moduleType": "system",
+					"moduleId": "block",
+					"handlers": {}
+				},
+				"40e3f0b772b5cef5f2385db874a22307": {
+					"id": "Loading Panel",
+					"type": "block",
+					"moduleType": "system",
+					"moduleId": "block",
+					"handlers": {
+						"onDisplayAssignment": {
+							"dependencies": []
+						}
+					}
+				},
+				"d87f0d5cdb2c954f19cb8a2899355e34": {
+					"id": "",
+					"type": "image",
+					"moduleType": "system",
+					"moduleId": "image",
+					"handlers": {
+						"onClick": {
+							"dependencies": []
+						},
+						"onSourceUrlAssignment": {
+							"dependencies": []
+						}
+					}
+				},
+				"5c6ce464cae7b5f9b40649a68948f4a5": {
+					"id": "",
+					"type": "text",
+					"moduleType": "system",
+					"moduleId": "text",
+					"handlers": {
+						"onContentAssignment": {
+							"dependencies": []
+						}
+					}
+				},
+				"14d3acae8ee6e26769088e81df6df479": {
+					"id": "Back Button",
+					"type": "block",
+					"moduleType": "system",
+					"moduleId": "block",
+					"handlers": {
+						"onClick": {
+							"dependencies": []
+						}
+					}
+				},
+				"781c52658b9c6bf42126c45f17c943ee": {
+					"id": "Comment Item",
+					"type": "block",
+					"moduleType": "system",
+					"moduleId": "block",
+					"handlers": {}
+				},
+				"a25e33a6b2e70556ea219019a429a199": {
+					"id": "User Panel",
+					"type": "block",
+					"moduleType": "system",
+					"moduleId": "block",
+					"handlers": {
+						"onContainerDataAssignment": {
+							"dependencies": [],
+							"disabled": true
+						}
+					}
+				},
+				"c007d051905525922aafb7221c4f261a": {
+					"id": "",
+					"type": "text",
+					"moduleType": "system",
+					"moduleId": "text",
+					"handlers": {}
+				},
+				"f808601b1b935b6515088f764f58141a": {
+					"id": "",
+					"type": "text",
+					"moduleType": "system",
+					"moduleId": "text",
+					"handlers": {
+						"onContentAssignment": {
+							"dependencies": []
+						}
+					}
+				},
+				"21e2131a3e0c87ed677badd63ad987ca": {
+					"id": "Workspace",
+					"type": "block",
+					"moduleType": "system",
+					"moduleId": "block",
+					"handlers": {}
+				},
+				"736550346556ec8ae16a8439065e85cb": {
+					"id": "Add Comment",
+					"type": "form",
+					"moduleType": "system",
+					"moduleId": "form",
+					"handlers": {
+						"onSubmit": {
+							"dependencies": []
+						},
+						"onBeforeMount": {
+							"dependencies": []
+						}
+					}
+				},
+				"39fab1aff29f5ec2f4f1ede779b1f896": {
+					"id": "New Comment Input",
+					"type": "textarea",
+					"moduleType": "system",
+					"moduleId": "textarea",
+					"handlers": {}
+				},
+				"ac0bc6d7da8cd64dca38fa6d0fd36354": {
+					"id": "Send Comment Btn",
+					"type": "button",
+					"moduleType": "system",
+					"moduleId": "button",
+					"handlers": {}
+				},
+				"a684f15d24b62faa88734b232a7a80b8": {
+					"id": "No Items Panel",
+					"type": "block",
+					"moduleType": "system",
+					"moduleId": "block",
+					"handlers": {
+						"onDisplayAssignment": {
+							"dependencies": []
+						}
+					}
+				}
+			},
+			"usedComponentTypes": [
+				"block",
+				"icon",
+				"text",
+				"spinner",
+				"form",
+				"textarea",
+				"button",
+				"image",
+				"divider"
+			],
+			"dataBinding": {},
+			"attrs": {},
+			"pods": {},
+			"html": "<div data-module-type=\"block\" data-display=\"true\" data-uid=\"084c32d4a7192cdc246101231c4b8082\" style=\"display:flex;flex-shrink:0;padding:0 10px 0 10px;min-height:50px;position:absolute;width:100%;background-color:#f1efef;top:0;justify-content:center;align-items:center;z-index:1000;flex-direction:row;\"><div data-module-type=\"block\" data-display=\"true\" id=\"Back Button\" data-uid=\"14d3acae8ee6e26769088e81df6df479\" style=\"display:flex;flex-shrink:0;padding:10px 5px 10px;margin:0 auto 0 0;flex-direction:row;align-items:center;width:70px;cursor:pointer;\"><i data-icon=\"arrow_back_ios\" data-module-type=\"icon\" data-display=\"true\" data-uid=\"785d811fbaeeaed5471d4157e847f344\" class=\"material-icons-round\" style=\"font-size:20px;align-self:flex-start;color:#696b6e;\"></i><span data-module-type=\"text\" data-display=\"true\" data-uid=\"8d7ac10f61de92525923a1f937aedd53\" data-content=\"Back\" style=\"font-size:14px;\">Back</span></div><span data-module-type=\"text\" data-display=\"true\" data-uid=\"79fbdd8abdda75be1e26e3db387d674b\" data-content=\"Comments\" style=\"font-family:Comic Sans MS, cursive, sans-serif;font-size:18px;color:#333;font-weight:400;\">Comments</span><div data-module-type=\"block\" data-display=\"true\" data-uid=\"dc0c7bad24cdaf0716c9a56f559dcbd1\" style=\"display:flex;flex-shrink:0;flex-direction:column;padding:0 10px 0 10px;min-height:50px;min-width:50px;margin:0 0 0 auto;width:70px;\"></div></div><div data-module-type=\"block\" data-display=\"true\" data-uid=\"c394b6c645d1ac55c862221b36aff797\" style=\"display:flex;flex-shrink:0;flex-direction:column;padding:50px 0 50px 0;min-height:50px;flex-grow:1;overflow:auto;height:100%;\"><div data-module-type=\"block\" data-display=\"true\" data-uid=\"ccc54293bae7c6650d258a71892dc1f5\" style=\"display:flex;flex-shrink:0;flex-direction:column;padding:10px 0 10px 0;min-height:50px;flex-grow:1;max-width:700px;width:100%;align-self:center;\"><div data-module-type=\"block\" data-display=\"false\" data-uid=\"40e3f0b772b5cef5f2385db874a22307\" id=\"Loading Panel\" style=\"display:flex;flex-shrink:0;flex-direction:column;padding:10px;min-height:50px;align-items:center;\"><svg data-module-type=\"spinner\" data-display=\"true\" data-uid=\"6b8f2442743a88cb0b8949d32b28fa89\" class=\"base-spinner\" style=\"color:#942bab;\"></svg></div><div data-module-type=\"block\" data-display=\"false\" id=\"Workspace\" data-uid=\"21e2131a3e0c87ed677badd63ad987ca\" data-binding_ondisplayassignment=\"loaded\" style=\"display:flex;flex-shrink:0;flex-direction:column;padding:10px;min-height:50px;min-width:50px;\"><form data-module-type=\"form\" data-display=\"true\" id=\"Add Comment\" data-uid=\"736550346556ec8ae16a8439065e85cb\" style=\"flex-shrink:0;min-height:50px;padding:10px;margin-top:10px;margin:0 0 16px 0;flex-direction:column;display:block;\"><div data-module-type=\"textarea\" data-label=\"Comment\" data-display=\"true\" data-uid=\"39fab1aff29f5ec2f4f1ede779b1f896\" data-binding_onvalueassignment=\"comment\" data-binding_ondisabledstateassignment=\"disabled\" id=\"New Comment Input\" data-variant=\"outlined\" data-max-length=\"499\" style=\"width:100%;\"></div><div data-module-type=\"block\" data-display=\"true\" data-uid=\"4c6e7bc5b42f052ed98ab18fa21bda65\" style=\"display:flex;flex-shrink:0;flex-direction:column;padding:10px;min-height:50px;min-width:50px;\"><button data-label=\"Send\" data-module-type=\"button\" data-display=\"true\" data-raised=\"true\" type=\"submit\" data-uid=\"ac0bc6d7da8cd64dca38fa6d0fd36354\" data-binding_ondisabledstateassignment=\"disabled\" id=\"Send Comment Btn\" data-variant=\"contained\" style=\"align-self:flex-end;cursor:pointer;\"></button></div></form><div data-module-type=\"block\" data-display=\"false\" id=\"No Items Panel\" data-uid=\"a684f15d24b62faa88734b232a7a80b8\" style=\"display:flex;flex-shrink:0;flex-direction:column;padding:10px;min-height:50px;min-width:50px;\"><span data-module-type=\"text\" data-display=\"true\" data-uid=\"bd257508ab86cbe4aabf742f2149e979\" data-content=\"There are no comments yet!\" style=\"align-self:center;font-size:26px;color:#adadad;\">There are no comments yet!</span></div><div data-module-type=\"block\" data-display=\"true\" data-uid=\"08b798a9738f1dc1e87488055e88a2e4\" data-dynamic-list-behaviour=\"true\" data-binding_ondynamicitemsassignment=\"comments\" id=\"Comments List\" style=\"display:flex;flex-shrink:0;flex-direction:column;flex-grow:1;min-height:50px;padding-bottom:10px;\"><div data-module-type=\"block\" data-data-container=\"true\" data-display=\"true\" id=\"Comment Item\" data-uid=\"781c52658b9c6bf42126c45f17c943ee\" style=\"display:flex;flex-shrink:0;min-height:50px;padding:0 0 0 0;margin-top:10px;margin:0 0 10px 0;justify-content:space-between;flex-direction:column;\"><div data-module-type=\"block\" data-display=\"true\" data-uid=\"fa799bc8d937e273e6f3d822799ed881\" style=\"display:flex;flex-shrink:0;padding:0 10px 0 10px;min-height:50px;min-width:50px;flex-direction:row;justify-content:flex-start;width:100%;\"><div data-module-type=\"block\" data-display=\"true\" id=\"User Panel\" data-data-container=\"false\" data-uid=\"a25e33a6b2e70556ea219019a429a199\" style=\"display:flex;flex-shrink:0;padding:0 0 0 0;min-height:50px;min-width:50px;flex-direction:row;justify-content:space-around;align-items:flex-start;\"><img data-url=\"/user.png\" data-module-type=\"image\" data-display=\"true\" data-uid=\"d87f0d5cdb2c954f19cb8a2899355e34\" data-load-mode=\"lazy\" style=\"width:40px;height:40px;border-radius:50% 50% 50% 50%;flex-direction:row;margin:10px 0 0 0;\"/></div><div data-module-type=\"block\" data-display=\"true\" data-uid=\"5f6cc0ba9a382579932e23e27ee6fe04\" style=\"display:flex;flex-shrink:0;flex-direction:column;padding:10px;min-height:50px;min-width:50px;flex-grow:1;width:100px;\"><span data-module-type=\"text\" data-display=\"true\" data-uid=\"5c6ce464cae7b5f9b40649a68948f4a5\" data-content=\"User DisplayName\" style=\"margin:0 0 5px 0;\">User DisplayName</span><span data-module-type=\"text\" data-display=\"true\" data-uid=\"f808601b1b935b6515088f764f58141a\" data-content=\"Created At\" style=\"font-size:12px;margin:0 0 10px 0;color:#7a7a7a;\">Created At</span><div data-module-type=\"block\" data-display=\"true\" data-uid=\"0befaefeacbc5d29ebe178f93ab2821a\" data-classes=\"\" style=\"display:flex;flex-shrink:0;flex-direction:column;padding:5px 5px 5px 5px;margin:0 0 0 0;background-color:#fff;border-radius:2px 2px 2px 2px;width:100%;\"><span data-module-type=\"text\" data-display=\"true\" data-uid=\"c007d051905525922aafb7221c4f261a\" data-binding_oncontentassignment=\"text\" data-content=\"Comment Text\" data-classes=\"b-w\" style=\"font-size:14px;padding:0 0 0 0;\">Comment Text</span></div></div></div><hr data-module-type=\"divider\" data-display=\"true\" data-uid=\"3f9186291a13c5dc944805fc833fa186\" style=\"width:100%;border:1px solid #e1e1e1;margin:4px 0 4px 0;\"/></div></div></div></div></div>"
+		},
+		"postLikes": {
+			"style": {
+				"background-color": "#fafafa"
+			},
+			"components": {
+				"page": {
+					"type": "page",
+					"moduleType": "system",
+					"moduleId": "page",
+					"handlers": {
+						"onEnter": {
+							"dependencies": [
+								"./functions/5a16854754a90b444dc8e7a6d99bb9e3/code.js"
+							]
+						}
+					}
+				},
+				"6b8f2442743a88cb0b8949d32b28fa89": {
+					"id": "",
+					"type": "spinner",
+					"moduleType": "system",
+					"moduleId": "spinner",
+					"handlers": {}
+				},
+				"08b798a9738f1dc1e87488055e88a2e4": {
+					"id": "Users List",
+					"type": "block",
+					"moduleType": "system",
+					"moduleId": "block",
+					"handlers": {
+						"onDisplayAssignment": {
+							"dependencies": []
+						}
+					}
+				},
+				"ccc54293bae7c6650d258a71892dc1f5": {
+					"id": "",
+					"type": "block",
+					"moduleType": "system",
+					"moduleId": "block",
+					"handlers": {}
+				},
+				"40e3f0b772b5cef5f2385db874a22307": {
+					"id": "Loading Panel",
+					"type": "block",
+					"moduleType": "system",
+					"moduleId": "block",
+					"handlers": {}
+				},
+				"d87f0d5cdb2c954f19cb8a2899355e34": {
+					"id": "",
+					"type": "image",
+					"moduleType": "system",
+					"moduleId": "image",
+					"handlers": {
+						"onClick": {
+							"dependencies": []
+						},
+						"onSourceUrlAssignment": {
+							"dependencies": []
+						}
+					}
+				},
+				"5c6ce464cae7b5f9b40649a68948f4a5": {
+					"id": "",
+					"type": "text",
+					"moduleType": "system",
+					"moduleId": "text",
+					"handlers": {}
+				},
+				"d2ee87c2a9d9fb8f64d371849a134162": {
+					"id": "User Actions",
+					"type": "block",
+					"moduleType": "system",
+					"moduleId": "block",
+					"handlers": {
+						"onDisplayAssignment": {
+							"dependencies": []
+						}
+					}
+				},
+				"14d3acae8ee6e26769088e81df6df479": {
+					"id": "Back Button",
+					"type": "block",
+					"moduleType": "system",
+					"moduleId": "block",
+					"handlers": {
+						"onClick": {
+							"dependencies": []
+						}
+					}
+				},
+				"0536dfc2b108a5384b344c08c887836f": {
+					"id": "FollowingBtn",
+					"type": "text",
+					"moduleType": "system",
+					"moduleId": "text",
+					"handlers": {
+						"onClick": {
+							"dependencies": []
+						}
+					}
+				},
+				"80cc601d42d13fe760550a279b3b152f": {
+					"id": "FollowBtn",
+					"type": "button",
+					"moduleType": "system",
+					"moduleId": "button",
+					"handlers": {
+						"onDisplayAssignment": {
+							"dependencies": []
+						},
+						"onClick": {
+							"dependencies": []
+						}
+					}
+				}
+			},
+			"usedComponentTypes": [
+				"block",
+				"icon",
+				"text",
+				"spinner",
+				"image",
+				"button",
+				"divider"
+			],
+			"dataBinding": {},
+			"attrs": {},
+			"html": "<div data-module-type=\"block\" data-display=\"true\" data-uid=\"fc14037bd1ef855275657b5e0336fc6e\" style=\"display:flex;flex-shrink:0;padding:0 10px 0 10px;min-height:50px;position:absolute;width:100%;background-color:#f1efef;top:0;justify-content:center;align-items:center;z-index:1000;flex-direction:row;\"><div data-module-type=\"block\" data-display=\"true\" id=\"Back Button\" data-uid=\"14d3acae8ee6e26769088e81df6df479\" style=\"display:flex;flex-shrink:0;padding:10px 5px 10px;margin:0 auto 0 0;flex-direction:row;align-items:center;width:70px;cursor:pointer;\"><i data-icon=\"arrow_back_ios\" data-module-type=\"icon\" data-display=\"true\" data-uid=\"c965a0139a679df753e357414e921f4a\" class=\"material-icons-round\" style=\"font-size:20px;align-self:flex-start;color:#696b6e;\"></i><span data-module-type=\"text\" data-display=\"true\" data-uid=\"1731399fa2e676042d55038c909dbad6\" data-content=\"Back\" style=\"font-size:14px;\">Back</span></div><span data-module-type=\"text\" data-display=\"true\" data-uid=\"4c98f7ffe134f6f33f86a9d2dbb60dac\" data-content=\"Likes\" style=\"font-family:Comic Sans MS, cursive, sans-serif;font-size:18px;color:#333;font-weight:400;\">Likes</span><div data-module-type=\"block\" data-display=\"true\" data-uid=\"79284d93680103383bcbe5aa3fd9bbca\" style=\"display:flex;flex-shrink:0;flex-direction:column;padding:0 10px 0 10px;min-height:50px;min-width:50px;margin:0 0 0 auto;width:70px;\"></div></div><div data-module-type=\"block\" data-display=\"true\" data-uid=\"b7aa5f9cd3b200a39bc5d8cf2b516337\" style=\"display:flex;flex-shrink:0;flex-direction:column;padding:50px 0 50px 0;min-height:50px;flex-grow:1;overflow:auto;height:100%;\"><div data-module-type=\"block\" data-display=\"true\" data-uid=\"ccc54293bae7c6650d258a71892dc1f5\" style=\"display:flex;flex-shrink:0;flex-direction:column;padding:10px 0 10px 0;min-height:50px;flex-grow:1;max-width:700px;width:100%;align-self:center;\"><div data-module-type=\"block\" data-display=\"false\" data-uid=\"40e3f0b772b5cef5f2385db874a22307\" data-binding_ondisplayassignment=\"isLoading\" id=\"Loading Panel\" style=\"display:flex;flex-shrink:0;flex-direction:column;padding:10px;min-height:50px;align-items:center;\"><svg data-module-type=\"spinner\" data-display=\"true\" data-uid=\"6b8f2442743a88cb0b8949d32b28fa89\" class=\"base-spinner\" style=\"color:#942bab;\"></svg></div><div data-module-type=\"block\" data-display=\"true\" data-uid=\"08b798a9738f1dc1e87488055e88a2e4\" data-dynamic-list-behaviour=\"true\" data-binding_ondynamicitemsassignment=\"users\" id=\"Users List\" style=\"display:flex;flex-shrink:0;flex-direction:column;flex-grow:1;min-height:50px;padding-bottom:10px;\"><div data-module-type=\"block\" data-data-container=\"true\" data-display=\"true\" id=\"User Item\" data-uid=\"1697ecadd9be7575a9131c7fa75675c5\" style=\"display:flex;flex-shrink:0;min-height:50px;padding:0 0 0 0;margin-top:10px;margin:0 0 10px 0;justify-content:space-between;flex-direction:column;\"><div data-module-type=\"block\" data-display=\"true\" data-uid=\"3df63613a534d1949f0ffe85061b7bb8\" style=\"display:flex;flex-shrink:0;padding:5px 10px 5px 10px;min-height:50px;min-width:50px;flex-direction:row;justify-content:space-between;\"><div data-module-type=\"block\" data-display=\"true\" data-uid=\"e14c1df5e211de72e40fcc6f66b24bbb\" style=\"display:flex;flex-shrink:0;padding:0 0 0 0;min-height:50px;min-width:50px;flex-direction:row;align-items:center;\"><img data-url=\"/user.png\" data-module-type=\"image\" data-display=\"true\" data-uid=\"d87f0d5cdb2c954f19cb8a2899355e34\" data-binding_onsourceurlassignment=\"avatar\" style=\"width:40px;height:40px;border-radius:50% 50% 50% 50%;cursor:pointer;\"/><span data-module-type=\"text\" data-display=\"true\" data-uid=\"5c6ce464cae7b5f9b40649a68948f4a5\" data-binding_oncontentassignment=\"displayName\" data-content=\"User DisplayName\" style=\"margin:0 0 0 10px;\">User DisplayName</span></div><div data-module-type=\"block\" data-display=\"false\" data-uid=\"d2ee87c2a9d9fb8f64d371849a134162\" id=\"User Actions\" style=\"display:flex;flex-shrink:0;padding:0 0 0 0;min-height:50px;min-width:50px;flex-direction:row;align-items:center;\"><span data-module-type=\"text\" data-display=\"false\" id=\"FollowingBtn\" data-uid=\"0536dfc2b108a5384b344c08c887836f\" data-binding_ondisplayassignment=\"following\" data-content=\"Following\" style=\"font-size:13px;cursor:pointer;\">Following</span><button data-label=\"Follow\" data-module-type=\"button\" data-display=\"false\" data-raised=\"true\" id=\"FollowBtn\" data-uid=\"80cc601d42d13fe760550a279b3b152f\" data-variant=\"contained\" style=\"background-color:#1a81e8;font-size:13px;cursor:pointer;\"></button></div></div><hr data-module-type=\"divider\" data-display=\"true\" data-uid=\"c1299f5f80df48445861dbe76e83f494\" style=\"width:100%;border:1px solid #e1e1e1;margin:4px 0 4px 0;\"/></div></div></div></div>"
+		},
+		"profile": {
+			"style": {
+				"background-color": "#fafafa"
+			},
+			"components": {
+				"page": {
+					"type": "page",
+					"moduleType": "system",
+					"moduleId": "page",
+					"handlers": {
+						"onEnter": {
+							"dependencies": [
+								"./functions/5a16854754a90b444dc8e7a6d99bb9e3/code.js"
+							]
+						}
+					}
+				},
+				"6c711467430630ad3e643c34faaa9c65": {
+					"id": "Followers Posts",
+					"type": "icon",
+					"moduleType": "system",
+					"moduleId": "icon",
+					"handlers": {
+						"onClick": {
+							"dependencies": []
+						}
+					}
+				},
+				"ebf8edb75159fa254839d9f573a6e4ed": {
+					"id": "All Posts",
+					"type": "icon",
+					"moduleType": "system",
+					"moduleId": "icon",
+					"handlers": {
+						"onClick": {
+							"dependencies": []
+						}
+					}
+				},
+				"182f34b38219bc2f7ff6d2fa348d6463": {
+					"id": "Add Post",
+					"type": "icon",
+					"moduleType": "system",
+					"moduleId": "icon",
+					"handlers": {
+						"onClick": {
+							"dependencies": []
+						}
+					}
+				},
+				"7faa3c7a197334df021b1b6913c7e7d4": {
+					"id": "Profile",
+					"type": "icon",
+					"moduleType": "system",
+					"moduleId": "icon",
+					"handlers": {
+						"onClick": {
+							"dependencies": [
+								"./functions/5a16854754a90b444dc8e7a6d99bb9e3/code.js"
+							]
+						}
+					}
+				},
+				"cf33f264e528eda4408e9b284c91353f": {
+					"id": "Logout Button",
+					"type": "button",
+					"moduleType": "system",
+					"moduleId": "button",
+					"handlers": {
+						"onClick": {
+							"dependencies": []
+						}
+					}
+				},
+				"8e88c512a33bab0d85320fd3ccd90e8c": {
+					"id": "",
+					"type": "image",
+					"moduleType": "system",
+					"moduleId": "image",
+					"handlers": {
+						"onSourceUrlAssignment": {
+							"dependencies": []
+						}
+					}
+				},
+				"cab48dd6838f7d699a8c823f08b9f6b9": {
+					"id": "",
+					"type": "block",
+					"moduleType": "system",
+					"moduleId": "block",
+					"handlers": {}
+				},
+				"e9a71c529d4daceda22dbe6f027bfceb": {
+					"id": "",
+					"type": "text",
+					"moduleType": "system",
+					"moduleId": "text",
+					"handlers": {}
+				},
+				"8c659c5856b389c2634ec0f99617b8ff": {
+					"id": "",
+					"type": "block",
+					"moduleType": "system",
+					"moduleId": "block",
+					"handlers": {}
+				},
+				"f477192c8a8da5728e920b9ac4c385b5": {
+					"id": "Workspace",
+					"type": "block",
+					"moduleType": "system",
+					"moduleId": "block",
+					"handlers": {}
+				},
+				"8d9b3245ec22e90608aa29b848942a4e": {
+					"id": "",
+					"type": "text",
+					"moduleType": "system",
+					"moduleId": "text",
+					"handlers": {
+						"onContentAssignment": {
+							"dependencies": []
+						}
+					}
+				},
+				"c0fea7cd131d713b875bea287284f19a": {
+					"id": "",
+					"type": "input",
+					"moduleType": "system",
+					"moduleId": "input",
+					"handlers": {
+						"onBlur": {
+							"dependencies": []
+						}
+					}
+				},
+				"46448132e1e2319be975a461a4386f33": {
+					"id": "User Form",
+					"type": "form",
+					"moduleType": "system",
+					"moduleId": "form",
+					"handlers": {
+						"onSubmit": {
+							"dependencies": []
+						},
+						"onBeforeMount": {
+							"dependencies": []
+						}
+					}
+				},
+				"35c88c6d1508f30aea39d6ee20f20e78": {
+					"id": "Uploader",
+					"type": "file-uploader-button",
+					"moduleType": "system",
+					"moduleId": "file-uploader-button",
+					"handlers": {
+						"onDisplayAssignment": {
+							"dependencies": []
+						},
+						"onDirectoryAssignment": {
+							"dependencies": [
+								"./functions/30e6b79b85ff0a1d11773b745fc245aa/code.js"
+							]
+						},
+						"onFileNameAssignment": {
+							"dependencies": []
+						}
+					}
+				},
+				"6134e0c660d6935621af0fba040afb6b": {
+					"id": "",
+					"type": "button",
+					"moduleType": "system",
+					"moduleId": "button",
+					"handlers": {
+						"onClick": {
+							"dependencies": []
+						}
+					}
+				},
+				"572e59d48d4624b448039ea848954c0b": {
+					"id": "",
+					"type": "image",
+					"moduleType": "system",
+					"moduleId": "image",
+					"handlers": {}
+				},
+				"1471fbc52a8a2e72b8a2aa568d6ea75d": {
+					"id": "",
+					"type": "block",
+					"moduleType": "system",
+					"moduleId": "block",
+					"handlers": {}
+				},
+				"d483d67faf11d933d274aa35a1413bce": {
+					"id": "",
+					"type": "text",
+					"moduleType": "system",
+					"moduleId": "text",
+					"handlers": {}
+				},
+				"a93c6df7adedb5f8f3b1039f198d5518": {
+					"id": "",
+					"type": "text",
+					"moduleType": "system",
+					"moduleId": "text",
+					"handlers": {}
+				},
+				"50d75d494584afcfd4ea5d42dbc3d001": {
+					"id": "",
+					"type": "text",
+					"moduleType": "system",
+					"moduleId": "text",
+					"handlers": {}
+				},
+				"bafe462b5f1398a6c2478709d991e807": {
+					"id": "",
+					"type": "text",
+					"moduleType": "system",
+					"moduleId": "text",
+					"handlers": {
+						"onClick": {
+							"dependencies": []
+						}
+					}
+				},
+				"c1cfdfd2a6999517c763b2e83cc7feae": {
+					"id": "",
+					"type": "text",
+					"moduleType": "system",
+					"moduleId": "text",
+					"handlers": {
+						"onClick": {
+							"dependencies": []
+						}
+					}
+				},
+				"244e14331477326bd8934d06b4552969": {
+					"id": "",
+					"type": "text",
+					"moduleType": "system",
+					"moduleId": "text",
+					"handlers": {
+						"onClick": {
+							"dependencies": []
+						}
+					}
+				}
+			},
+			"usedComponentTypes": [
+				"block",
+				"text",
+				"image",
+				"form",
+				"file-uploader-button",
+				"button",
+				"input",
+				"icon"
+			],
+			"dataBinding": {},
+			"attrs": {},
+			"html": "<div data-module-type=\"block\" data-display=\"true\" data-uid=\"b298b1e6336ef7bd7cef242a185bbd84\" style=\"display:flex;flex-shrink:0;flex-direction:column;padding:10px;min-height:50px;position:absolute;width:100%;background-color:#f1efef;top:0;justify-content:center;align-items:center;z-index:1000;\"><span data-module-type=\"text\" data-display=\"true\" data-uid=\"8d32084ebd683c8cb9354bb88d55c6a2\" data-content=\"InstagramLess\" style=\"font-family:Comic Sans MS, cursive, sans-serif;font-size:18px;color:#333;font-weight:400;\">InstagramLess</span></div><div data-module-type=\"block\" data-display=\"true\" data-uid=\"8c659c5856b389c2634ec0f99617b8ff\" style=\"display:flex;flex-shrink:0;padding:50px 0 50px 0;min-height:50px;flex-grow:1;flex-direction:column;height:100%;overflow:auto;\"><div data-module-type=\"block\" data-display=\"false\" data-uid=\"f477192c8a8da5728e920b9ac4c385b5\" id=\"Workspace\" data-binding_ondisplayassignment=\"user\" style=\"display:flex;flex-shrink:0;flex-direction:column;padding:10px;min-height:50px;flex-grow:1;max-width:700px;justify-content:flex-start;align-self:center;width:100%;\"><div data-module-type=\"block\" data-display=\"true\" data-uid=\"cab48dd6838f7d699a8c823f08b9f6b9\" data-data-container=\"false\" style=\"display:flex;flex-shrink:0;flex-direction:column;padding:10px;min-height:50px;\"><div data-module-type=\"block\" data-display=\"true\" data-uid=\"8722b9efd6cee393abc23c9312bda85a\" style=\"display:flex;flex-shrink:0;flex-direction:column;padding:5px 10px 5px 10px;min-height:50px;align-items:center;\"><img data-url=\"/user.png\" data-module-type=\"image\" data-display=\"true\" data-uid=\"8e88c512a33bab0d85320fd3ccd90e8c\" data-binding_onsourceurlassignment=\"user.avatar\" style=\"width:100px;border-radius:100px 100px 100px 100px;\"/></div><div data-module-type=\"block\" data-display=\"true\" data-uid=\"95658279363143071cda2461df7f3ddb\" style=\"display:flex;flex-shrink:0;flex-direction:column;padding:5px 10px 5px 10px;\"><span data-module-type=\"text\" data-display=\"true\" data-uid=\"e9a71c529d4daceda22dbe6f027bfceb\" data-binding_oncontentassignment=\"user.displayName\" data-content=\"User Display Name\" style=\"align-self:center;font-size:20px;\">User Display Name</span></div><div data-module-type=\"block\" data-display=\"true\" data-uid=\"b946e95c044f035f40326a4fec69b236\" style=\"display:flex;flex-shrink:0;flex-direction:column;padding:0 10px 0 10px;\"><span data-module-type=\"text\" data-display=\"true\" data-uid=\"8d9b3245ec22e90608aa29b848942a4e\" data-content=\"User Nickname\" style=\"align-self:center;font-size:13px;color:#097ada;font-weight:400;\">User Nickname</span></div><div data-module-type=\"block\" data-display=\"true\" data-uid=\"0de66336e14d885eb3ee9b634ce789f7\" style=\"display:flex;flex-shrink:0;flex-direction:column;padding:0 10px 0 10px;min-height:50px;\"><div data-module-type=\"block\" data-display=\"true\" data-uid=\"30e479c9825948e9a63e1a0f78883baa\" style=\"display:flex;flex-shrink:0;padding:10px;min-height:50px;justify-content:space-around;flex-direction:row;align-self:center;\"><div data-module-type=\"block\" data-display=\"true\" data-uid=\"240f87a3c3ecd7bda45f977ed8e606f5\" style=\"display:flex;flex-shrink:0;flex-direction:column;padding:10px;min-height:50px;width:80px;\"><span data-module-type=\"text\" data-display=\"true\" data-uid=\"d483d67faf11d933d274aa35a1413bce\" data-binding_oncontentassignment=\"userPostsCount\" data-content=\"0\" style=\"font-size:14px;align-self:center;\">0</span><span data-module-type=\"text\" data-display=\"true\" data-uid=\"bafe462b5f1398a6c2478709d991e807\" data-content=\"Posts\" style=\"font-size:14px;align-self:center;color:#2178d0;cursor:pointer;\">Posts</span></div><div data-module-type=\"block\" data-display=\"true\" data-uid=\"a3a2791e15c633a9ac21125255da32bc\" style=\"display:flex;flex-shrink:0;flex-direction:column;padding:10px;min-height:50px;width:80px;\"><span data-module-type=\"text\" data-display=\"true\" data-uid=\"a93c6df7adedb5f8f3b1039f198d5518\" data-binding_oncontentassignment=\"userFollowersCount\" data-content=\"0\" style=\"font-size:14px;align-self:center;\">0</span><span data-module-type=\"text\" data-display=\"true\" data-uid=\"c1cfdfd2a6999517c763b2e83cc7feae\" data-content=\"Followers\" style=\"font-size:14px;align-self:center;color:#2178d0;cursor:pointer;\">Followers</span></div><div data-module-type=\"block\" data-display=\"true\" data-uid=\"47fb81e60b7b8855b6caca4660c60701\" style=\"display:flex;flex-shrink:0;flex-direction:column;padding:10px;min-height:50px;width:80px;\"><span data-module-type=\"text\" data-display=\"true\" data-uid=\"50d75d494584afcfd4ea5d42dbc3d001\" data-binding_oncontentassignment=\"userFollowingCount\" data-content=\"0\" style=\"font-size:14px;align-self:center;\">0</span><span data-module-type=\"text\" data-display=\"true\" data-uid=\"244e14331477326bd8934d06b4552969\" data-content=\"Following\" style=\"font-size:14px;align-self:center;color:#2178d0;cursor:pointer;\">Following</span></div></div></div></div><div data-module-type=\"block\" data-display=\"true\" data-uid=\"fc3fa534172f6d92f3b861b709985dda\" style=\"display:flex;flex-shrink:0;flex-direction:column;padding:10px;min-height:50px;margin:20px 0 20px 0;border:1px solid #e3e3e3;background-color:#ffffff;border-radius:4px 4px 4px 4px;\"><span data-module-type=\"text\" data-display=\"true\" data-uid=\"17a83622fe7565e395e5344cba2cd0a2\" data-content=\"Edit Your Profile\" style=\"align-self:center;font-size:22px;\">Edit Your Profile</span><form data-module-type=\"form\" data-display=\"true\" id=\"User Form\" data-uid=\"46448132e1e2319be975a461a4386f33\" style=\"display:flex;flex-shrink:0;min-height:50px;padding:10px;margin-top:10px;flex-direction:column;\"><div data-module-type=\"block\" data-display=\"true\" data-uid=\"09578074ac31f70dde7c1ca8d9b8395b\" style=\"display:flex;flex-shrink:0;flex-direction:column;padding:0 10px 10px 10px;min-height:50px;\"><button data-upload-success-msg=\"Uploaded!\" data-upload-fail-msg=\"Could not upload!\" data-upload-progress-msg=\"Uploading...\" data-module-type=\"file-uploader-button\" data-display=\"true\" data-accept=\"image/*\" data-button-label=\"Upload New Avatar\" data-overwrite=\"true\" data-directory=\"temp\" data-uid=\"35c88c6d1508f30aea39d6ee20f20e78\" data-binding_onuploadsuccess=\"avatar\" id=\"Uploader\" data-variant=\"contained\" style=\"flex-direction:column;cursor:pointer;\"></button><div data-module-type=\"block\" data-display=\"false\" data-uid=\"1471fbc52a8a2e72b8a2aa568d6ea75d\" data-binding_ondisplayassignment=\"avatar\" style=\"display:flex;flex-shrink:0;flex-direction:column;padding:0 10px 0 10px;min-height:50px;align-self:center;\"><img data-url=\"\" data-module-type=\"image\" data-display=\"true\" data-uid=\"572e59d48d4624b448039ea848954c0b\" data-binding_onsourceurlassignment=\"avatar\" style=\"width:150px;\"/><button data-label=\"reset\" data-module-type=\"button\" data-display=\"true\" data-uid=\"6134e0c660d6935621af0fba040afb6b\" data-variant=\"contained\" style=\"margin:10px 0 0 0;cursor:pointer;\"></button></div></div><div data-module-type=\"block\" data-display=\"true\" data-uid=\"b55c20f1c3a803e1823985de01fd1a1b\" style=\"display:flex;flex-shrink:0;flex-direction:column;padding:10px;min-height:50px;\"><div data-module-type=\"input\" type=\"text\" name=\"\" placeholder=\"\" data-label=\"Display Name\" data-display=\"true\" data-required=\"true\" data-uid=\"c0fea7cd131d713b875bea287284f19a\" data-binding_onvalueassignment=\"displayName\" data-variant=\"outlined\"></div></div><div data-module-type=\"block\" data-display=\"true\" data-uid=\"47a76e971925d1c741d529fad7623e6e\" style=\"display:flex;flex-shrink:0;flex-direction:column;padding:10px;min-height:50px;\"><button data-label=\"Save\" data-module-type=\"button\" data-display=\"true\" data-raised=\"false\" type=\"submit\" data-uid=\"0a5853a1596ce395be6f6038462a5d3d\" data-variant=\"contained\" style=\"font-size:16px;cursor:pointer;\"></button></div></form></div><div data-module-type=\"block\" data-display=\"true\" data-uid=\"bc87ab348b23ceedab81d597fd2320a6\" style=\"display:flex;flex-shrink:0;flex-direction:column;padding:10px;min-height:50px;margin:auto 0 0 0;\"><button data-label=\"Logout\" data-module-type=\"button\" data-display=\"true\" data-raised=\"false\" data-unelevated=\"false\" id=\"Logout Button\" data-uid=\"cf33f264e528eda4408e9b284c91353f\" data-variant=\"contained\" style=\"border:#ffffff;color:#dd0000;cursor:pointer;\"></button></div></div></div><div data-module-type=\"block\" data-display=\"true\" data-uid=\"7faa8aaa93ca01c3069e7624e4166db7\" style=\"display:flex;flex-shrink:0;padding:10px;min-height:50px;position:absolute;width:100%;bottom:0;background-color:#ede8e8;flex-direction:row;justify-content:space-around;z-index:1000;\"><i data-icon=\"home\" data-module-type=\"icon\" data-display=\"true\" id=\"Followers Posts\" data-uid=\"6c711467430630ad3e643c34faaa9c65\" class=\"material-icons-round\" style=\"font-size:26px;align-self:flex-start;color:#696b6e;cursor:pointer;\"></i><i data-icon=\"search\" data-module-type=\"icon\" data-display=\"true\" id=\"All Posts\" data-uid=\"ebf8edb75159fa254839d9f573a6e4ed\" class=\"material-icons-round\" style=\"font-size:26px;align-self:flex-start;color:#696b6e;cursor:pointer;\"></i><i data-icon=\"add_box\" data-module-type=\"icon\" data-display=\"true\" id=\"Add Post\" data-uid=\"182f34b38219bc2f7ff6d2fa348d6463\" class=\"material-icons-round\" style=\"font-size:26px;align-self:flex-start;color:#696b6e;cursor:pointer;\"></i><i data-icon=\"person_outline\" data-module-type=\"icon\" data-display=\"true\" id=\"Profile\" data-uid=\"7faa3c7a197334df021b1b6913c7e7d4\" class=\"material-icons-round\" style=\"font-size:26px;align-self:flex-start;color:#375f8a;cursor:pointer;\"></i></div>"
+		},
+		"profile_copy": {
+			"style": {
+				"background-color": "#fafafa"
+			},
+			"components": {
+				"page": {
+					"type": "page",
+					"moduleType": "system",
+					"moduleId": "page",
+					"handlers": {
+						"onEnter": {
+							"dependencies": [
+								"./functions/5a16854754a90b444dc8e7a6d99bb9e3/code.js"
+							]
+						}
+					}
+				},
+				"cf33f264e528eda4408e9b284c91353f": {
+					"id": "Logout Button",
+					"type": "button",
+					"moduleType": "system",
+					"moduleId": "button",
+					"handlers": {
+						"onClick": {
+							"dependencies": []
+						}
+					}
+				},
+				"8c659c5856b389c2634ec0f99617b8ff": {
+					"id": "",
+					"type": "block",
+					"moduleType": "system",
+					"moduleId": "block",
+					"handlers": {}
+				},
+				"f477192c8a8da5728e920b9ac4c385b5": {
+					"id": "Workspace",
+					"type": "block",
+					"moduleType": "system",
+					"moduleId": "block",
+					"handlers": {}
+				},
+				"c0fea7cd131d713b875bea287284f19a": {
+					"id": "",
+					"type": "input",
+					"moduleType": "system",
+					"moduleId": "input",
+					"handlers": {
+						"onBlur": {
+							"dependencies": []
+						}
+					}
+				},
+				"46448132e1e2319be975a461a4386f33": {
+					"id": "User Form",
+					"type": "form",
+					"moduleType": "system",
+					"moduleId": "form",
+					"handlers": {
+						"onSubmit": {
+							"dependencies": []
+						},
+						"onBeforeMount": {
+							"dependencies": []
+						}
+					}
+				},
+				"35c88c6d1508f30aea39d6ee20f20e78": {
+					"id": "Uploader",
+					"type": "file-uploader-button",
+					"moduleType": "system",
+					"moduleId": "file-uploader-button",
+					"handlers": {
+						"onDisplayAssignment": {
+							"dependencies": []
+						},
+						"onDirectoryAssignment": {
+							"dependencies": [
+								"./functions/30e6b79b85ff0a1d11773b745fc245aa/code.js"
+							]
+						},
+						"onFileNameAssignment": {
+							"dependencies": []
+						}
+					}
+				},
+				"6134e0c660d6935621af0fba040afb6b": {
+					"id": "",
+					"type": "button",
+					"moduleType": "system",
+					"moduleId": "button",
+					"handlers": {
+						"onClick": {
+							"dependencies": []
+						}
+					}
+				},
+				"572e59d48d4624b448039ea848954c0b": {
+					"id": "",
+					"type": "image",
+					"moduleType": "system",
+					"moduleId": "image",
+					"handlers": {}
+				},
+				"1471fbc52a8a2e72b8a2aa568d6ea75d": {
+					"id": "",
+					"type": "block",
+					"moduleType": "system",
+					"moduleId": "block",
+					"handlers": {}
+				}
+			},
+			"usedComponentTypes": [
+				"block",
+				"text",
+				"form",
+				"file-uploader-button",
+				"image",
+				"button",
+				"input"
+			],
+			"dataBinding": {},
+			"attrs": {},
+			"html": "<div data-module-type=\"block\" data-display=\"true\" data-uid=\"8c659c5856b389c2634ec0f99617b8ff\" style=\"display:flex;flex-shrink:0;padding:50px 0 50px 0;min-height:50px;flex-grow:1;flex-direction:column;height:100%;overflow:auto;\"><div data-module-type=\"block\" data-display=\"false\" data-uid=\"f477192c8a8da5728e920b9ac4c385b5\" id=\"Workspace\" data-binding_ondisplayassignment=\"user\" style=\"display:flex;flex-shrink:0;flex-direction:column;padding:10px;min-height:50px;flex-grow:1;max-width:700px;justify-content:flex-start;align-self:center;width:100%;\"><div data-module-type=\"block\" data-display=\"true\" data-uid=\"fc3fa534172f6d92f3b861b709985dda\" style=\"display:flex;flex-shrink:0;flex-direction:column;padding:10px;min-height:50px;margin:20px 0 20px 0;border:1px solid #e3e3e3;background-color:#ffffff;border-radius:4px 4px 4px 4px;\"><span data-module-type=\"text\" data-display=\"true\" data-uid=\"17a83622fe7565e395e5344cba2cd0a2\" data-content=\"Edit Your Profile\" style=\"align-self:center;font-size:22px;\">Edit Your Profile</span><form data-module-type=\"form\" data-display=\"true\" id=\"User Form\" data-uid=\"46448132e1e2319be975a461a4386f33\" style=\"display:flex;flex-shrink:0;min-height:50px;padding:10px;margin-top:10px;flex-direction:column;\"><div data-module-type=\"block\" data-display=\"true\" data-uid=\"09578074ac31f70dde7c1ca8d9b8395b\" style=\"display:flex;flex-shrink:0;flex-direction:column;padding:0 10px 10px 10px;min-height:50px;\"><button data-upload-success-msg=\"Uploaded!\" data-upload-fail-msg=\"Could not upload!\" data-upload-progress-msg=\"Uploading...\" data-module-type=\"file-uploader-button\" data-display=\"true\" data-accept=\"image/*\" data-button-label=\"Upload New Avatar\" data-overwrite=\"true\" data-directory=\"temp\" data-uid=\"35c88c6d1508f30aea39d6ee20f20e78\" data-binding_onuploadsuccess=\"avatar\" id=\"Uploader\" data-variant=\"contained\" style=\"flex-direction:column;cursor:pointer;\"></button><div data-module-type=\"block\" data-display=\"false\" data-uid=\"1471fbc52a8a2e72b8a2aa568d6ea75d\" data-binding_ondisplayassignment=\"avatar\" style=\"display:flex;flex-shrink:0;flex-direction:column;padding:0 10px 0 10px;min-height:50px;align-self:center;\"><img data-url=\"\" data-module-type=\"image\" data-display=\"true\" data-uid=\"572e59d48d4624b448039ea848954c0b\" data-binding_onsourceurlassignment=\"avatar\" style=\"width:150px;\"/><button data-label=\"reset\" data-module-type=\"button\" data-display=\"true\" data-uid=\"6134e0c660d6935621af0fba040afb6b\" data-variant=\"contained\" style=\"margin:10px 0 0 0;cursor:pointer;\"></button></div></div><div data-module-type=\"block\" data-display=\"true\" data-uid=\"b55c20f1c3a803e1823985de01fd1a1b\" style=\"display:flex;flex-shrink:0;flex-direction:column;padding:10px;min-height:50px;\"><div data-module-type=\"input\" type=\"text\" name=\"\" placeholder=\"\" data-label=\"Display Name\" data-display=\"true\" data-required=\"true\" data-uid=\"c0fea7cd131d713b875bea287284f19a\" data-binding_onvalueassignment=\"displayName\" data-variant=\"outlined\"></div></div><div data-module-type=\"block\" data-display=\"true\" data-uid=\"47a76e971925d1c741d529fad7623e6e\" style=\"display:flex;flex-shrink:0;flex-direction:column;padding:10px;min-height:50px;\"><button data-label=\"Save\" data-module-type=\"button\" data-display=\"true\" data-raised=\"false\" type=\"submit\" data-uid=\"0a5853a1596ce395be6f6038462a5d3d\" data-variant=\"contained\" style=\"font-size:16px;cursor:pointer;\"></button></div></form></div><div data-module-type=\"block\" data-display=\"true\" data-uid=\"bc87ab348b23ceedab81d597fd2320a6\" style=\"display:flex;flex-shrink:0;flex-direction:column;padding:10px;min-height:50px;margin:auto 0 0 0;\"><button data-label=\"Logout\" data-module-type=\"button\" data-display=\"true\" data-raised=\"false\" data-unelevated=\"false\" id=\"Logout Button\" data-uid=\"cf33f264e528eda4408e9b284c91353f\" data-variant=\"contained\" style=\"border:#ffffff;color:#dd0000;cursor:pointer;\"></button></div></div></div>"
+		},
+		"register": {
+			"style": {},
+			"components": {
+				"468e9e6bfef5aedec6584a416f6742b4": {
+					"id": "Error Alert",
+					"type": "block",
+					"moduleType": "system",
+					"moduleId": "block",
+					"handlers": {}
+				},
+				"6baf51bf9ededdb44cfc0712f893543c": {
+					"id": "Error Message",
+					"type": "text",
+					"moduleType": "system",
+					"moduleId": "text",
+					"handlers": {}
+				},
+				"1da857fa9f6abadc8eeb7a0cc185f1e6": {
+					"id": "Nickname",
+					"type": "input",
+					"moduleType": "system",
+					"moduleId": "input",
+					"handlers": {
+						"onBlur": {
+							"dependencies": []
+						}
+					}
+				},
+				"76a10f024ae410faad9dd3dd58918544": {
+					"id": "Register Button",
+					"type": "button",
+					"moduleType": "system",
+					"moduleId": "button",
+					"handlers": {
+						"onLabelAssignment": {
+							"dependencies": []
+						}
+					}
+				},
+				"8d8176b6d003f10a51935f5fe564a9dd": {
+					"id": "Sign Up Form",
+					"type": "form",
+					"moduleType": "system",
+					"moduleId": "form",
+					"handlers": {
+						"onSubmit": {
+							"dependencies": []
+						}
+					}
+				},
+				"page": {
+					"type": "page",
+					"moduleType": "system",
+					"moduleId": "page",
+					"handlers": {}
+				}
+			},
+			"usedComponentTypes": [
+				"block",
+				"text",
+				"form",
+				"input",
+				"select",
+				"button",
+				"link"
+			],
+			"dataBinding": {},
+			"attrs": {},
+			"pods": {},
+			"html": "<div data-module-type=\"block\" data-display=\"true\" data-uid=\"e8b90f5404869968fbe30e3e05ba0ebc\" style=\"display:flex;flex-shrink:0;padding:50px 0 50px 0;min-height:50px;flex-grow:1;background-color:#fafafa;flex-direction:column;justify-content:center;flex-basis:auto%;border-radius:0 0 0 0;\"><div data-module-type=\"block\" data-display=\"true\" data-uid=\"87380dc5ca3b18e7806fae03dfe10be7\" style=\"display:flex;flex-shrink:0;flex-direction:column;padding:10px;min-height:50px;\"><div data-module-type=\"block\" data-display=\"true\" id=\"Sign Up Panel\" data-data-container=\"true\" data-uid=\"d43275491da1c84bc6ba718f1fdfe3b1\" style=\"display:flex;flex-shrink:0;padding:10px;min-height:50px;max-width:400px;margin:0 0 0 0;flex-grow:1;justify-content:center;flex-direction:column;align-self:center;width:100%;background-color:#fff;border:1px solid #e6e6e6;\"><div data-module-type=\"block\" data-display=\"true\" data-uid=\"889190f4de466cb6118edcca0842b551\" style=\"display:flex;flex-shrink:0;flex-direction:column;padding:10px;min-height:50px;margin:0 0 0 0;\"><span data-module-type=\"text\" data-display=\"true\" data-uid=\"5a651073344347bf96c8394f030bc6aa\" data-content=\"Luminary Lens\" style=\"align-self:center;font-size:22px;font-family:Verdana, Geneva, sans-serif;\">InstagramLess</span><span data-module-type=\"text\" data-display=\"true\" data-uid=\"837c53dde71e1c5aa86c690df5131d31\" data-content=\"\" style=\"margin:10px 0 0 0;\"><h2 draggable=\"true\" data-display=\"true\" data-content=\"Sign up to see photos and videos from your friends.\" class=\"vvzhL\" style=\"margin:0 40px 0 40px;padding:0px;border:0px;font-variant-numeric:inherit;font-variant-east-asian:inherit;font-stretch:inherit;font-size:17px;line-height:20px;font-family:-apple-system, system-ui, &quot;Segoe UI&quot;, Roboto, Helvetica, Arial, sans-serif;vertical-align:baseline;color:rgb(153, 153, 153);text-align:center;\">Sign up to see photos and videos from your friends.</h2></span></div><div data-module-type=\"block\" data-display=\"false\" data-uid=\"468e9e6bfef5aedec6584a416f6742b4\" data-binding_ondisplayassignment=\"signUpError\" id=\"Error Alert\" style=\"display:flex;flex-shrink:0;flex-direction:column;padding:10px;min-height:50px;margin:10px 20px 0 20px;background-color:#ff9797;border:1px solid #bc5454;justify-content:center;\"><span data-module-type=\"text\" data-display=\"true\" data-uid=\"6baf51bf9ededdb44cfc0712f893543c\" data-binding_oncontentassignment=\"signUpError\" id=\"Error Message\" data-content=\"Error Message\" style=\"font-size:13px;color:#ffffff;text-align:center;\">Error Message</span></div><form data-module-type=\"form\" data-display=\"true\" id=\"Sign Up Form\" data-uid=\"8d8176b6d003f10a51935f5fe564a9dd\" style=\"display:flex;flex-shrink:0;min-height:50px;padding:10px;margin-top:10px;flex-direction:column;\"><div data-module-type=\"block\" data-display=\"true\" data-uid=\"18034227c2cea53318423bc482361d13\" style=\"display:flex;flex-shrink:0;flex-direction:column;padding:10px;min-height:50px;\"><div data-module-type=\"input\" type=\"text\" name=\"\" placeholder=\"\" data-label=\"nickname\" data-display=\"true\" data-placeholder=\"\" data-required=\"true\" data-uid=\"1da857fa9f6abadc8eeb7a0cc185f1e6\" id=\"Nickname\" data-binding_onvalueassignment=\"nickname\" data-binding_ondisabledstateassignment=\"isRegistering\" data-variant=\"outlined\" style=\"font-size:12px;height:45px;\"></div></div><div data-module-type=\"block\" data-display=\"true\" data-uid=\"2363da5756a29f8fe2ada71524088f9f\" style=\"display:flex;flex-shrink:0;flex-direction:column;padding:10px;min-height:50px;\"><div data-module-type=\"input\" type=\"text\" name=\"\" placeholder=\"\" data-label=\"password\" data-display=\"true\" data-placeholder=\"\" data-required=\"true\" data-uid=\"21d78cbcb0dcfc5c05bfcfe66a4f358a\" data-binding_onvalueassignment=\"password\" data-binding_ondisabledstateassignment=\"isRegistering\" data-type=\"password\" data-variant=\"outlined\" data-max-length=\"\" id=\"password\" style=\"font-size:12px;height:45px;\"></div></div><div data-module-type=\"block\" data-display=\"true\" data-uid=\"42a95e1b57cdacb2d9c92ee3e952eec6\" id=\"email\" style=\"display:flex;flex-shrink:0;flex-direction:column;padding:10px;min-height:50px;\"><div data-label=\"email\" data-variant=\"outlined\" data-module-type=\"system\" data-module-id=\"input\" data-display=\"true\" id=\"email\" data-uid=\"0d297a777d3b3418ddb1d093311e3b81\" data-required=\"true\" data-type=\"email\" data-binding_onvalueassignment=\"email\" style=\"margin:0 0 16px 0;font-size:12px;\"></div></div><div data-module-type=\"block\" data-display=\"true\" data-uid=\"ee23ab474ef3848392556403882bee27\" style=\"display:flex;flex-shrink:0;flex-direction:column;padding:10px;min-height:50px;\"><div data-label=\"age\" data-variant=\"outlined\" data-module-type=\"system\" data-module-id=\"input\" data-display=\"true\" id=\"age\" data-uid=\"771fa33df16f9d53b581df22695c046b\" data-type=\"number\" data-binding_onvalueassignment=\"age\" style=\"margin:0 0 16px 0;font-size:12px;\"></div></div><div data-module-type=\"block\" data-display=\"true\" data-uid=\"8bf24b26609f056a00b7e8b58f4cb349\" style=\"display:flex;flex-shrink:0;flex-direction:column;padding:10px;min-height:50px;\"><div data-label=\"country\" data-variant=\"outlined\" data-module-type=\"system\" data-module-id=\"input\" data-display=\"true\" id=\"country\" data-uid=\"522c80efdf56699db8261d08093acedc\" data-binding_onvalueassignment=\"country\" style=\"margin:0 0 16px 0;font-size:12px;\"></div></div><div data-module-type=\"block\" data-display=\"true\" data-uid=\"0773dd6a7222e4328596491205b80e31\" style=\"display:flex;flex-shrink:0;flex-direction:column;padding:10px;min-height:50px;\"><div data-options=\"[{&quot;value&quot;:&quot;value-1&quot;,&quot;label&quot;:&quot;Male&quot;,&quot;disabled&quot;:false},{&quot;value&quot;:&quot;value-2&quot;,&quot;label&quot;:&quot;Female&quot;,&quot;disabled&quot;:false},{&quot;value&quot;:&quot;value-3&quot;,&quot;label&quot;:&quot;Other&quot;,&quot;disabled&quot;:false}]\" data-label=\"gender\" data-size=\"medium\" data-module-type=\"system\" data-module-id=\"select\" data-display=\"true\" id=\"gender\" data-uid=\"1a74e6f834ee1b77c36283a5c38158a1\" data-value=\"\" data-variant=\"outlined\" data-binding_onvalueassignment=\"gender\" style=\"margin:0 0 16px 0;\"></div></div><div data-module-type=\"block\" data-display=\"true\" data-uid=\"38296714cfcbfde66286f93b55894d12\" style=\"display:flex;flex-shrink:0;flex-direction:column;padding:10px;min-height:50px;\"><button data-label=\"Register\" data-module-type=\"button\" data-display=\"true\" data-raised=\"true\" data-unelevated=\"false\" data-dense=\"false\" id=\"Register Button\" type=\"submit\" data-uid=\"76a10f024ae410faad9dd3dd58918544\" data-binding_ondisabledstateassignment=\"isRegistering\" data-variant=\"contained\" style=\"color:#fff;background-color:#2f87f1;cursor:pointer;\"></button></div></form></div><div data-module-type=\"block\" data-display=\"true\" data-uid=\"1b6c4cb33d46364e0e046889c7269767\" style=\"display:flex;flex-shrink:0;padding:10px;min-height:50px;max-width:400px;margin:10px 0 0 0;flex-grow:1;justify-content:center;flex-direction:column;align-self:center;width:100%;background-color:#fff;border:1px solid #e6e6e6;\"><div data-module-type=\"block\" data-display=\"true\" data-uid=\"24e4f8c373f79db7ecc79401d4824f0e\" style=\"display:flex;flex-shrink:0;padding:10px;min-height:50px;flex-direction:row;align-items:center;align-self:center;\"><span data-module-type=\"text\" data-display=\"true\" data-uid=\"9732eae1d9a8b7dc5eeb1a1304ad7b7d\" data-content=\"\"><span draggable=\"true\" data-display=\"true\" data-content=\"Have an account?\" style=\"color:rgb(38, 38, 38);font-family:-apple-system, system-ui, &quot;Segoe UI&quot;, Roboto, Helvetica, Arial, sans-serif;font-size:14px;text-align:center;\">Have an account?</span></span><a href=\"\" data-text=\"Log in\" data-module-type=\"link\" data-display=\"true\" data-target-type=\"\" data-target-path=\"\" data-uid=\"2fb75c05ae33bbe4edb27077b97a955d\" id=\"Log In Link\" data-page-name=\"login\" style=\"margin:0 0 0 10px;font-size:14px;color:#268bf1;\"></a></div></div></div></div>"
+		},
+		"user": {
+			"style": {
+				"background-color": "#fafafa"
+			},
+			"components": {
+				"page": {
+					"type": "page",
+					"moduleType": "system",
+					"moduleId": "page",
+					"handlers": {
+						"onEnter": {
+							"dependencies": [
+								"./functions/5a16854754a90b444dc8e7a6d99bb9e3/code.js"
+							]
+						}
+					}
+				},
+				"6c711467430630ad3e643c34faaa9c65": {
+					"id": "Followers Posts",
+					"type": "icon",
+					"moduleType": "system",
+					"moduleId": "icon",
+					"handlers": {
+						"onClick": {
+							"dependencies": []
+						}
+					}
+				},
+				"ebf8edb75159fa254839d9f573a6e4ed": {
+					"id": "All Posts",
+					"type": "icon",
+					"moduleType": "system",
+					"moduleId": "icon",
+					"handlers": {
+						"onClick": {
+							"dependencies": []
+						}
+					}
+				},
+				"182f34b38219bc2f7ff6d2fa348d6463": {
+					"id": "Add Post",
+					"type": "icon",
+					"moduleType": "system",
+					"moduleId": "icon",
+					"handlers": {
+						"onClick": {
+							"dependencies": []
+						}
+					}
+				},
+				"7faa3c7a197334df021b1b6913c7e7d4": {
+					"id": "Profile",
+					"type": "icon",
+					"moduleType": "system",
+					"moduleId": "icon",
+					"handlers": {
+						"onClick": {
+							"dependencies": []
+						}
+					}
+				},
+				"6b8f2442743a88cb0b8949d32b28fa89": {
+					"id": "",
+					"type": "spinner",
+					"moduleType": "system",
+					"moduleId": "spinner",
+					"handlers": {}
+				},
+				"08b798a9738f1dc1e87488055e88a2e4": {
+					"id": "Posts List",
+					"type": "block",
+					"moduleType": "system",
+					"moduleId": "block",
+					"handlers": {}
+				},
+				"ccc54293bae7c6650d258a71892dc1f5": {
+					"id": "",
+					"type": "block",
+					"moduleType": "system",
+					"moduleId": "block",
+					"handlers": {}
+				},
+				"51b6203343d2c8833c021e3523948188": {
+					"id": "",
+					"type": "image",
+					"moduleType": "system",
+					"moduleId": "image",
+					"handlers": {}
+				},
+				"7b76dfef57bcb3baf7b8d5376563edb4": {
+					"id": "",
+					"type": "text",
+					"moduleType": "system",
+					"moduleId": "text",
+					"handlers": {}
+				},
+				"40e3f0b772b5cef5f2385db874a22307": {
+					"id": "Loading Panel",
+					"type": "block",
+					"moduleType": "system",
+					"moduleId": "block",
+					"handlers": {
+						"onDisplayAssignment": {
+							"dependencies": []
+						}
+					}
+				},
+				"7864788fbfeef05753975fe81b0ef3d9": {
+					"id": "Like Icon",
+					"type": "icon",
+					"moduleType": "system",
+					"moduleId": "icon",
+					"handlers": {
+						"onClick": {
+							"dependencies": []
+						},
+						"onIconAssignment": {
+							"dependencies": []
+						}
+					}
+				},
+				"489eaaf5397700ae5eca533f15b8e871": {
+					"id": "Likes Count Label",
+					"type": "text",
+					"moduleType": "system",
+					"moduleId": "text",
+					"handlers": {
+						"onContentAssignment": {
+							"dependencies": []
+						},
+						"onClick": {
+							"dependencies": []
+						}
+					}
+				},
+				"a8dc1bc4bf3ab722fa18cd187d3fb296": {
+					"id": "",
+					"type": "text",
+					"moduleType": "system",
+					"moduleId": "text",
+					"handlers": {
+						"onContentAssignment": {
+							"dependencies": []
+						}
+					}
+				},
+				"cab48dd6838f7d699a8c823f08b9f6b9": {
+					"id": "User Panel",
+					"type": "block",
+					"moduleType": "system",
+					"moduleId": "block",
+					"handlers": {}
+				},
+				"8e88c512a33bab0d85320fd3ccd90e8c": {
+					"id": "",
+					"type": "image",
+					"moduleType": "system",
+					"moduleId": "image",
+					"handlers": {
+						"onSourceUrlAssignment": {
+							"dependencies": []
+						}
+					}
+				},
+				"e9a71c529d4daceda22dbe6f027bfceb": {
+					"id": "",
+					"type": "text",
+					"moduleType": "system",
+					"moduleId": "text",
+					"handlers": {}
+				},
+				"8d9b3245ec22e90608aa29b848942a4e": {
+					"id": "",
+					"type": "text",
+					"moduleType": "system",
+					"moduleId": "text",
+					"handlers": {}
+				},
+				"d483d67faf11d933d274aa35a1413bce": {
+					"id": "",
+					"type": "text",
+					"moduleType": "system",
+					"moduleId": "text",
+					"handlers": {}
+				},
+				"a93c6df7adedb5f8f3b1039f198d5518": {
+					"id": "",
+					"type": "text",
+					"moduleType": "system",
+					"moduleId": "text",
+					"handlers": {}
+				},
+				"50d75d494584afcfd4ea5d42dbc3d001": {
+					"id": "",
+					"type": "text",
+					"moduleType": "system",
+					"moduleId": "text",
+					"handlers": {}
+				},
+				"647d22cf18d1c8cebea7a4d4f3ea5c43": {
+					"id": "Following Users Btn",
+					"type": "text",
+					"moduleType": "system",
+					"moduleId": "text",
+					"handlers": {
+						"onClick": {
+							"dependencies": []
+						}
+					}
+				},
+				"2003a2bd6117813867b7048c0a5b657f": {
+					"id": "Followers Users Btn",
+					"type": "text",
+					"moduleType": "system",
+					"moduleId": "text",
+					"handlers": {
+						"onClick": {
+							"dependencies": []
+						}
+					}
+				},
+				"ed6a93068b28b0755f0410cca2a17a3b": {
+					"id": "",
+					"type": "text",
+					"moduleType": "system",
+					"moduleId": "text",
+					"handlers": {}
+				},
+				"9c3c187c735ac17f57771cc1fd46965c": {
+					"id": "Comments Block",
+					"type": "block",
+					"moduleType": "system",
+					"moduleId": "block",
+					"handlers": {
+						"onClick": {
+							"dependencies": []
+						}
+					}
+				},
+				"ba63e3e3f2aa1b1ff784048b0e4925a4": {
+					"id": "",
+					"type": "text",
+					"moduleType": "system",
+					"moduleId": "text",
+					"handlers": {
+						"onDisplayAssignment": {
+							"dependencies": []
+						}
+					}
+				},
+				"ded3482f80a740789d2d3a99b27c7fac": {
+					"id": "Posts Panel",
+					"type": "block",
+					"moduleType": "system",
+					"moduleId": "block",
+					"handlers": {}
+				}
+			},
+			"usedComponentTypes": [
+				"block",
+				"text",
+				"spinner",
+				"image",
+				"divider",
+				"icon"
+			],
+			"dataBinding": {},
+			"attrs": {},
+			"html": "<div data-module-type=\"block\" data-display=\"true\" data-uid=\"bd2c03a34de167c5c95540cd887723ef\" style=\"display:flex;flex-shrink:0;flex-direction:column;padding:10px;min-height:50px;position:absolute;width:100%;background-color:#f1efef;top:0;justify-content:center;align-items:center;z-index:1000;\"><span data-module-type=\"text\" data-display=\"true\" data-uid=\"2e271d66b792819daf5756c9b56cc8d6\" data-content=\"InstagramLess\" style=\"font-family:Comic Sans MS, cursive, sans-serif;font-size:18px;color:#333;font-weight:400;\">InstagramLess</span></div><div data-module-type=\"block\" data-display=\"true\" data-uid=\"f6ffd6d6021363d4653d758f63336eed\" style=\"display:flex;flex-shrink:0;flex-direction:column;padding:50px 0 50px 0;min-height:50px;flex-grow:1;overflow:auto;height:100%;\"><div data-module-type=\"block\" data-display=\"true\" data-uid=\"ccc54293bae7c6650d258a71892dc1f5\" style=\"display:flex;flex-shrink:0;flex-direction:column;padding:10px 0 10px 0;min-height:50px;flex-grow:1;max-width:700px;width:100%;align-self:center;\"><div data-module-type=\"block\" data-display=\"false\" data-uid=\"40e3f0b772b5cef5f2385db874a22307\" id=\"Loading Panel\" style=\"display:flex;flex-shrink:0;flex-direction:column;padding:10px;min-height:50px;align-items:center;flex-basis:auto%;border-radius:0 0 0 0;\"><svg data-module-type=\"spinner\" data-display=\"true\" data-uid=\"6b8f2442743a88cb0b8949d32b28fa89\" class=\"base-spinner\" style=\"color:#942bab;\"></svg></div><div data-module-type=\"block\" data-display=\"false\" data-uid=\"cab48dd6838f7d699a8c823f08b9f6b9\" data-data-container=\"false\" id=\"User Panel\" data-binding_ondisplayassignment=\"loaded\" style=\"display:flex;flex-shrink:0;flex-direction:column;padding:10px;min-height:50px;\"><div data-module-type=\"block\" data-display=\"true\" data-uid=\"8deb93deb6da7644916ac515c01b90b1\" style=\"display:flex;flex-shrink:0;flex-direction:column;padding:5px 10px 5px 10px;min-height:50px;align-items:center;\"><img data-url=\"/user.png\" data-module-type=\"image\" data-display=\"true\" data-uid=\"8e88c512a33bab0d85320fd3ccd90e8c\" data-binding_onsourceurlassignment=\"user.avatar\" style=\"width:100px;border-radius:100px 100px 100px 100px;\"/></div><div data-module-type=\"block\" data-display=\"true\" data-uid=\"2fdae7f4d89e76ba419213e6803bd036\" style=\"display:flex;flex-shrink:0;flex-direction:column;padding:5px 10px 5px 10px;\"><span data-module-type=\"text\" data-display=\"true\" data-uid=\"e9a71c529d4daceda22dbe6f027bfceb\" data-binding_oncontentassignment=\"user.displayName\" data-content=\"User Display Name\" style=\"align-self:center;font-size:20px;\">User Display Name</span></div><div data-module-type=\"block\" data-display=\"true\" data-uid=\"fc25bdebde0bc76d853e4fb69a99643d\" style=\"display:flex;flex-shrink:0;flex-direction:column;padding:0 10px 0 10px;\"></div><div data-module-type=\"block\" data-display=\"true\" data-uid=\"dbb37f2fa97ebb5dec84107ca9aaff07\" style=\"display:flex;flex-shrink:0;padding:0 10px 5px 10px;flex-direction:row;justify-content:center;\"><span data-module-type=\"text\" data-display=\"true\" data-uid=\"1e2decea57ecf9e671b15d694a3c5b2b\" data-content=\"@\" style=\"font-size:13px;color:#097ada;\">@</span><span data-module-type=\"text\" data-display=\"true\" data-uid=\"8d9b3245ec22e90608aa29b848942a4e\" data-binding_oncontentassignment=\"user.nickname\" data-content=\"User Nickname\" style=\"font-size:13px;color:#097ada;font-weight:400;\">User Nickname</span></div><div data-module-type=\"block\" data-display=\"true\" data-uid=\"df96606cd5a97a097386fe7733e7bdae\" style=\"display:flex;flex-shrink:0;flex-direction:column;padding:0 10px 0 10px;min-height:50px;\"><div data-module-type=\"block\" data-display=\"true\" data-uid=\"2c795e065fe455050b3564ab083cd7c7\" style=\"display:flex;flex-shrink:0;padding:10px;min-height:50px;justify-content:space-around;flex-direction:row;align-self:center;\"><div data-module-type=\"block\" data-display=\"true\" data-uid=\"98025a2b52cda42a41f4f0baedf144ec\" style=\"display:flex;flex-shrink:0;flex-direction:column;padding:10px;min-height:50px;width:80px;\"><span data-module-type=\"text\" data-display=\"true\" data-uid=\"d483d67faf11d933d274aa35a1413bce\" data-binding_oncontentassignment=\"userPostsCount\" data-content=\"0\" style=\"font-size:14px;align-self:center;\">0</span><span data-module-type=\"text\" data-display=\"true\" data-uid=\"7f2c7888aa9991990ad8c2ce3ef7720c\" data-content=\"Posts\" style=\"font-size:14px;align-self:center;color:#2178d0;\">Posts</span></div><div data-module-type=\"block\" data-display=\"true\" data-uid=\"8941d7263c5a5b68d291824d57ad1134\" style=\"display:flex;flex-shrink:0;flex-direction:column;padding:10px;min-height:50px;width:80px;\"><span data-module-type=\"text\" data-display=\"true\" data-uid=\"a93c6df7adedb5f8f3b1039f198d5518\" data-binding_oncontentassignment=\"userFollowersCount\" data-content=\"0\" style=\"font-size:14px;align-self:center;\">0</span><span data-module-type=\"text\" data-display=\"true\" id=\"Followers Users Btn\" data-uid=\"2003a2bd6117813867b7048c0a5b657f\" data-content=\"Followers\" style=\"font-size:14px;align-self:center;color:#2178d0;cursor:pointer;\">Followers</span></div><div data-module-type=\"block\" data-display=\"true\" data-uid=\"4b28a62dd802453776a1da3a5c665279\" style=\"display:flex;flex-shrink:0;flex-direction:column;padding:10px;min-height:50px;width:80px;\"><span data-module-type=\"text\" data-display=\"true\" data-uid=\"50d75d494584afcfd4ea5d42dbc3d001\" data-binding_oncontentassignment=\"userFollowingCount\" data-content=\"0\" style=\"font-size:14px;align-self:center;\">0</span><span data-module-type=\"text\" data-display=\"true\" data-uid=\"647d22cf18d1c8cebea7a4d4f3ea5c43\" id=\"Following Users Btn\" data-content=\"Following\" style=\"font-size:14px;align-self:center;color:#2178d0;cursor:pointer;\">Following</span></div></div></div><hr data-module-type=\"divider\" data-display=\"true\" data-uid=\"c7bd610f8267ab5615242e96d1971edc\" style=\"width:100%;border:1px solid #f1f1f1;\"/></div><div data-module-type=\"block\" data-display=\"false\" id=\"Posts Panel\" data-uid=\"ded3482f80a740789d2d3a99b27c7fac\" data-binding_ondisplayassignment=\"loaded\" style=\"display:flex;flex-shrink:0;flex-direction:column;padding:10px;min-height:50px;min-width:50px;\"><span data-module-type=\"text\" data-display=\"false\" data-uid=\"ba63e3e3f2aa1b1ff784048b0e4925a4\" data-content=\"There are no posts yet!\" style=\"color:#c0c0c0;font-size:26px;align-self:center;\">There are no posts yet!</span><div data-module-type=\"block\" data-display=\"true\" data-uid=\"08b798a9738f1dc1e87488055e88a2e4\" data-dynamic-list-behaviour=\"true\" data-binding_ondynamicitemsassignment=\"posts\" id=\"Posts List\" style=\"display:flex;flex-shrink:0;flex-direction:column;flex-grow:1;min-height:50px;padding-bottom:10px;\"><div data-module-type=\"block\" data-data-container=\"true\" data-display=\"true\" id=\"Post Item\" data-uid=\"fd7e13365a062451fd84b0cc23ea4e14\" style=\"display:flex;flex-shrink:0;min-height:50px;padding:0 0 20px 0;margin-top:10px;flex-direction:column;margin:0 0 10px 0;\"><img data-url=\"\" data-module-type=\"image\" data-display=\"true\" data-uid=\"51b6203343d2c8833c021e3523948188\" data-binding_onsourceurlassignment=\"image\" style=\"width:100%;\"/><div data-module-type=\"block\" data-display=\"true\" data-uid=\"a76dd62bb2ccee162f0c2cc53504b932\" style=\"display:flex;flex-shrink:0;padding:10px;min-height:50px;flex-direction:row;justify-content:space-between;\"><div data-module-type=\"block\" data-display=\"true\" data-uid=\"a16c25e7cc3a718bb0c7e554d6e7bc7d\" style=\"display:flex;flex-shrink:0;padding:0 0 0 0;flex-direction:row;align-self:center;cursor:pointer;\"><i data-icon=\"favorite_border\" data-module-type=\"icon\" data-display=\"true\" data-uid=\"7864788fbfeef05753975fe81b0ef3d9\" id=\"Like Icon\" class=\"material-icons-round\" style=\"font-size:26px;align-self:flex-start;color:#696b6e;\"></i><span data-module-type=\"text\" data-display=\"true\" id=\"Likes Count Label\" data-uid=\"489eaaf5397700ae5eca533f15b8e871\" data-binding_ondisplayassignment=\"totalLikesCount\" data-content=\"Likes Count\" style=\"align-self:center;font-size:13px;margin:0 0 0 5px;color:#0b84ec;\">Likes Count</span></div><div data-module-type=\"block\" data-display=\"true\" id=\"Comments Block\" data-uid=\"9c3c187c735ac17f57771cc1fd46965c\" style=\"display:flex;flex-shrink:0;padding:0 0 0 0;flex-direction:row;align-self:center;cursor:pointer;\"><span data-module-type=\"text\" data-display=\"false\" data-uid=\"ed6a93068b28b0755f0410cca2a17a3b\" data-binding_ondisplayassignment=\"totalCommentsCount\" data-binding_oncontentassignment=\"totalCommentsCount\" data-content=\"Comments Count\" style=\"color:#0b84ec;font-size:13px;margin:-4px 5px 0 0;align-self:center;\">Comments Count</span><i data-icon=\"comment\" data-module-type=\"icon\" data-display=\"true\" data-uid=\"998cfbecebb8bfc2dd8a80a912daed35\" class=\"material-icons-round\" style=\"font-size:26px;align-self:flex-start;color:#696b6e;\"></i></div></div><span data-module-type=\"text\" data-display=\"false\" data-uid=\"7b76dfef57bcb3baf7b8d5376563edb4\" data-binding_oncontentassignment=\"description\" data-binding_ondisplayassignment=\"description\" data-content=\"Post description\" data-classes=\"b-w\" style=\"font-size:13px;padding:5px 10px 5px 10px;\">Post description</span><span data-module-type=\"text\" data-display=\"true\" data-uid=\"a8dc1bc4bf3ab722fa18cd187d3fb296\" data-content=\"Publish date\" style=\"padding:5px 10px 5px 10px;font-size:13px;color:#868686;\">Publish date</span></div></div></div></div></div><div data-module-type=\"block\" data-display=\"true\" data-uid=\"ec2bbdb2ddb4629f597f57c20081ff47\" style=\"display:flex;flex-shrink:0;padding:10px;min-height:50px;position:absolute;width:100%;bottom:0;background-color:#ede8e8;flex-direction:row;justify-content:space-around;z-index:1000;\"><i data-icon=\"home\" data-module-type=\"icon\" data-display=\"true\" id=\"Followers Posts\" data-uid=\"6c711467430630ad3e643c34faaa9c65\" class=\"material-icons-round\" style=\"font-size:26px;align-self:flex-start;color:#696b6e;cursor:pointer;\"></i><i data-icon=\"search\" data-module-type=\"icon\" data-display=\"true\" id=\"All Posts\" data-uid=\"ebf8edb75159fa254839d9f573a6e4ed\" class=\"material-icons-round\" style=\"font-size:26px;align-self:flex-start;color:#696b6e;cursor:pointer;\"></i><i data-icon=\"add_box\" data-module-type=\"icon\" data-display=\"true\" id=\"Add Post\" data-uid=\"182f34b38219bc2f7ff6d2fa348d6463\" class=\"material-icons-round\" style=\"font-size:26px;align-self:flex-start;color:#696b6e;cursor:pointer;\"></i><i data-icon=\"person_outline\" data-module-type=\"icon\" data-display=\"true\" id=\"Profile\" data-uid=\"7faa3c7a197334df021b1b6913c7e7d4\" class=\"material-icons-round\" style=\"font-size:26px;align-self:flex-start;color:#696b6e;cursor:pointer;\"></i></div>"
+		}
+	},
+	"layouts": {},
+	"reusableComponents": {
+		"r_26e3eafab7923b4ef3aa9778035e1345": {
+			"category": "Reusable Components",
+			"showInToolbox": true,
+			"type": "reusable",
+			"faIcon": "recycle",
+			"name": "Luminary Lens",
+			"components": {},
+			"usedComponentTypes": [
+				"text"
+			],
+			"id": "r_26e3eafab7923b4ef3aa9778035e1345",
+			"html": "<span data-module-type=\"text\" data-display=\"true\" data-uid=\"c07512c4e68dddf5407ba873b613e6c3\" data-content=\"Luminary Lens\" style=\"align-self:center;font-size:22px;font-family:Comic Sans MS, cursive, sans-serif;\">InstagramLess</span>"
+		}
+	},
+	"customComponents": {},
+	"build": {
+		"path": "/opt/backendless/repo/a9937553-25e7-88a3-ff82-498004e4e300/files/web/app",
+		"date": 1713174529458
+	}
+}

@@ -1,0 +1,86 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Profile</title>
+    <style>
+      table
+      {
+        border-collapse: collapse;
+        width: 100%;
+      }
+
+    th, td
+    {
+        border: 1px solid black;
+        padding: 8px;
+        text-align: left;
+    }
+    .btn-link
+    {
+        border: none;
+        outline: none;
+        background: none;
+        cursor: pointer;
+        color: #0000EE;
+        padding: 0;
+        text-decoration: underline;
+        font-family: inherit;
+        font-size: inherit;
+    }
+    </style>
+</head>
+<body>
+<span style="display: inline-block; margin-right: 10px;"><h1>Profile {{ nickname }}</h1></span>
+    <form action="/logout" method="POST" style="display: inline-block; margin-right: 10px;">
+        <button type="submit">Logout</button>
+    </form>
+
+    <h2>Current folder: {{label_folder}}</h2>
+<!--    <a href="#">...</a> &lt;!&ndash; Кнопка для перехода на уровень выше &ndash;&gt;-->
+
+    <table>
+        <tbody>
+            <tr>
+                    <td>
+                    <form action='/change_folder/...' method="get">
+                        <button type="submit" class="btn-link">...</button>
+                    </form>
+                    </td>
+                <td><a href="#" onclick=createFolder()>Новая папка</a></td>
+            </tr>
+            {% for folder in folders %}
+                <tr>
+                    <td>
+                    <form action='/change_folder/{{folder}}' method="get">
+                        <button type="submit" class="btn-link">{{folder}}</button>
+                    </form>
+                    </td>
+                    <td>
+                    <form action='/delete_folder/{{folder}}' method="get">
+                        <button type="submit" class="btn-link">Удалить</button>
+                    </form>
+                    </td>
+                </tr>
+            {% endfor %}
+        </tbody>
+    </table>
+    <br>
+    <form action="/upload_file" method="POST" enctype="multipart/form-data">
+        <input type="file" name="file" id="file" required>
+        <button type="submit">Upload File</button>
+    </form>
+
+    <script>
+        async function createFolder()
+        {
+            var folderName = prompt("Введите имя для новой папки:", "Новая папка");
+            if (folderName != null && folderName != "")
+            {
+                await fetch('/create_folder/'+folderName);
+                window.location.reload();
+            }
+        };
+    </script>
+</body>
+</html>

@@ -1,0 +1,162 @@
+html,
+body,
+#app,
+#page {
+    height: 100%;
+    display: flex;
+    flex-direction: column;
+}
+
+body {
+    margin: 0;
+    font-family: Roboto, sans-serif;
+}
+
+* {
+    box-sizing: border-box;
+}
+
+.base-spinner {
+    position: relative;
+    animation: base-spinner_rotate 2s linear infinite;
+    color: var(--mdc-theme-primary, #6200ee);
+}
+
+.base-spinner circle {
+    stroke-dasharray: 2, 400;
+    stroke-dashoffset: 0;
+    animation: base-spinner_dash 1.5s ease-in-out infinite;
+    stroke-linecap: round;
+}
+
+@keyframes base-spinner_rotate {
+    100% {
+        transform: rotate(360deg);
+    }
+}
+
+@keyframes base-spinner_dash {
+    0% {
+        stroke-dasharray: 2, 400;
+        stroke-dashoffset: 0;
+    }
+
+    50% {
+        stroke-dasharray: 89, 400;
+        stroke-dashoffset: -35;
+    }
+
+    100% {
+        stroke-dasharray: 89, 400;
+        stroke-dashoffset: -124;
+    }
+}
+
+.mdc-button--raised:not(:disabled),
+.mdc-button--unelevated:not(:disabled) {
+    background-color: #6200ee;
+    /* @alternate */
+    background-color: var(--mdc-theme-primary, #6200ee);
+}
+
+.mdc-button::before, .mdc-button::after {
+    background-color: #6200ee;
+    /* @alternate */
+    background-color: var(--mdc-theme-primary, #6200ee);
+}
+
+.mdc-chip-set--choice .mdc-chip.mdc-chip--selected::before, .mdc-chip-set--choice .mdc-chip.mdc-chip--selected::after {
+    background-color: #6200ee;
+    /* @alternate */
+    background-color: var(--mdc-theme-primary, #6200ee);
+}
+
+.mdc-data-table__header-row-checkbox .mdc-checkbox__native-control:checked ~ .mdc-checkbox__background::before,
+.mdc-data-table__header-row-checkbox .mdc-checkbox__native-control:indeterminate ~ .mdc-checkbox__background::before,
+.mdc-data-table__row-checkbox .mdc-checkbox__native-control:checked ~ .mdc-checkbox__background::before,
+.mdc-data-table__row-checkbox .mdc-checkbox__native-control:indeterminate ~ .mdc-checkbox__background::before {
+    background-color: #6200ee;
+    /* @alternate */
+    background-color: var(--mdc-theme-primary, #6200ee);
+}
+
+.mdc-data-table__header-row-checkbox.mdc-checkbox--selected::before, .mdc-data-table__header-row-checkbox.mdc-checkbox--selected::after,
+.mdc-data-table__row-checkbox.mdc-checkbox--selected::before,
+.mdc-data-table__row-checkbox.mdc-checkbox--selected::after {
+    background-color: #6200ee;
+    /* @alternate */
+    background-color: var(--mdc-theme-primary, #6200ee);
+}
+
+.mdc-data-table__header-row-checkbox.mdc-ripple-upgraded--background-focused.mdc-checkbox--selected::before, .mdc-data-table__header-row-checkbox.mdc-ripple-upgraded--background-focused.mdc-checkbox--selected::after,
+.mdc-data-table__row-checkbox.mdc-ripple-upgraded--background-focused.mdc-checkbox--selected::before,
+.mdc-data-table__row-checkbox.mdc-ripple-upgraded--background-focused.mdc-checkbox--selected::after {
+    background-color: #6200ee;
+    /* @alternate */
+    background-color: var(--mdc-theme-primary, #6200ee);
+}
+
+.mdc-drawer .mdc-list-item--activated .mdc-list-item__graphic {
+    color: #6200ee;
+    /* @alternate */
+    color: var(--mdc-theme-primary, #6200ee);
+}
+
+.mdc-drawer .mdc-list-item--activated {
+    /*color: rgba(98, 0, 238, 0.87);*/
+    color: #6200ee;
+    /* @alternate */
+    color: var(--mdc-theme-primary, #6200ee);
+}
+
+.mdc-select:not(.mdc-select--disabled).mdc-select--focused .mdc-floating-label {
+    /*color: rgba(98, 0, 238, 0.87);*/
+    color: #6200ee;
+    /* @alternate */
+    color: var(--mdc-theme-primary, #6200ee);
+}
+
+.mdc-text-field--focused:not(.mdc-text-field--disabled) .mdc-floating-label {
+    /*color: rgba(98, 0, 238, 0.87);*/
+    color: #6200ee;
+    /* @alternate */
+    color: var(--mdc-theme-primary, #6200ee);
+}
+
+.mdc-text-field--focused .mdc-text-field__input:required ~ .mdc-floating-label::after,
+.mdc-text-field--focused .mdc-text-field__input:required ~ .mdc-notched-outline .mdc-floating-label::after {
+    /*color: rgba(98, 0, 238, 0.87);*/
+    color: #6200ee;
+    /* @alternate */
+    color: var(--mdc-theme-primary, #6200ee);
+}
+
+:not(.mdc-list--non-interactive) > :not(.mdc-list-item--disabled).mdc-list-item--activated::before, :not(.mdc-list--non-interactive) > :not(.mdc-list-item--disabled).mdc-list-item--activated::after {
+    background-color: #6200ee;
+    /* @alternate */
+    background-color: var(--mdc-theme-primary, #6200ee);
+}
+
+:not(.mdc-list--non-interactive) > :not(.mdc-list-item--disabled).mdc-list-item--selected::before, :not(.mdc-list--non-interactive) > :not(.mdc-list-item--disabled).mdc-list-item--selected::after {
+    background-color: #6200ee;
+    /* @alternate */
+    background-color: var(--mdc-theme-primary, #6200ee);
+}
+
+.mdc-ripple-surface--primary::before, .mdc-ripple-surface--primary::after {
+    background-color: #6200ee;
+    /* @alternate */
+    background-color: var(--mdc-theme-primary, #6200ee);
+}
+
+.mdc-ripple-surface--primary::before, .mdc-ripple-surface--primary::after {
+    background-color: #6200ee;
+    /* @alternate */
+    background-color: var(--mdc-theme-primary, #6200ee);
+}
+
+.mdc-tab__ripple::before, .mdc-tab__ripple::after {
+    background-color: #6200ee;
+    /* @alternate */
+    background-color: var(--mdc-theme-primary, #6200ee);
+}
