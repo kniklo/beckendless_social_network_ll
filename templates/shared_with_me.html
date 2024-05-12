@@ -1,0 +1,17 @@
+<!-- shared_with_me.html -->
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Shared With Me</title>
+</head>
+<body>
+    <h1>Shared With Me</h1>
+    <ul>
+        {% for file in shared_files %}
+            <li>{{ file.name }}</li>
+        {% endfor %}
+    </ul>
+</body>
+</html>

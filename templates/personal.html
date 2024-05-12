@@ -48,6 +48,7 @@
                     </form>
                     </td>
                 <td><a href="#" onclick=createFolder()>Новая папка</a></td>
+                <td></td>
             </tr>
             {% for folder in folders %}
                 <tr>
@@ -60,6 +61,11 @@
                     <form action='/delete_folder/{{folder}}' method="get">
                         <button type="submit" class="btn-link">Удалить</button>
                     </form>
+                    </td>
+                    <td>
+<!--                    <form action='/share/{{folder}}' method="get">-->
+                        <button class="btn-link" onclick=grantAccess('{{folder}}')>Расшарить</button>
+<!--                    </form>-->
                     </td>
                 </tr>
             {% endfor %}
@@ -81,6 +87,18 @@
                 window.location.reload();
             }
         };
+
+        function grantAccess(folderName)
+        {
+            var nickname = prompt("Введите имя пользователя:", "xxx");
+            url = `/share?param1=${nickname}&param2=${folderName}`;
+            if (nickname != null && nickname != "")
+            {
+                fetch(url)
+                .then(() => {
+                window.location.reload();})
+            }
+        }
     </script>
 </body>
 </html>

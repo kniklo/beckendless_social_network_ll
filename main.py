@@ -3,6 +3,7 @@ from io import BytesIO
 from flask import Flask, render_template, request, redirect, session, send_file
 import requests
 import re
+import urllib
 
 
 app = Flask(__name__)
@@ -10,11 +11,9 @@ app.secret_key = '12345678'
 
 BACKENDLESS_APP_ID = 'A9937553-25E7-88A3-FF82-498004E4E300'
 BACKENDLESS_API_KEY = 'DFA6D651-CF7D-48C9-A0E2-90CCA17AC6CF'
-# BACKENDLESS_APP_ID = '65ACC275-3321-003B-FF37-6806F0DFEB00'
-# BACKENDLESS_API_KEY = 'C5B5D642-958B-49EF-B5C0-812B8C210A23'
+
 
 BACKENDLESS_BASE_URL = 'soaringelbow.backendless.app'
-# BACKENDLESS_BASE_URL = 'winsomerobin.backendless.app'
 
 REGISTER_URL = f'https://{BACKENDLESS_BASE_URL}/api/users/register'
 LOGIN_URL = f'https://{BACKENDLESS_BASE_URL}/api/users/login'
@@ -262,6 +261,75 @@ def delete_file():
         return redirect('/')
     else:
         return redirect('/login')
+
+
+@app.route('/share', methods=['GET'])
+def share():
+    nickname = request.args.get('param1')
+    foldername = request.args.get('param2')
+    url = f'https://{BACKENDLESS_BASE_URL}/api/data/Users?where=nickname%20%3D%20%27{nickname}%27'
+    response = requests.get(url)
+    if response.status_code == 200:
+        user = json.loads(response.text)
+        if len(user) == 0:
+            pass
+        else:
+            
+
+
+
+
+    if 'nickname' in session:
+        return redirect('/')
+    else:
+        return redirect('/login')
+
+#     if 'nickname' in session:
+#         nickname = session['nickname']
+#         file_name = request.form['file_name']  # Отримуємо ім'я файлу, який користувач бажає поділитися
+#         shared_with = request.form['shared_with']  # Отримуємо ім'я користувача, з яким поділяємо файл
+#
+#         # Перевіряємо, чи існує користувач з таким ім'ям
+#         response = requests.get(f'{REGISTER_URL}?where=nickname%3D%27{shared_with}%27')
+#         if response.status_code == 200 and len(response.json()['data']) > 0:
+#             # Якщо користувач існує, то створюємо робочий каталог в папці "shared with me"
+#             create_user_directories(shared_with)
+#
+#             # Створюємо файл з посиланням на спільний доступ
+#             shared_link = f'{FOLDER_URL}{nickname}/{file_name}'
+#             shared_file_data = {'shared_link': shared_link}
+#             shared_file_url = f'{FOLDER_URL}{shared_with}/shared_with_me/{file_name}'
+#             response = requests.post(shared_file_url, json=shared_file_data)
+#
+#             if response.status_code == 200:
+#                 return 'File shared successfully!'
+#             else:
+#                 return f'Failed to share file: {response.text}'
+#         else:
+#             return 'User does not exist.'
+#     else:
+#         return redirect('/login')
+#
+#
+# @app.route('/shared_with_me')
+# def shared_with_me():
+#     if 'nickname' in session:
+#         nickname = session['nickname']
+#         shared_files_url = f'{FOLDER_URL}{nickname}/shared_with_me'
+#
+#         headers = {
+#             'user-token': session['user-token']  # Передаємо user-token для авторизації
+#         }
+#
+#         response = requests.get(shared_files_url, headers=headers)
+#         if response.status_code == 200:
+#             shared_files = json.loads(response.text)
+#             return render_template('shared_with_me.html', shared_files=shared_files)
+#         else:
+#             return f'Failed to fetch shared files: {response.text}'
+#     else:
+#         return redirect('/login')
+
 
 if __name__ == '__main__':
     app.run(debug=True)
