@@ -20,6 +20,7 @@ LOGIN_URL = f'https://{BACKENDLESS_BASE_URL}/api/users/login'
 CREATE_CONFIRMATION_URL = f'https://{BACKENDLESS_BASE_URL}/api/users/createEmailConfirmationURL/'
 FOLDER_URL = f'https://{BACKENDLESS_BASE_URL}/api/files/users/'
 LOGOUT_URL = f'https://{BACKENDLESS_BASE_URL}/api/users/logout'
+SHARED_FOLDER = 'shared_with_me'
 
 user_token = None
 
@@ -41,7 +42,7 @@ def validate_age(age):
     return int(age) >= 5
 
 def create_user_directories(nickname):
-    user_dir_url = f'{FOLDER_URL}{nickname}/shared_with_me'
+    user_dir_url = f'{FOLDER_URL}{nickname}/{SHARED_FOLDER}'
     response = requests.post(user_dir_url)
     if response.status_code == 200:
         return True
@@ -100,7 +101,7 @@ def login():
         if response.status_code == 200:
             session['nickname'] = nickname  # Устанавливаем никнейм в сессии
             session['user-token'] = json.loads(response.text)['user-token']
-            session['full_current_dir'] = f'{FOLDER_URL}{nickname}/shared_with_me'
+            session['full_current_dir'] = f'{FOLDER_URL}{nickname}/{SHARED_FOLDER}'
             return redirect('/')
         else:
             return response.text
@@ -136,33 +137,22 @@ def logout():
 @app.route('/upload_file', methods=['POST'])
 def upload_file():
     if 'nickname' in session:
-        print(request.files)
-        print(request.form)
-        if 'file' not in request.files:
-            print('No file part')
+        file = request.files['file']
+        current_dir = session['full_current_dir']
+        last_folder = current_dir.split("/")[-1]
+        if last_folder == SHARED_FOLDER:
+            return 'You can not upload files to shared folder.'
         else:
-            file = request.files['file']
-            current_dir = session['full_current_dir']
             upload_url = f'{current_dir}/{file.filename}?overwrite=true'
-
             headers = {
-                # 'Content-Type': 'multipart/form-data',
                 'user-token': session['user-token']
                     }
-        #
             files = {'upload': file}
-            # files = {'upload': (file.filename, file.stream, file.mimetype)}
-            # files = {'file': (file.filename, file.read())}
-        #
             response = requests.post(upload_url, headers=headers, files=files)
-            print(response.status_code, response.text)
-    #
-    #     if response.status_code == 200:
-    #         return 'File uploaded successfully!'
-    #     else:
-    #         return f'Failed to upload file: {response.text}'
-    # else:
-    return redirect('/')
+            return redirect('/')
+    else:
+        return redirect('/login')
+
 
 @app.route('/personal')
 def personal():
@@ -183,7 +173,6 @@ def personal():
         folders = request_folders()
         nickname = session['nickname']
         label_folder = str(session['full_current_dir']).replace(f'{FOLDER_URL}{nickname}', '')
-        # label_folder = ''
         return render_template('personal.html', label_folder=label_folder, folders=folders, nickname=nickname)
     else:
         return redirect('/login')
@@ -223,13 +212,18 @@ def change_folder(folder_name):
             # если папка - заходим в нее
             if response.status_code == 200:
                 new_current_dir = f'{full_current_dir}/{folder_name}'
-            # если файл - скачиваем
+            # если файл
             else:
                 new_current_dir = full_current_dir
-                # сохранение файла
                 response = requests.get(f'{full_current_dir}/{folder_name}')
                 if response.status_code == 200:
-                    return send_file(BytesIO(response.content), download_name=folder_name, as_attachment=True)
+                    # если файл в папке shared - достаем ссылку из него
+                    current_dir = session['full_current_dir']
+                    last_folder = current_dir.split("/")[-1]
+                    if last_folder == SHARED_FOLDER:
+                        return response.text
+                    else:
+                        return send_file(BytesIO(response.content), download_name=folder_name, as_attachment=True)
 
         session['full_current_dir'] = new_current_dir
         return redirect('/')
@@ -266,7 +260,7 @@ def delete_file():
 @app.route('/share', methods=['GET'])
 def share():
     nickname = request.args.get('param1')
-    foldername = request.args.get('param2')
+    filename = request.args.get('param2')
     url = f'https://{BACKENDLESS_BASE_URL}/api/data/Users?where=nickname%20%3D%20%27{nickname}%27'
     response = requests.get(url)
     if response.status_code == 200:
@@ -274,9 +268,12 @@ def share():
         if len(user) == 0:
             pass
         else:
-            
-
-
+            upload_url = f'{FOLDER_URL}{nickname}/{SHARED_FOLDER}/{filename}?overwrite=true'
+            file = json.dumps(f'{session['full_current_dir']}/{filename}')
+            headers = {}
+            files = {'upload': file}
+            response = requests.post(upload_url, headers=headers, files=files)
+            print(response.status_code, response.text)
 
 
     if 'nickname' in session:
@@ -284,51 +281,6 @@ def share():
     else:
         return redirect('/login')
 
-#     if 'nickname' in session:
-#         nickname = session['nickname']
-#         file_name = request.form['file_name']  # Отримуємо ім'я файлу, який користувач бажає поділитися
-#         shared_with = request.form['shared_with']  # Отримуємо ім'я користувача, з яким поділяємо файл
-#
-#         # Перевіряємо, чи існує користувач з таким ім'ям
-#         response = requests.get(f'{REGISTER_URL}?where=nickname%3D%27{shared_with}%27')
-#         if response.status_code == 200 and len(response.json()['data']) > 0:
-#             # Якщо користувач існує, то створюємо робочий каталог в папці "shared with me"
-#             create_user_directories(shared_with)
-#
-#             # Створюємо файл з посиланням на спільний доступ
-#             shared_link = f'{FOLDER_URL}{nickname}/{file_name}'
-#             shared_file_data = {'shared_link': shared_link}
-#             shared_file_url = f'{FOLDER_URL}{shared_with}/shared_with_me/{file_name}'
-#             response = requests.post(shared_file_url, json=shared_file_data)
-#
-#             if response.status_code == 200:
-#                 return 'File shared successfully!'
-#             else:
-#                 return f'Failed to share file: {response.text}'
-#         else:
-#             return 'User does not exist.'
-#     else:
-#         return redirect('/login')
-#
-#
-# @app.route('/shared_with_me')
-# def shared_with_me():
-#     if 'nickname' in session:
-#         nickname = session['nickname']
-#         shared_files_url = f'{FOLDER_URL}{nickname}/shared_with_me'
-#
-#         headers = {
-#             'user-token': session['user-token']  # Передаємо user-token для авторизації
-#         }
-#
-#         response = requests.get(shared_files_url, headers=headers)
-#         if response.status_code == 200:
-#             shared_files = json.loads(response.text)
-#             return render_template('shared_with_me.html', shared_files=shared_files)
-#         else:
-#             return f'Failed to fetch shared files: {response.text}'
-#     else:
-#         return redirect('/login')
 
 
 if __name__ == '__main__':
