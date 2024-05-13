@@ -153,7 +153,6 @@ def upload_file():
     else:
         return redirect('/login')
 
-
 @app.route('/personal')
 def personal():
 
@@ -266,14 +265,14 @@ def share():
     if response.status_code == 200:
         user = json.loads(response.text)
         if len(user) == 0:
-            pass
+            return 'Нет такого пользователя'
         else:
             upload_url = f'{FOLDER_URL}{nickname}/{SHARED_FOLDER}/{filename}?overwrite=true'
-            file = json.dumps(f'{session['full_current_dir']}/{filename}')
+            s = session['full_current_dir']
+            file = json.dumps(f'{s}/{filename}')
             headers = {}
             files = {'upload': file}
             response = requests.post(upload_url, headers=headers, files=files)
-            print(response.status_code, response.text)
 
 
     if 'nickname' in session:
