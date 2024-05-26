@@ -3,31 +3,96 @@
 <head>
     <meta charset="UTF-8">
     <title>Profile</title>
-    <style>
-      table
-      {
-        border-collapse: collapse;
-        width: 100%;
-      }
 
-    th, td
-    {
-        border: 1px solid black;
-        padding: 8px;
-        text-align: left;
-    }
-    .btn-link
-    {
-        border: none;
-        outline: none;
-        background: none;
-        cursor: pointer;
-        color: #0000EE;
-        padding: 0;
-        text-decoration: underline;
-        font-family: inherit;
-        font-size: inherit;
-    }
+
+<!--    <style>-->
+<!--      table-->
+<!--      {-->
+<!--        border-collapse: collapse;-->
+<!--        width: 100%;-->
+<!--      }-->
+
+<!--    th, td-->
+<!--    {-->
+<!--        border: 1px solid black;-->
+<!--        padding: 8px;-->
+<!--        text-align: left;-->
+<!--    }-->
+<!--    .btn-link-->
+<!--    {-->
+<!--        border: none;-->
+<!--        outline: none;-->
+<!--        background: none;-->
+<!--        cursor: pointer;-->
+<!--        color: #0000EE;-->
+<!--        padding: 0;-->
+<!--        text-decoration: underline;-->
+<!--        font-family: inherit;-->
+<!--        font-size: inherit;-->
+<!--    }-->
+<!--    </style>-->
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            background-color: #f0f0f0;
+            margin: 0;
+            padding: 0;
+        }
+        .profile {
+            max-width: 600px;
+            margin: 20px auto;
+            background-color: #fff;
+            padding: 20px;
+            border-radius: 10px;
+            box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
+        }
+        .profile-header {
+            display: flex;
+            align-items: center;
+            flex-direction: column;
+        }
+        .profile-header img {
+            border-radius: 50%;
+            width: 100px;
+            height: 100px;
+            object-fit: cover;
+            margin-bottom: 10px;
+        }
+        .upload-btn {
+            display: inline-block;
+            padding: 10px 20px;
+            font-size: 16px;
+            cursor: pointer;
+            background-color: #007bff;
+            color: #fff;
+            border: none;
+            border-radius: 5px;
+            margin-top: 10px;
+        }
+        .upload-btn input {
+            display: none;
+        }
+        table {
+            border-collapse: collapse;
+            width: 100%;
+            margin-top: 20px;
+        }
+        th, td {
+            border: 1px solid black;
+            padding: 8px;
+            text-align: left;
+        }
+        .btn-link {
+            border: none;
+            outline: none;
+            background: none;
+            cursor: pointer;
+            color: #0000EE;
+            padding: 0;
+            text-decoration: underline;
+            font-family: inherit;
+            font-size: inherit;
+        }
     </style>
 </head>
 <body>
@@ -35,6 +100,16 @@
     <form action="/logout" method="POST" style="display: inline-block; margin-right: 10px;">
         <button type="submit">Logout</button>
     </form>
+
+<!--0-->
+<div class="profile-header">
+            <img id="profile-img" src="{{ profile_photo_url }}" alt="Фото профиля">
+            <label class="upload-btn">
+                Загрузить новое фото
+                <input type="file" id="upload-input" accept="image/*">
+            </label>
+        </div>
+<!--0-->
 
     <h2>Current folder: {{label_folder}}</h2>
 <!--    <a href="#">...</a> &lt;!&ndash; Кнопка для перехода на уровень выше &ndash;&gt;-->
@@ -99,6 +174,36 @@
                 window.location.reload();})
             }
         }
+
+<!--        0-->
+        document.getElementById('upload-input').addEventListener('change', function(event) {
+            const file = event.target.files[0];
+            if (file) {
+                const reader = new FileReader();
+                reader.onload = function(e) {
+                    document.getElementById('profile-img').src = e.target.result;
+                }
+                reader.readAsDataURL(file);
+
+                const formData = new FormData();
+                formData.append('profile_photo', file);
+
+                fetch('/upload_profile_photo', {
+                    method: 'POST',
+                    body: formData
+                }).then(response => {
+                    if (response.ok) {
+                        window.location.reload();
+                    } else {
+                        alert('Failed to upload profile photo.');
+                    }
+                }).catch(error => {
+                    console.error('Error:', error);
+                    alert('Failed to upload profile photo.');
+                });
+            }
+        });
+<!--        0-->
     </script>
 </body>
 </html>
