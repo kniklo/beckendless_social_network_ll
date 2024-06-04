@@ -93,6 +93,47 @@
             font-family: inherit;
             font-size: inherit;
         }
+        .menu {
+            display: none;
+            position: absolute;
+            background-color: #f9f9f9;
+            min-width: 160px;
+            box-shadow: 0px 8px 16px 0px rgba(0,0,0,0.2);
+            z-index: 1;
+        }
+
+        .menu a {
+            color: black;
+            padding: 12px 16px;
+            text-decoration: none;
+            display: block;
+        }
+
+        .menu a:hover {
+            background-color: #f1f1f1;
+        }
+        #avatarContainer {
+            width: 150px;
+            height: 150px;
+            border: 2px solid #ccc;
+            border-radius: 50%;
+            overflow: hidden;
+            display: inline-block;
+        }
+        #avatarImage {
+            width: 100%;
+            height: 100%;
+            object-fit: cover;
+        }
+        #noAvatar {
+            width: 100%;
+            height: 100%;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            cursor: pointer;
+            background-color: #f0f0f0;
+        }
     </style>
 </head>
 <body>
@@ -102,15 +143,17 @@
     </form>
 
 <!--0-->
-<div class="profile-header">
-            <img id="profile-img" src="{{ profile_photo_url }}" alt="Фото профиля">
-            <label class="upload-btn">
-                Загрузить новое фото
-                <input type="file" id="upload-input" accept="image/*">
-            </label>
-        </div>
+<div id="avatarContainer">
+        <!-- Это будет показано, если аватар установлен -->
+        <img id="avatarImage" src="{{avatar}}" alt="User Avatar" onerror="noAvatar()">
+        <!-- Это будет показано, если аватар отсутствует -->
+        <div id="noAvatar" onclick="chooseAvatar()">Add Avatar</div>
+    <input type="file" id="avatarInput" accept="image/*" style="display: none;">
+    </div>
 <!--0-->
-
+<br>
+<div id="responseMessage"></div>
+<br>
     <h2>Current folder: {{label_folder}}</h2>
 <!--    <a href="#">...</a> &lt;!&ndash; Кнопка для перехода на уровень выше &ndash;&gt;-->
 
@@ -139,8 +182,12 @@
                     </td>
                     <td>
 <!--                    <form action='/share/{{folder}}' method="get">-->
-                        <button class="btn-link" onclick=grantAccess('{{folder}}')>Расшарить</button>
+<!--                        <button class="btn-link" onclick=grantAccess('{{folder}}')>Расшарить</button>-->
 <!--                    </form>-->
+                        <button onclick="toggleMenu('menu-{{loop.index}}')">...</button>
+                        <div id="menu-{{loop.index}}" class="menu">
+                            <a href="#" onclick="grantAccess('{{folder}}')">Расшарить</a>
+                        </div>
                     </td>
                 </tr>
             {% endfor %}
@@ -175,35 +222,84 @@
             }
         }
 
-<!--        0-->
-        document.getElementById('upload-input').addEventListener('change', function(event) {
-            const file = event.target.files[0];
-            if (file) {
-                const reader = new FileReader();
-                reader.onload = function(e) {
-                    document.getElementById('profile-img').src = e.target.result;
-                }
-                reader.readAsDataURL(file);
 
-                const formData = new FormData();
-                formData.append('profile_photo', file);
 
-                fetch('/upload_profile_photo', {
-                    method: 'POST',
-                    body: formData
-                }).then(response => {
-                    if (response.ok) {
-                        window.location.reload();
-                    } else {
-                        alert('Failed to upload profile photo.');
-                    }
-                }).catch(error => {
-                    console.error('Error:', error);
-                    alert('Failed to upload profile photo.');
-                });
-            }
+
+    function toggleMenu(menuId) {
+        var menu = document.getElementById(menuId);
+        if (menu.style.display === 'none' || menu.style.display === '') {
+            menu.style.display = 'block';
+        } else {
+            menu.style.display = 'none';
+        }
+    }
+
+
+    function hideAllMenus() {
+        var menus = document.querySelectorAll('.menu');
+        menus.forEach(function(menu) {
+            menu.style.display = 'none';
         });
-<!--        0-->
+    }
+    function noAvatar() {
+            document.getElementById('avatarImage').style.display = 'none';
+            document.getElementById('noAvatar').style.display = 'flex';
+        }
+
+        function chooseAvatar() {
+            // Здесь можно добавить код для выбора и загрузки аватара
+            document.getElementById('avatarInput').click();
+            }
+
+
+   document.getElementById('avatarInput').addEventListener('change', function()
+        {
+            const fileInput = document.getElementById('avatarInput');
+            const file = fileInput.files[0];
+            if (!file) {
+                alert('Please select a file.');
+                return;
+                        }
+
+            const formData = new FormData();
+            formData.append('avatar', file);
+
+            fetch('/upload_avatar', {
+                method: 'POST',
+                body: formData
+                                    }
+                  )
+            .then(response => {
+            if (response.redirected) {
+                window.location.href = response.url;
+            } else {
+                return response.json();
+            }
+        })
+        .then(data => {
+            if (data) {
+                const responseMessage = document.getElementById('responseMessage');
+                responseMessage.textContent = data.message;
+                if (data.path) {
+                    // Если нужно показать путь к аватару или обновить изображение, можно добавить код здесь
+                    // Например, обновить изображение аватара:
+                    // document.getElementById('avatarImage').src = data.path;
+                }
+            }
+        })
+        .catch(error => {
+            const responseMessage = document.getElementById('responseMessage');
+            responseMessage.textContent = 'Error: ' + error;
+            console.error('Error:', error);
+        });
+        });
+
+    window.onclick = function(event) {
+        if (!event.target.matches('button')) {
+            hideAllMenus();
+        }
+    }
+
     </script>
 </body>
 </html>

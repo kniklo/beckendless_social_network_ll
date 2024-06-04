@@ -1,6 +1,6 @@
 import json
 from io import BytesIO
-from flask import Flask, render_template, request, redirect, session, send_file
+from flask import Flask, render_template, request, redirect, session, send_file, jsonify
 import requests
 import re
 import urllib
@@ -19,6 +19,7 @@ REGISTER_URL = f'https://{BACKENDLESS_BASE_URL}/api/users/register'
 LOGIN_URL = f'https://{BACKENDLESS_BASE_URL}/api/users/login'
 CREATE_CONFIRMATION_URL = f'https://{BACKENDLESS_BASE_URL}/api/users/createEmailConfirmationURL/'
 FOLDER_URL = f'https://{BACKENDLESS_BASE_URL}/api/files/users/'
+WEB_FOLDER = f'https://{BACKENDLESS_BASE_URL}/api/files/web/'
 LOGOUT_URL = f'https://{BACKENDLESS_BASE_URL}/api/users/logout'
 SHARED_FOLDER = 'shared_with_me'
 
@@ -258,6 +259,7 @@ def delete_file():
 
 @app.route('/share', methods=['GET'])
 def share():
+    print('!')
     nickname = request.args.get('param1')
     filename = request.args.get('param2')
     url = f'https://{BACKENDLESS_BASE_URL}/api/data/Users?where=nickname%20%3D%20%27{nickname}%27'
@@ -273,12 +275,31 @@ def share():
             headers = {}
             files = {'upload': file}
             response = requests.post(upload_url, headers=headers, files=files)
-
-
     if 'nickname' in session:
         return redirect('/')
     else:
         return redirect('/login')
+
+@app.route('/upload_avatar', methods=['POST'])
+def upload_avatar():
+    if 'avatar' not in request.files:
+        return jsonify({'error': 'No file part'}), 400
+
+    avatar = request.files['avatar']
+    if avatar.filename == '':
+        return jsonify({'error': 'No selected file'}), 400
+    ext = avatar.filename.split('.')[-1]
+
+    upload_url = f'{WEB_FOLDER}avatar.{ext}?overwrite=true'
+    print(upload_url)
+    headers = {
+        'user-token': session['user-token']
+    }
+    files = {'upload': avatar}
+    response = requests.post(upload_url, headers=headers, files=files)
+    return redirect('/')
+
+
 
 
 
