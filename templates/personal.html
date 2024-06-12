@@ -107,6 +107,18 @@
             cursor: pointer;
             background-color: #f0f0f0;
         }
+        .nav-btn {
+            display: inline-block;
+            padding: 10px 20px;
+            font-size: 16px;
+            cursor: pointer;
+            background-color: #007bff;
+            color: #fff;
+            border: none;
+            border-radius: 5px;
+            margin-top: 10px;
+            margin-right: 10px; /* Для отступа между кнопками */
+        }
     </style>
 </head>
 <body>
@@ -171,6 +183,16 @@
         <input type="file" name="file" id="file" required>
         <button type="submit">Upload File</button>
     </form>
+
+<!-- Добавьте эти кнопки в нужное место на странице personal.html -->
+
+<form action="/to_change_profile_info" method="POST" style="display: inline-block; margin-right: 10px;">
+        <button class="nav-btn" type="submit">Change profile info</button>
+</form>
+<form action="/to_location" method="POST" style="display: inline-block; margin-right: 10px;">
+        <button class="nav-btn" type="submit">Go to my location</button>
+</form>
+
 
     <script>
         async function createFolder()

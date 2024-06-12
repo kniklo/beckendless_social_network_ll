@@ -1,0 +1,285 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>My Places</title>
+    <style>
+        body {
+    font-family: Arial, sans-serif;
+    margin: 0;
+    padding: 0;
+    background-color: #f4f4f4;
+}
+
+header, footer {
+    background-color: #333;
+    color: white;
+    text-align: center;
+    padding: 1em 0;
+}
+
+main {
+    padding: 1em;
+    display: flex;
+    flex-direction: column;
+    gap: 2em;
+}
+
+section {
+    padding: 1em;
+    background-color: white;
+    border-radius: 8px;
+    box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
+}
+
+h2 {
+    border-bottom: 2px solid #333;
+    padding-bottom: 0.5em;
+}
+
+form {
+    display: flex;
+    flex-direction: column;
+    gap: 1em;
+}
+
+label {
+    font-weight: bold;
+}
+
+input, textarea, button {
+    padding: 0.5em;
+    border: 1px solid #ccc;
+    border-radius: 4px;
+}
+
+#map {
+    width: 100%;
+    height: 400px;
+}
+
+#search-results, #my-places {
+    list-style-type: none;
+    padding: 0;
+}
+
+#search-results li, #my-places li {
+    padding: 0.5em;
+    border-bottom: 1px solid #ddd;
+}
+
+#search-results li:last-child, #my-places li:last-child {
+    border-bottom: none;
+}
+    </style>
+    <script src="https://maps.googleapis.com/maps/api/js?key=YOUR_API_KEY"></script>
+    <script>
+        document.addEventListener('DOMContentLoaded', function () {
+    const addPlaceForm = document.getElementById('add-place-form');
+    const searchPlacesForm = document.getElementById('search-places-form');
+    const myPlacesList = document.getElementById('my-places');
+    const searchResults = document.getElementById('search-results');
+    const mapElement = document.getElementById('map');
+    let map;
+    let userLocation = { lat: 0, lng: 0 };
+
+    function initMap() {
+        map = new google.maps.Map(mapElement, {
+            center: userLocation,
+            zoom: 12
+        });
+
+        if (navigator.geolocation) {
+            navigator.geolocation.getCurrentPosition((position) => {
+                userLocation = {
+                    lat: position.coords.latitude,
+                    lng: position.coords.longitude
+                };
+                map.setCenter(userLocation);
+                document.getElementById('place-coordinates').value = `${userLocation.lat}, ${userLocation.lng}`;
+                document.getElementById('search-coordinates').value = `${userLocation.lat}, ${userLocation.lng}`;
+            });
+        }
+
+        map.addListener('click', (event) => {
+            const lat = event.latLng.lat();
+            const lng = event.latLng.lng();
+            document.getElementById('place-coordinates').value = `${lat}, ${lng}`;
+            document.getElementById('search-coordinates').value = `${lat}, ${lng}`;
+        });
+    }
+
+    function addPlace(event) {
+        event.preventDefault();
+        const formData = new FormData(addPlaceForm);
+        const place = {
+            description: formData.get('description'),
+            category: formData.get('category'),
+            coordinates: formData.get('coordinates'),
+            hashtags: formData.get('hashtags'),
+            image: formData.get('image'),
+            timeAdded: new Date().toISOString()
+        };
+        fetch('/add_place', {
+            method: 'POST',
+            headers: {
+                'Content-Type': 'application/json'
+            },
+            body: JSON.stringify(place)
+        })
+        .then(response => response.json())
+        .then(data => {
+            if (data.status === 'success') {
+                loadMyPlaces();
+            } else {
+                console.error(data.message);
+            }
+        });
+    }
+
+    function searchPlaces(event) {
+        event.preventDefault();
+        const formData = new FormData(searchPlacesForm);
+        const query = {
+            name: formData.get('name'),
+            category: formData.get('category'),
+            radius: formData.get('radius'),
+            coordinates: formData.get('coordinates')
+        };
+        fetch(`/search_places?name=${query.name}&category=${query.category}&radius=${query.radius}&coordinates=${query.coordinates}`)
+        .then(response => response.json())
+        .then(data => {
+            searchResults.innerHTML = '';
+            data.forEach(place => {
+                const placeItem = document.createElement('div');
+                placeItem.innerHTML = `
+                    <h3>${place.description}</h3>
+                    <p>Category: ${place.category}</p>
+                    <p>Coordinates: ${place.coordinates}</p>
+                    <p>Hashtags: ${place.hashtags}</p>
+                    <p>Time Added: ${place.time_added}</p>
+                    <img src="${place.image}" alt="${place.description}" />
+                `;
+                searchResults.appendChild(placeItem);
+            });
+        });
+    }
+
+    function loadMyPlaces() {
+        fetch('/my_places')
+        .then(response => response.json())
+        .then(data => {
+            myPlacesList.innerHTML = '';
+            data.forEach(place => {
+                const placeItem = document.createElement('li');
+                placeItem.textContent = place.description;
+                const deleteButton = document.createElement('button');
+                deleteButton.textContent = 'Delete';
+                deleteButton.addEventListener('click', () => deletePlace(place.id));
+                placeItem.appendChild(deleteButton);
+                myPlacesList.appendChild(placeItem);
+            });
+        });
+    }
+
+    function deletePlace(placeId) {
+        fetch(`/delete_place/${placeId}`, {
+            method: 'DELETE'
+        })
+        .then(response => response.json())
+        .then(data => {
+            if (data.status === 'success') {
+                loadMyPlaces();
+            } else {
+                console.error(data.message);
+            }
+        });
+    }
+
+    addPlaceForm.addEventListener('submit', addPlace);
+    searchPlacesForm.addEventListener('submit', searchPlaces);
+    initMap();
+    loadMyPlaces();
+});
+
+    </script>
+</head>
+<body>
+    <header>
+        <h1>My Places</h1>
+    </header>
+    <main>
+        <!-- Add Place Form -->
+<form id="add-place-form">
+    <label for="place-description">Description:</label>
+    <input type="text" id="place-description" name="description" required>
+
+    <label for="place-category">Category:</label>
+    <input type="text" id="place-category" name="category" required>
+
+    <label for="place-coordinates">Coordinates:</label>
+    <input type="text" id="place-coordinates" name="coordinates" readonly>
+
+    <label for="place-hashtags">Hashtags:</label>
+    <input type="text" id="place-hashtags" name="hashtags">
+
+    <label for="place-image">Image URL:</label>
+    <input type="text" id="place-image" name="image">
+
+    <button type="submit">Add Place</button>
+</form>
+
+<!-- Search Places Form -->
+<form id="search-places-form">
+    <label for="search-name">Name:</label>
+    <input type="text" id="search-name" name="name">
+
+    <label for="search-category">Category:</label>
+    <input type="text" id="search-category" name="category">
+
+    <label for="search-radius">Radius (meters):</label>
+    <input type="number" id="search-radius" name="radius">
+
+    <label for="search-coordinates">Coordinates:</label>
+    <input type="text" id="search-coordinates" name="coordinates" readonly>
+
+    <button type="submit">Search</button>
+</form>
+
+        <!-- Add Place Section -->
+<section id="add-place">
+    <h2>Add Place</h2>
+    <form id="add-place-form">
+        <!-- Form fields -->
+        <button type="submit">Add Place</button>
+    </form>
+</section>
+
+<!-- Search Section -->
+<section id="search-places">
+    <h2>Find Places</h2>
+    <form id="search-places-form">
+        <!-- Form fields -->
+        <button type="submit">Search</button>
+    </form>
+    <div id="search-results"></div>
+</section>
+
+<!-- Places List Section -->
+<section id="places-list">
+    <h2>My Places</h2>
+    <ul id="my-places"></ul>
+</section>
+
+<!-- Map Section -->
+<section id="map-section">
+    <h2>Map</h2>
+    <div id="map"></div>
+</section>
+    </main>
+    <footer>
+        <p>&copy; 2024 LuminaryLens</p>
+    </footer>
+</body>
+</html>

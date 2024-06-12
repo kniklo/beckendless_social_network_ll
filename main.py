@@ -6,6 +6,7 @@ import re
 import urllib
 
 
+
 app = Flask(__name__)
 app.secret_key = '12345678'
 
@@ -300,7 +301,128 @@ def upload_avatar():
     return redirect('/')
 
 
+def get_user_by_nickname(nickname):
+    url = f'https://api.backendless.com/{APP_ID}/{API_KEY}/data/{TABLE_NAME}?where=nickname%3D%27{nickname}%27'
 
+    response = requests.get(url)
+
+    if response.status_code == 200:
+        data = response.json()
+        if data:
+            return data[0]  # Предполагается, что никнейм уникален, поэтому берем первый элемент
+        else:
+            return None
+    else:
+        print('Error:', response.status_code, response.text)
+        return None
+@app.route('/to_change_profile_info', methods=['GET', 'POST'])
+def change_profile_info():
+    if 'nickname' in session:
+        nickname = session['nickname']
+
+        return render_template('change_personal_info.html', nickname=nickname)
+@app.route('/to_location', methods=['GET', 'POST'])
+def location():
+    return render_template('location.html')
+
+@app.route('/add_place', methods=['POST'])
+def add_place():
+    if 'nickname' in session:
+        data = request.json
+        description = data.get('description')
+        coordinates = data.get('coordinates')
+        hashtags = data.get('hashtags')
+        image = data.get('image', '')
+        category = data.get('category')
+        myLocation = datetime.utcnow().isoformat()
+
+        place = {
+            "description": description,
+            "coordinates": coordinates,
+            "hashtags": hashtags,
+            "image": image,
+            "category": category,
+            "myLocation": myLocation,
+            "owner": session['nickname']
+        }
+
+        response = requests.post(f'https://{BACKENDLESS_BASE_URL}/api/data/places', json=place)
+        if response.status_code == 200:
+            return jsonify({'status': 'success'})
+        else:
+            return jsonify({'status': 'error', 'message': response.text}), response.status_code
+    else:
+        return jsonify({'status': 'error', 'message': 'Unauthorized'}), 401
+@app.route('/delete_place/<place_id>', methods=['DELETE'])
+def delete_place(place_id):
+    if 'nickname' in session:
+        owner = session['nickname']
+        response = requests.get(f'https://{BACKENDLESS_BASE_URL}/api/data/places/{place_id}')
+        if response.status_code == 200:
+            place = response.json()
+            if place['owner'] == owner:
+                delete_response = requests.delete(f'https://{BACKENDLESS_BASE_URL}/api/data/places/{place_id}')
+                if delete_response.status_code == 200:
+                    return jsonify({'status': 'success'})
+                else:
+                    return jsonify({'status': 'error', 'message': delete_response.text}), delete_response.status_code
+            else:
+                return jsonify({'status': 'error', 'message': 'You can only delete your own places'}), 403
+        else:
+            return jsonify({'status': 'error', 'message': response.text}), response.status_code
+    else:
+        return jsonify({'status': 'error', 'message': 'Unauthorized'}), 401
+@app.route('/search_places', methods=['GET'])
+def search_places():
+    if 'nickname' in session:
+        name = request.args.get('name', '')
+        category = request.args.get('category', '')
+        radius = request.args.get('radius', '')
+        coordinates = request.args.get('coordinates', '')
+
+        query = f"owner != '{session['nickname']}'"  # Исключаем свои места
+
+        if name:
+            query += f" AND description LIKE '%{name}%'"
+        if category:
+            query += f" AND category = '{category}'"
+        if radius and coordinates:
+            lat, lon = map(float, coordinates.split(','))
+            query += f" AND distanceOnSphere(coordinates, 'POINT({lon} {lat})') <= {radius}"
+
+        response = requests.get(f'https://{BACKENDLESS_BASE_URL}/api/data/places?where={urllib.parse.quote(query)}')
+        if response.status_code == 200:
+            places = response.json()
+            return jsonify(places)
+        else:
+            return jsonify({'status': 'error', 'message': response.text}), response.status_code
+    else:
+        return jsonify({'status': 'error', 'message': 'Unauthorized'}), 401
+@app.route('/save_place/<place_id>', methods=['POST'])
+def save_place(place_id):
+    if 'nickname' in session:
+        data = request.json
+        description = data.get('description')
+        coordinates = data.get('coordinates')
+        hashtags = data.get('hashtags')
+        image = data.get('image', '')
+        category = data.get('category')
+
+        place = {
+            "description": description,
+            "coordinates": coordinates,
+            "hashtags": hashtags,
+            "image": image,
+            "category": category
+        }
+
+        response = requests.put(f'https://{BACKENDLESS_BASE_URL}/api/data/places/{place_id}', json=place)
+        if response.status_code == 200:
+            return jsonify({'status': 'success'})
+        else:
+            return jsonify({'status': 'error', 'message': response.text}), response.status_code
+    else:
+        return jsonify({'status': 'error', 'message': 'Unauthorized'}), 401
 
 
 if __name__ == '__main__':
