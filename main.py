@@ -4,6 +4,7 @@ from flask import Flask, render_template, request, redirect, session, send_file,
 import requests
 import re
 import urllib
+import datetime
 
 
 
@@ -16,12 +17,13 @@ BACKENDLESS_API_KEY = 'DFA6D651-CF7D-48C9-A0E2-90CCA17AC6CF'
 
 BACKENDLESS_BASE_URL = 'soaringelbow.backendless.app'
 
-REGISTER_URL = f'https://{BACKENDLESS_BASE_URL}/api/users/register'
-LOGIN_URL = f'https://{BACKENDLESS_BASE_URL}/api/users/login'
+USERS_URL = f'https://{BACKENDLESS_BASE_URL}/api/users/'
+REGISTER_URL = f'{USERS_URL}register'
+LOGIN_URL = f'{USERS_URL}login'
+LOGOUT_URL = f'{USERS_URL}logout'
 CREATE_CONFIRMATION_URL = f'https://{BACKENDLESS_BASE_URL}/api/users/createEmailConfirmationURL/'
 FOLDER_URL = f'https://{BACKENDLESS_BASE_URL}/api/files/users/'
 WEB_FOLDER = f'https://{BACKENDLESS_BASE_URL}/api/files/web/'
-LOGOUT_URL = f'https://{BACKENDLESS_BASE_URL}/api/users/logout'
 SHARED_FOLDER = 'shared_with_me'
 
 user_token = None
@@ -101,8 +103,10 @@ def login():
         headers = {'Content-Type': 'application/json'}
         response = requests.post(LOGIN_URL, headers=headers, json=data)
         if response.status_code == 200:
+            resp_json = json.loads(response.text)
             session['nickname'] = nickname  # Устанавливаем никнейм в сессии
-            session['user-token'] = json.loads(response.text)['user-token']
+            session['user-token'] = resp_json['user-token']
+            session['objectId'] = resp_json['objectId']
             session['full_current_dir'] = f'{FOLDER_URL}{nickname}/{SHARED_FOLDER}'
             return redirect('/')
         else:
@@ -205,6 +209,8 @@ def delete_folder(folder_name):
 def change_folder(folder_name):
     if 'nickname' in session:
         full_current_dir = session['full_current_dir']
+        print(full_current_dir)
+        print(folder_name)
         if folder_name == '...':
             new_current_dir = full_current_dir.replace('/' + full_current_dir.split("/")[-1], '')
         else:
@@ -225,8 +231,9 @@ def change_folder(folder_name):
                         return response.text
                     else:
                         return send_file(BytesIO(response.content), download_name=folder_name, as_attachment=True)
-
-        session['full_current_dir'] = new_current_dir
+        #   Проверка на выход вверх из своей папки в users - этого делать нельзя
+        if new_current_dir.split('/')[-1] != 'users':
+            session['full_current_dir'] = new_current_dir
         return redirect('/')
     else:
         return redirect('/login')
@@ -301,26 +308,49 @@ def upload_avatar():
     return redirect('/')
 
 
-def get_user_by_nickname(nickname):
-    url = f'https://api.backendless.com/{APP_ID}/{API_KEY}/data/{TABLE_NAME}?where=nickname%3D%27{nickname}%27'
-
-    response = requests.get(url)
-
-    if response.status_code == 200:
-        data = response.json()
-        if data:
-            return data[0]  # Предполагается, что никнейм уникален, поэтому берем первый элемент
-        else:
-            return None
-    else:
-        print('Error:', response.status_code, response.text)
-        return None
+# def get_user_by_nickname(nickname):
+#     url = f'https://api.backendless.com/{APP_ID}/{API_KEY}/data/{TABLE_NAME}?where=nickname%3D%27{nickname}%27'
+#
+#     response = requests.get(url)
+#
+#     if response.status_code == 200:
+#         data = response.json()
+#         if data:
+#             return data[0]  # Предполагается, что никнейм уникален, поэтому берем первый элемент
+#         else:
+#             return None
+#     else:
+#         print('Error:', response.status_code, response.text)
+#         return None
 @app.route('/to_change_profile_info', methods=['GET', 'POST'])
-def change_profile_info():
+def to_change_profile_info():
     if 'nickname' in session:
         nickname = session['nickname']
+        objectId = session.get('objectId', None)
+        if objectId:
+            response = requests.get(f'{USERS_URL}{objectId}?props=email,age,gender,country')
+            if response.status_code == 200:
+                json_resp = json.loads(response.text)
+                email = json_resp['email']
+                age = json_resp['age']
+                gender = json_resp['gender']
+                country = json_resp['country']
+                return render_template('change_personal_info.html', nickname=nickname, email=email, age=age, gender=gender, country=country)
+            else:
+                return redirect('/')
+        else:
+            return redirect('/')
 
-        return render_template('change_personal_info.html', nickname=nickname)
+@app.route('/change_profile_info', methods=['POST'])
+def change_profile_info():
+    objectId = session.get('objectId', None)
+    user_token = session['user-token']
+    if objectId:
+        args = request.form.to_dict()
+        headers = {'user-token': user_token}
+        response = requests.put(f'{USERS_URL}{objectId}', headers=headers, json=args)
+    return redirect('/to_change_profile_info')
+
 @app.route('/to_location', methods=['GET', 'POST'])
 def location():
     return render_template('location.html')
