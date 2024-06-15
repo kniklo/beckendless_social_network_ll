@@ -130,7 +130,7 @@
 <!--0-->
 <div id="avatarContainer">
         <!-- Это будет показано, если аватар установлен -->
-        <img id="avatarImage" src="{{avatar}}" alt="User Avatar" onerror="noAvatar()">
+        <img id="avatarImage" src="{{avatar}}" alt="User Avatar" onerror="noAvatar()" onclick="chooseAvatar()">
         <!-- Это будет показано, если аватар отсутствует -->
         <div id="noAvatar" onclick="chooseAvatar()">Add Avatar</div>
     <input type="file" id="avatarInput" accept="image/*" style="display: none;">

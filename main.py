@@ -178,7 +178,14 @@ def personal():
         folders = request_folders()
         nickname = session['nickname']
         label_folder = str(session['full_current_dir']).replace(f'{FOLDER_URL}{nickname}', '')
-        return render_template('personal.html', label_folder=label_folder, folders=folders, nickname=nickname)
+        objectId = session.get('objectId', None)
+        avatar = None
+        if objectId:
+            response = requests.get(f'{USERS_URL}{objectId}?props=avatar')
+            if response.status_code == 200:
+                json_resp = json.loads(response.text)
+                avatar = json_resp.get('avatar')
+        return render_template('personal.html', label_folder=label_folder, folders=folders, nickname=nickname, avatar=avatar)
     else:
         return redirect('/login')
 
@@ -267,7 +274,6 @@ def delete_file():
 
 @app.route('/share', methods=['GET'])
 def share():
-    print('!')
     nickname = request.args.get('param1')
     filename = request.args.get('param2')
     url = f'https://{BACKENDLESS_BASE_URL}/api/data/Users?where=nickname%20%3D%20%27{nickname}%27'
@@ -297,14 +303,21 @@ def upload_avatar():
     if avatar.filename == '':
         return jsonify({'error': 'No selected file'}), 400
     ext = avatar.filename.split('.')[-1]
+    nickname = session['nickname']
+    upload_url = f'{WEB_FOLDER}{nickname}_avatar.{ext}?overwrite=true'
 
-    upload_url = f'{WEB_FOLDER}avatar.{ext}?overwrite=true'
-    print(upload_url)
     headers = {
         'user-token': session['user-token']
     }
     files = {'upload': avatar}
     response = requests.post(upload_url, headers=headers, files=files)
+    if response.status_code == 200:
+        objectId = session.get('objectId', None)
+        user_token = session['user-token']
+        if objectId:
+            args = {'avatar': f'{WEB_FOLDER}{nickname}_avatar.{ext}'}
+            headers = {'user-token': user_token}
+            response = requests.put(f'{USERS_URL}{objectId}', headers=headers, json=args)
     return redirect('/')
 
 
