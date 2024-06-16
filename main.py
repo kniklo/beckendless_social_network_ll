@@ -99,7 +99,6 @@ def login():
         nickname = request.form['nickname']
         password = request.form['password']
         data = {"login": nickname, "password": password}
-
         headers = {'Content-Type': 'application/json'}
         response = requests.post(LOGIN_URL, headers=headers, json=data)
         if response.status_code == 200:
@@ -121,7 +120,6 @@ def forgot_password():
         RESTORE_PASSWORD_URL = f'https://{BACKENDLESS_BASE_URL}/api/users/restorepassword/{nickname}'
 
         response = requests.get(RESTORE_PASSWORD_URL)
-        print(response.status_code, response.text)
         if response.status_code == 200:
             return 'Instructions for password reset have been sent to your email.'
         else:
@@ -216,8 +214,6 @@ def delete_folder(folder_name):
 def change_folder(folder_name):
     if 'nickname' in session:
         full_current_dir = session['full_current_dir']
-        print(full_current_dir)
-        print(folder_name)
         if folder_name == '...':
             new_current_dir = full_current_dir.replace('/' + full_current_dir.split("/")[-1], '')
         else:
@@ -250,7 +246,6 @@ def count_files(folder_name):
     if 'nickname' in session:
         full_current_dir = session['full_current_dir']
         response = requests.get(f'{full_current_dir}/{folder_name}?action=count')
-        print(response.status_code, response.text)
         return redirect('/')
     else:
         return redirect('/login')
@@ -364,9 +359,36 @@ def change_profile_info():
         response = requests.put(f'{USERS_URL}{objectId}', headers=headers, json=args)
     return redirect('/to_change_profile_info')
 
-@app.route('/to_location', methods=['GET', 'POST'])
-def location():
-    return render_template('location.html')
+@app.route('/geolocation', methods=['POST'])
+def geolocation():
+    data = request.json
+    latitude = data.get('latitude')
+    longitude = data.get('longitude')
+    point = {
+        "type": "Point",
+        "coordinates": [longitude, latitude]}
+    objectId = session.get('objectId', None)
+    if objectId:
+        headers = {'user-token': user_token}
+        args = {'myLocation': json.dumps(point)}
+        response = requests.put(f'{USERS_URL}{objectId}', headers=headers, json=args)
+    return redirect('/')
+
+@app.route('/to_places', methods=['GET'])
+def to_places():
+    images = [
+            {'url': 'https://images.unsplash.com/photo-1592194996308-7b43878e84a6?q=80&w=1887&auto=format&fit=crop&ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D', 'likes': 10},
+            {'url': 'https://images.unsplash.com/photo-1543852786-1cf6624b9987?q=80&w=1887&auto=format&fit=crop&ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D', 'likes': 4},
+            {'url': 'https://images.unsplash.com/photo-1548546738-8509cb246ed3?q=80&w=1887&auto=format&fit=crop&ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D', 'likes': 5},
+            {'url': 'https://avatars.dzeninfra.ru/get-zen_doc/9366213/pub_6454e3b41c5f4820cd6c598e_6454e4c486fc6e43215d6a44/scale_2400', 'likes': 14},
+            {'url': 'https://avatars.dzeninfra.ru/get-zen_doc/9729319/pub_6454e3b41c5f4820cd6c598e_6454e69fee07787be827b468/scale_2400', 'likes': 132},
+            {'url': 'https://avatars.dzeninfra.ru/get-zen_doc/5022911/pub_6454e3b41c5f4820cd6c598e_6454e99ebb58ab48cec8ad08/scale_2400', 'likes': 0},
+            {'url': 'https://avatars.dzeninfra.ru/get-zen_doc/9811263/pub_6454e3b41c5f4820cd6c598e_6454e9f9f1dfd60b9b7eca1b/scale_2400',  'likes': 20}]
+    return render_template('places.html', images=images)
+
+@app.route('/delete_place', methods=['POST'])
+def delete_place():
+    return redirect('/')
 
 @app.route('/add_place', methods=['POST'])
 def add_place():
@@ -396,25 +418,25 @@ def add_place():
             return jsonify({'status': 'error', 'message': response.text}), response.status_code
     else:
         return jsonify({'status': 'error', 'message': 'Unauthorized'}), 401
-@app.route('/delete_place/<place_id>', methods=['DELETE'])
-def delete_place(place_id):
-    if 'nickname' in session:
-        owner = session['nickname']
-        response = requests.get(f'https://{BACKENDLESS_BASE_URL}/api/data/places/{place_id}')
-        if response.status_code == 200:
-            place = response.json()
-            if place['owner'] == owner:
-                delete_response = requests.delete(f'https://{BACKENDLESS_BASE_URL}/api/data/places/{place_id}')
-                if delete_response.status_code == 200:
-                    return jsonify({'status': 'success'})
-                else:
-                    return jsonify({'status': 'error', 'message': delete_response.text}), delete_response.status_code
-            else:
-                return jsonify({'status': 'error', 'message': 'You can only delete your own places'}), 403
-        else:
-            return jsonify({'status': 'error', 'message': response.text}), response.status_code
-    else:
-        return jsonify({'status': 'error', 'message': 'Unauthorized'}), 401
+# @app.route('/delete_place/<place_id>', methods=['DELETE'])
+# def delete_place(place_id):
+#     if 'nickname' in session:
+#         owner = session['nickname']
+#         response = requests.get(f'https://{BACKENDLESS_BASE_URL}/api/data/places/{place_id}')
+#         if response.status_code == 200:
+#             place = response.json()
+#             if place['owner'] == owner:
+#                 delete_response = requests.delete(f'https://{BACKENDLESS_BASE_URL}/api/data/places/{place_id}')
+#                 if delete_response.status_code == 200:
+#                     return jsonify({'status': 'success'})
+#                 else:
+#                     return jsonify({'status': 'error', 'message': delete_response.text}), delete_response.status_code
+#             else:
+#                 return jsonify({'status': 'error', 'message': 'You can only delete your own places'}), 403
+#         else:
+#             return jsonify({'status': 'error', 'message': response.text}), response.status_code
+#     else:
+#         return jsonify({'status': 'error', 'message': 'Unauthorized'}), 401
 @app.route('/search_places', methods=['GET'])
 def search_places():
     if 'nickname' in session:

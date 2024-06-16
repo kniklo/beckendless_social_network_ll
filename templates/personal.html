@@ -130,7 +130,7 @@
 <!--0-->
 <div id="avatarContainer">
         <!-- Это будет показано, если аватар установлен -->
-        <img id="avatarImage" src="{{avatar}}" alt="User Avatar" onerror="noAvatar()" onclick="chooseAvatar()">
+        <img id="avatarImage" src="{{avatar}}" alt="User Avatar" loading="lazy" onerror="noAvatar()" onclick="chooseAvatar()">
         <!-- Это будет показано, если аватар отсутствует -->
         <div id="noAvatar" onclick="chooseAvatar()">Add Avatar</div>
     <input type="file" id="avatarInput" accept="image/*" style="display: none;">
@@ -188,12 +188,67 @@
 <form action="/to_change_profile_info" method="POST" style="display: inline-block; margin-right: 10px;">
         <button class="nav-btn" type="submit">Change profile info</button>
 </form>
-<form action="/to_location" method="POST" style="display: inline-block; margin-right: 10px;">
-        <button class="nav-btn" type="submit">Go to my location</button>
+<form action="/to_places" method="GET" style="display: inline-block; margin-right: 10px;">
+        <button class="nav-btn" type="submit">Go to places</button>
 </form>
+    <label>
+        <input type="checkbox" id="sendLocation" name="location" onchange="toggleLocationSending(this)">
+        Відслідковувати моє місцерозташування
+    </label>
 
 
     <script>
+
+        let locationInterval;
+
+        function toggleLocationSending(checkbox) {
+            if (checkbox.checked) {
+                getLocation();
+                locationInterval = setInterval(getLocation, 60000); // 1 минута = 60000 миллисекунд
+            } else {
+                clearInterval(locationInterval);
+            }
+        }
+
+        function getLocation() {
+            if (navigator.geolocation) {
+                navigator.geolocation.getCurrentPosition(sendPosition, showError);
+            } else {
+                alert("Geolocation is not supported by this browser.");
+            }
+        }
+
+        function sendPosition(position) {
+            const latitude = position.coords.latitude;
+            const longitude = position.coords.longitude;
+            const data = { latitude: latitude, longitude: longitude };
+            fetch('/geolocation', {
+                method: 'POST',
+                headers: {
+                    'Content-Type': 'application/json'
+                },
+                body: JSON.stringify(data)
+            })
+
+        }
+
+        function showError(error) {
+            switch(error.code) {
+                case error.PERMISSION_DENIED:
+                    alert("User denied the request for Geolocation.");
+                    break;
+                case error.POSITION_UNAVAILABLE:
+                    alert("Location information is unavailable.");
+                    break;
+                case error.TIMEOUT:
+                    alert("The request to get user location timed out.");
+                    break;
+                case error.UNKNOWN_ERROR:
+                    alert("An unknown error occurred.");
+                    break;
+            }
+        }
+
         async function createFolder()
         {
             var folderName = prompt("Введите имя для новой папки:", "Новая папка");
@@ -202,7 +257,7 @@
                 await fetch('/create_folder/'+folderName);
                 window.location.reload();
             }
-        };
+        }
 
         function grantAccess(folderName)
         {
@@ -235,6 +290,7 @@
             menu.style.display = 'none';
         });
     }
+
     function noAvatar() {
             document.getElementById('avatarImage').style.display = 'none';
             document.getElementById('noAvatar').style.display = 'flex';
