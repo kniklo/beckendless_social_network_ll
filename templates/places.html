@@ -221,11 +221,16 @@ body {
             border: 1px solid #ccc;
             border-radius: 5px;
             cursor: pointer;
+            transition: background-color 0.3s;
         }
         #filter-map-button:hover {
             background-color: #e0e0e0;
             border: 2px solid #00e000;
             padding: 9px 19px;
+        }
+        #filter-map-button.active {
+            background-color: #d0d0d0;
+            border: 2px solid #007bff;
         }
     </style>
 </head>
@@ -263,40 +268,23 @@ body {
         {% endfor %}
     </div>
 <script>
-    var newImage = null;
-
+    var newImage;
     var mode = 'show';
-    var map = L.map('map').setView([51.505, -0.09], 13);
-    L.tileLayer('https://tile.openstreetmap.org/{z}/{x}/{y}.png', {
-        maxZoom: 19,
-        attribution: '&copy; <a href="http://www.openstreetmap.org/copyright">OpenStreetMap</a>'
-    }).addTo(map);
-    var imageMarkersLayer = L.layerGroup();
-    var searchCircleLayer = L.layerGroup();
-    var newImageMarkerLayer = L.layerGroup();
+    var filter_map_mode = 'off';
 
-    var searchCircle = L.circle([0, 0], {
-            radius: 1,
-            color: 'blue',
-            fillColor: '#blue',
-            fillOpacity: 0.2
-        }).addTo(searchCircleLayer);
-    var searchMarker = L.marker([0, 0], { draggable: true }).addTo(searchCircleLayer);
-    var newImageMarker = L.marker([0, 0], { draggable: true, autopan: true }).addTo(newImageMarkerLayer);
-    map.addLayer(imageMarkersLayer);
+    var map = L.map('map').setView([0, 0], 10);
+    var curLatitude;
+    var curLongitude;
+    var imageMarkersLayer;
+    var newImageMarker;
+    var searchMarker;
+    var searchCircle;
 
-    map.on('click', function(e) {
-        if (mode == "show") {
-            marker.setLatLng(e.latlng);
-            circle.setLatLng(e.latlng);
-            var radius = parseInt(document.getElementById('radiusInput').value * 1000);
-            circle.setRadius(radius);
-        }
-        else {
-            newImageMarker.setLatLng(e.latlng);
-        }
-
-    });
+    if (navigator.geolocation) {
+                navigator.geolocation.getCurrentPosition(showPosition, showError);
+            } else {
+                alert("Geolocation is not supported by this browser.");
+            }
 
     const categories = [
             "Category 1",
@@ -305,6 +293,83 @@ body {
             "Category 4",
             "Category 5"
         ];
+
+    document.getElementById('filter-map-button').addEventListener('click', function() {
+        this.classList.toggle('active')});
+
+    function setupMap() {
+        map.setView([curLatitude, curLongitude], 10);
+        L.tileLayer('https://tile.openstreetmap.org/{z}/{x}/{y}.png', {
+            maxZoom: 20,
+            attribution: '&copy; <a href="http://www.openstreetmap.org/copyright">OpenStreetMap</a>'
+        }).addTo(map);
+
+        addImageMarkers();
+
+        map.on('click', function(e) {
+            if (mode == "show") {
+                if (filter_map_mode === "on") {
+                   if (searchMarker) {
+                        map.removeLayer(searchMarker);
+                    }
+                    if (searchCircle) {
+                        map.removeLayer(searchCircle);
+                    }
+                    searchMarker = L.marker(e.latlng).addTo(map);
+                    searchCircle = L.circle(e.latlng, {
+                                                    radius: parseFloat(document.getElementById('radiusInput').value) * 1000,
+                                                    color: 'blue',
+                                                    fillColor: '#blue',
+                                                    fillOpacity: 0.2
+                                                }).addTo(map);
+                }
+                else {
+                }
+            }
+            else {
+                if (newImageMarker) {
+                    map.removeLayer(newImageMarker);
+                }
+                newImageMarker = L.marker(e.latlng).addTo(map);
+            }
+
+        });
+    }
+
+    function showPosition(position) {
+            curLatitude = position.coords.latitude;
+            curLongitude = position.coords.longitude;
+            setupMap();
+        }
+
+    function showError(error) {
+        switch(error.code) {
+            case error.PERMISSION_DENIED:
+                alert("User denied the request for Geolocation.");
+                break;
+            case error.POSITION_UNAVAILABLE:
+                alert("Location information is unavailable.");
+                break;
+            case error.TIMEOUT:
+                alert("The request to get user location timed out.");
+                break;
+            case error.UNKNOWN_ERROR:
+                alert("An unknown error occurred.");
+                break;
+        }
+    }
+
+        function addImageMarkers() {
+            if (imageMarkersLayer) {
+                map.removeLayer(imageMarkersLayer);
+            }
+            imageMarkersLayer = L.layerGroup();
+            {% for place in places %}
+                L.marker({{ place.point.coordinates|tojson|safe }}, { draggable: false }).addTo(imageMarkersLayer);
+                console.log({{ place.point.coordinates|tojson|safe }});
+            {% endfor %}
+            map.addLayer(imageMarkersLayer);
+        }
 
     // Обработка выбора категории из списка
         function handleCategorySelect(category) {
@@ -360,6 +425,18 @@ body {
             document.getElementById('noNewImage').style.display = 'flex';
         }
 
+    function filter_on_map() {
+        filter_map_mode = (filter_map_mode === "off") ? "on" : "off";
+        if (filter_map_mode === "off") {
+                   if (searchMarker) {
+                        map.removeLayer(searchMarker);
+                    }
+                    if (searchCircle) {
+                        map.removeLayer(searchCircle);
+                    }
+        }
+    }
+
     function previewImage(event) {
             var input = event.target;
             if (input.files && input.files[0]) {
@@ -381,9 +458,15 @@ body {
                 document.getElementById('radiusInput').style.display = 'none';
                 document.getElementById('filterButton').innerHTML = 'Отправить<br>фото';
                 document.getElementById('cancelButton').style.display = 'flex';
-                map.removeLayer(imageMarkersLayer);
-                map.removeLayer(searchCircleLayer);
-                map.addLayer(newImageMarkerLayer);
+               if (searchMarker) {
+                    map.removeLayer(searchMarker);
+                }
+                if (searchCircle) {
+                    map.removeLayer(searchCircle);
+                }
+                if (imageMarkersLayer) {
+                    map.removeLayer(imageMarkersLayer);
+                }
                 mode = 'new';
              }
         }
@@ -399,10 +482,10 @@ body {
         document.getElementById('radiusInput').style.display = 'flex';
         document.getElementById('filterButton').innerHTML = 'Применить<br>фильтр';
         document.getElementById('cancelButton').style.display = 'none';
-        map.addLayer(imageMarkersLayer);
-        map.removeLayer(searchCircleLayer);
-        map.removeLayer(newImageMarkerLayer);
-        newImageMarker.setLatlng([0, 0]);
+        if (newImageMarker) {
+            map.removeLayer(newImageMarker);
+        }
+        addImageMarkers();
         mode = 'show';
     }
 
@@ -459,6 +542,17 @@ body {
 
         }
         else {
+            var inputField = document.getElementById("searchTextInput");
+            var description = inputField.value.trim();
+
+            var container = document.getElementById('selectedCategories');
+            inputValue = document.getElementById("searchInput").value.trim();
+            var categories = "";
+            for (var i = 0; i < container.children.length; i++) {
+             categories += container.children[i].textContent.trim();
+            }
+            categories += inputValue;
+
         }
     }
     </script>

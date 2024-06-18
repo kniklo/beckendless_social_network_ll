@@ -355,7 +355,6 @@ def geolocation():
     if objectId:
         headers = {'user-token': user_token}
         args = {'myLocation': json.dumps(point)}
-        print(args)
         response = requests.put(f'{USERS_URL}{objectId}', headers=headers, json=args)
     return redirect('/')
 
@@ -367,6 +366,9 @@ def to_places():
     }
     response = requests.get(url, headers=headers)
     places = json.loads(response.text)
+    for place in places:
+        coord = place['point']['coordinates']
+        coord[0], coord[1] = coord[1], coord[0]
     sorted_places = sorted(places, key=lambda x: x['created'], reverse=True)
     return render_template('places.html', places=sorted_places)
 
@@ -410,7 +412,7 @@ def delete_place():
     }
     response = requests.delete(url, headers=headers)
     return redirect('/to_places')
-    
+
 @app.route('/search_places', methods=['GET'])
 def search_places():
     if 'nickname' in session:
