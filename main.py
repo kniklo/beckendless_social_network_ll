@@ -455,6 +455,7 @@ def to_friends():
             potential_friends = json.loads(response.text)
             friends = []
             friend_requests = []
+            notfriends = []
             for user in potential_friends:
                 n1 = user.get('nickname1', None)
                 n2 = user.get('nickname2', None)
@@ -485,7 +486,7 @@ def to_friends():
                     if user['nickname'] == friend_request:
                         friend_requests_data.append({'nickname': user['nickname'], 'avatar': user['avatar'], 'location': user['myLocation']})
 
-        return render_template('friends_gallery.html', friends=friends_data, friends_requests=friend_requests_data, nickname=nickname, my_location=my_location, my_avatar=my_avatar)
+        return render_template('friends.html', friends=friends_data, friends_requests=friend_requests_data, nickname=nickname, my_location=my_location, my_avatar=my_avatar)
 
 
 @app.route('/add_friend', methods=['POST'])

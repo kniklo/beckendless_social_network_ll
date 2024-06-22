@@ -1,0 +1,249 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <link rel="stylesheet" href="https://unpkg.com/leaflet@1.9.4/dist/leaflet.css" integrity="sha256-p4NxAoJBhIIN+hmNHrzRCf9tD/miZyoHS5obTRR9BMY=" crossorigin=""/>
+    <script src="https://unpkg.com/leaflet@1.9.4/dist/leaflet.js" integrity="sha256-20nQCchB9co0qIjJZRGuk2/Z9VM+kNiyxNV1lvTlZBo=" crossorigin=""></script>
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            background-color: #f0f0f0;
+            margin: 0;
+            padding: 0;
+            justify-content: center;
+            align-items: center;
+            min-height: 100vh;
+        }
+
+        .overlay {
+            display: none;
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background-color: rgba(0, 0, 0, 0.5);
+            z-index: 1000;
+        }
+
+        .container {
+            display: flex;
+            flex-direction: row;
+            width: 100%;
+            height: 100vh;
+        }
+
+        .left-column, .right-column {
+            padding: 20px;
+            overflow-y: auto;
+        }
+
+        .left-column {
+            width: 50%;
+            display: flex;
+            flex-direction: column;
+            justify-content: space-between;
+        }
+
+        .right-column {
+            width: 50%;
+        }
+
+        .section {
+            background-color: #f9f9f9;
+            border: 1px solid #ddd;
+            border-radius: 10px;
+            box-shadow: 0 4px 8px rgba(0, 0, 0, 0.2);
+            margin-bottom: 20px;
+            padding: 10px;
+        }
+
+        .section-title {
+            font-size: 18px;
+            margin-bottom: 10px;
+        }
+
+        .image-grid {
+            margin-top: 20px;
+            display: flex;
+            flex-wrap: wrap;
+            gap: 10px;
+            justify-content: center;
+        }
+
+        .image-tile {
+            position: relative;
+            width: 300px;
+            border-radius: 10px;
+            overflow: hidden;
+            box-shadow: 0 4px 8px rgba(0, 0, 0, 0.2);
+            background-color: #fff;
+        }
+
+        .image-tile img {
+            width: 100%;
+            height: auto;
+        }
+
+        .avatar {
+            border-radius: 50%;
+            width: 50px;
+            height: 50px;
+        }
+
+        .header {
+            text-align: center;
+            margin-top: 20px;
+        }
+
+        .header img {
+            border-radius: 50%;
+            width: 100px;
+            height: 100px;
+        }
+        #avatarContainer {
+            width: 150px;
+            height: 150px;
+            border: 2px solid #ccc;
+            border-radius: 50%;
+            overflow: hidden;
+            display: inline-block;
+        }
+        #avatarImage {
+            width: 100%;
+            height: 100%;
+            object-fit: cover;
+        }
+        #noAvatar {
+            width: 100%;
+            height: auto;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            cursor: pointer;
+            background-color: #f0f0f0;
+        }
+
+}
+
+    </style>
+    <title>Friends Gallery</title>
+</head>
+<body>
+    <div class="header">
+        <h1>{{ nickname }}'s Friends Gallery</h1>
+        <div id="avatarContainer">
+            <img id="avatarImage" src="{{my_avatar}}" alt="User Avatar" loading="lazy">
+        </div>
+    </div>
+    <div>
+        <h2>My Location</h2>
+        {% if my_location %}
+        <div id="map" style="height: 300px;"></div>
+
+        {% else %}
+        <p>Location not available</p>
+        {% endif %}
+    </div>
+
+    <div class="container">
+        <div class="left-column">
+            <div class="section">
+                <div class="section-title">Друзья</div>
+                <div class="image-grid">
+                    {% for friend in friends %}
+                    {% if friend.avatar %}
+                        <div class="image-tile">
+                            <img src="{{ friend.avatar }}" alt="Avatar">
+                            <div class="description">
+                                {{ friend.nickname }}
+                            </div>
+                            <div class="post-actions">
+                                <button class="action-button like-button" onclick="delete_friend('{{ friend.nickname }}')"> Удалить из друзей</button>
+                            </div>
+                        </div>
+                    {% else %}
+                    <div class="image-tile">
+                        <div class="noAvatar"></div>
+                        <div class="description">
+                                {{ friend.nickname }}
+                        </div>
+                        <div class="post-actions">
+                                <button class="action-button like-button" onclick="delete_friend()"> Удалить из друзей</button>
+                            </div>
+                    </div>
+                    {% endif %}
+                    {% endfor %}
+                </div>
+            </div>
+            <div class="section">
+                <div class="section-title">Запросы в друзья</div>
+                <div class="image-grid">
+                    {% for friend in friends_requests %}
+                    {% if friend.avatar %}
+                        <div class="image-tile">
+                            <img src="{{ friend.avatar }}" alt="Avatar">
+                            <div class="description">
+                                {{ friend.nickname }}
+                            </div>
+                            <div class="post-actions">
+                                <button class="action-button like-button" onclick="accept_friend()"> Принять</button>
+                            </div>
+                        </div>
+                    {% else %}
+                    <div class="image-tile">
+                        <div class="noAvatar"></div>
+                        <div class="description">
+                                {{ friend.nickname }}
+                        </div>
+                        <div class="post-actions">
+                                <button class="action-button like-button" onclick="accept_friend()"> Принять</button>
+                            </div>
+                    </div>
+                    {% endif %}
+                    {% endfor %}
+                </div>
+            </div>>
+        </div>>
+        <div class="right-column">
+            <div class="section">
+                <div class="section-title">Все пользователи</div>
+                <div class="image-grid">
+                    {% for user in notfriends %}
+                    <div class="image-tile">
+                        {% if user.avatar %}
+                        <img src="{{ user.avatar }}" alt="Avatar">
+                        {% else %}
+                        <div class="noAvatar">Нет фото</div>
+                        {% endif %}
+                        <div class="description">{{ user.nickname }}</div>
+                        <div class="post-actions">
+                            <button class="action-button" onclick="send_friend_request({{ user.id }})">Добавить в друзья</button>
+                        </div>
+                    </div>
+                    {% endfor %}
+                </div>
+            </div>
+        </div>
+    </div>
+<script>
+            var map = L.map('map').setView([{{ my_location.coordinates[1] }}, {{ my_location.coordinates[0] }}], 13);
+            L.tileLayer('https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png', {
+                attribution: '&copy; <a href="https://www.openstreetmap.org/copyright">OpenStreetMap</a> contributors'
+            }).addTo(map);
+            L.marker([{{ my_location.coordinates[1] }}, {{ my_location.coordinates[0] }}]).addTo(map)
+                .bindPopup('You are here.')
+                .openPopup();
+            imageMarkersLayer = L.layerGroup();
+            map.addLayer(imageMarkersLayer);
+            {% for friend in friends %}
+            L.marker([{{ friend.location.coordinates[1]|tojson|safe }}, {{ friend.location.coordinates[0]|tojson|safe }}], { draggable: false }).addTo(imageMarkersLayer)
+                .bindTooltip({{friend.nickname|tojson|safe}}, {
+                    permanent: true,
+                    direction: "right"
+                    }).openTooltip();
+            {% endfor %}
+
+        </script>
+</body>
+</html>
