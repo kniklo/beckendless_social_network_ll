@@ -29,47 +29,104 @@ body {
             z-index: 1000; /* Выше всех остальных элементов */
         }
 
+<!--.image-grid {-->
+<!--    display: grid;-->
+<!--    grid-template-columns: repeat(4, 1fr);-->
+<!--    grid-template-rows: repeat(3, auto);-->
+<!--    gap: 10px;-->
+<!--    padding: 10px;-->
+<!--    max-width: 90%;-->
+<!--    box-sizing: border-box;-->
+<!--}-->
 .image-grid {
-    display: grid;
-    grid-template-columns: repeat(4, 1fr);
-    grid-template-rows: repeat(3, auto);
+    margin-top: 20px;
+    display: flex;
+    flex-wrap: wrap;
     gap: 10px;
-    padding: 10px;
-    max-width: 90%;
-    box-sizing: border-box;
+    justify-content: center;
 }
 
+<!--.image-tile {-->
+<!--    position: relative;-->
+<!--    width: 100%;-->
+<!--    height: 100%;-->
+<!--    border: 3px solid #ddd;-->
+<!--    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);-->
+<!--    border-radius: 10px;-->
+<!--    overflow: hidden;-->
+<!--    background-color: white;-->
+<!--    transition: transform 0.2s;-->
+<!--}-->
 .image-tile {
     position: relative;
-    width: 100%;
-    height: 100%;
-    border: 3px solid #ddd;
-    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+    width: 300px;
     border-radius: 10px;
     overflow: hidden;
-    background-color: white;
-    transition: transform 0.2s;
+    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+    background-color: #fff;
 }
 
+<!--.image-tile img {-->
+<!--    width: 100%;-->
+<!--    height: auto;-->
+<!--    display: block;-->
+<!--    border-bottom: 1px solid #ddd;-->
+<!--}-->
 .image-tile img {
     width: 100%;
     height: auto;
     display: block;
     border-bottom: 1px solid #ddd;
 }
+.image-tile:hover {
+        transform: scale(1.02);
+    }
+ .image-tile:hover .delete-form {
+    display: block;
+}
 
+<!--.likes {-->
+<!--    position: absolute;-->
+<!--    bottom: 10px;-->
+<!--    left: 10px;-->
+<!--    background-color: rgba(0, 0, 0, 0.5);-->
+<!--    color: white;-->
+<!--    padding: 5px;-->
+<!--    border-radius: 3px;-->
+<!--}-->
 .likes {
     position: absolute;
-    bottom: 10px;
+    top: 10px;
     left: 10px;
     background-color: rgba(0, 0, 0, 0.5);
     color: white;
-    padding: 5px;
-    border-radius: 3px;
+    padding: 5px 10px;
+    border-radius: 5px;
+    font-size: 14px;
+    font-weight: bold;
 }
 
-.image-tile:hover {
-    transform: scale(1.02);
+
+/* Стили для хэштегов */
+.hashtags {
+    padding: 10px;
+    font-size: 14px;
+    color: #555;
+}
+.hashtags span {
+    display: inline-block;
+    background-color: #efefef;
+    border-radius: 3px;
+    padding: 5px 10px;
+    margin-right: 5px;
+}
+
+/* Стили для описания */
+.description {
+    padding: 10px;
+    font-size: 14px;
+    color: #333;
+    border-top: 1px solid #ddd;
 }
 
 .delete-form {
@@ -78,10 +135,6 @@ body {
     right: 10px;
     display: none;
     z-index: 1;
-}
-
-.image-tile:hover .delete-form {
-    display: block;
 }
 
 .delete-button {
@@ -115,15 +168,25 @@ body {
             height: 100%;
             object-fit: cover;
         }
-        #noNewImage {
-            width: 100%;
-            height: 100%;
-            display: flex;
-            justify-content: center;
-            align-items: center;
-            cursor: pointer;
-            background-color: rgba(255, 255, 255, 0.7);
-        }
+<!--        #noNewImage {-->
+<!--            width: 100%;-->
+<!--            height: 100%;-->
+<!--            display: flex;-->
+<!--            justify-content: center;-->
+<!--            align-items: center;-->
+<!--            cursor: pointer;-->
+<!--            background-color: rgba(255, 255, 255, 0.7);-->
+<!--        }-->
+#noNewImage {
+    width: 100%;
+    height: 100%;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    background-color: #e0e0e0;
+    font-size: 24px;
+    color: #888;
+}
         #noNewImage::before {
             content: "+"; /* Символ плюса */
             font-size: 72px; /* Размер шрифта символа */
@@ -232,6 +295,20 @@ body {
             background-color: #d0d0d0;
             border: 2px solid #007bff;
         }
+
+        .post-actions {
+            padding: 10px;
+        }
+        .like-button::before {
+            content: "\2764"; /* Heart icon */
+        }
+        .timestamp {
+    color: #999;
+    font-size: 12px;
+    padding: 10px;
+    border-top: 1px solid #ddd;
+}
+
     </style>
 </head>
 <body>
@@ -258,8 +335,22 @@ body {
             </div>
         {% for place in places %}
             <div class="image-tile shade">
+
                 <img src="{{ place.image }}" alt="Image">
-                <div class="likes">Likes: {{ place.created }}</div>
+                <div class="likes" id="likes_{{ place.objectId }}">Likes: {{ place.likes }} </div>
+
+                <div class="post-actions">
+                    <button class="action-button like-button" onclick="likePost('{{ place.objectId }}')"> Like</button>
+                </div>
+
+                <div class="hashtags">
+                <span>{{ place.hashtag }}</span>
+                </div>
+
+                <div class="description">
+                    {{ place.description }}
+                </div>
+
                 <form action="{{ url_for('delete_place') }}" method="POST" class="delete-form">
                     <input type="hidden" name="place_objectId" value="{{ place.objectId }}">
                     <button type="submit" class="delete-button">Удалить</button>
@@ -554,6 +645,30 @@ body {
             categories += inputValue;
 
         }
+    }
+    function likePost(objectId) {
+    var formData = new FormData();
+    formData.append('objectId', objectId);
+    fetch('/like_place', {
+                method: 'POST',
+                body: formData
+            }).then(response => {
+                if (response.redirected) {
+                     window.location.href = response.url;
+                } else {
+                    return response.json();  // Assuming the server responds with JSON
+                }
+            }).then(data => {
+                 if (data) {
+                    var likeElement = document.getElementById('likes_' + data.objectId);
+                    if (likeElement) {
+                        likeElement.textContent = "Likes: " + data.likes;  // Correct method to set text content
+                    } else {
+                        console.error('Element not found: likes_' + data.objectId);
+                    }
+                 }
+            });
+
     }
     </script>
 </body>

@@ -15,6 +15,7 @@ BACKENDLESS_APP_ID = 'A9937553-25E7-88A3-FF82-498004E4E300'
 BACKENDLESS_API_KEY = 'DFA6D651-CF7D-48C9-A0E2-90CCA17AC6CF'
 
 BACKENDLESS_BASE_URL = 'soaringelbow.backendless.app'
+STATISTIC_OBJECTID = '6921CC5E-B03E-44B2-A921-0D345153F980'
 
 USERS_URL = f'https://{BACKENDLESS_BASE_URL}/api/users/'
 DATA_URL = f'https://{BACKENDLESS_BASE_URL}/api/data/'
@@ -27,6 +28,19 @@ WEB_FOLDER = f'https://{BACKENDLESS_BASE_URL}/api/files/web/'
 SHARED_FOLDER = 'shared_with_me'
 
 user_token = None
+
+def log_event(event, owner_id):
+    log_url = f'{DATA_URL}history'
+    now = datetime.datetime.now().replace(microsecond=0).isoformat() + 'Z'
+    data = {
+        "event": event,
+        "time": now,
+        "ownerId": owner_id
+    }
+    headers = {'user-token': session.get('user-token')}
+    response = requests.post(log_url, headers=headers, json=data)
+    if response.status_code != 200:
+        print(f'Failed to log event: {response.text}')
 
 @app.route('/')
 def index():
@@ -107,8 +121,26 @@ def login():
             session['user-token'] = resp_json['user-token']
             session['objectId'] = resp_json['objectId']
             session['full_current_dir'] = f'{FOLDER_URL}{nickname}/{SHARED_FOLDER}'
+
+            # Увеличиваем счетчик онлайн пользователей
+            STATISTIC_URL = f'{DATA_URL}Statistic/{STATISTIC_OBJECTID}'
+            headers = {
+                'Content-Type': 'application/json',
+                'user-token': session['user-token']
+            }
+            response = requests.get(STATISTIC_URL, headers=headers)
+            if response.status_code == 200:
+                statistic_data = response.json()
+                online_users = statistic_data.get('onlineUsers', 0) + 1
+                update_data = {'onlineUsers': online_users}
+                response = requests.put(STATISTIC_URL, headers=headers, json=update_data)
+                print(response.text)
+                if response.status_code != 200:
+                    log_event(f'Failed to update online users count for user: {nickname}', nickname)
+
             return redirect('/')
         else:
+            log_event(f'Failed login attempt for user: {nickname}', nickname)
             return response.text
     return render_template('login.html')
 
@@ -134,6 +166,21 @@ def logout():
     response = requests.get(LOGOUT_URL, headers=headers)
     if response.status_code == 200:
         session['user-token'] = None
+
+        # Уменьшаем счетчик онлайн пользователей
+        STATISTIC_URL = f'{DATA_URL}Statistic/{STATISTIC_OBJECTID}'
+        headers = {
+            'Content-Type': 'application/json',
+            'user-token': session['user-token']
+        }
+        response = requests.get(STATISTIC_URL, headers=headers)
+        if response.status_code == 200:
+            statistic_data = response.json()
+            online_users = max(statistic_data.get('onlineUsers', 0) - 1, 0)
+            update_data = {'onlineUsers': online_users}
+            response = requests.put(STATISTIC_URL, headers=headers, json=update_data)
+
+
         return redirect('/')
     else:
         return 'Failed to logout.'
@@ -153,6 +200,8 @@ def upload_file():
                     }
             files = {'upload': file}
             response = requests.post(upload_url, headers=headers, files=files)
+            if response.status_code != 200:
+                log_event(f'Failed to upload file: {file.filename} by user: {session["nickname"]}', session["nickname"])
             return redirect('/')
     else:
         return redirect('/login')
@@ -356,6 +405,8 @@ def geolocation():
         headers = {'user-token': user_token}
         args = {'myLocation': json.dumps(point)}
         response = requests.put(f'{USERS_URL}{objectId}', headers=headers, json=args)
+        if response.status_code != 200:
+            log_event(f'Failed to add geolocation for user: {session["nickname"]}', session["nickname"])
     return redirect('/')
 
 @app.route('/to_places', methods=['GET'])
@@ -369,8 +420,141 @@ def to_places():
     for place in places:
         coord = place['point']['coordinates']
         coord[0], coord[1] = coord[1], coord[0]
-    sorted_places = sorted(places, key=lambda x: x['created'], reverse=True)
+    sorted_places = sorted(places, key= lambda x: x['created'], reverse=True)
+
     return render_template('places.html', places=sorted_places)
+
+
+@app.route('/to_friends', methods=['GET'])
+def to_friends():
+    if 'nickname' in session:
+        nickname = session['nickname']
+        objectId = session.get('objectId', None)
+
+        # Получение своего аватара
+        my_avatar = None
+        if objectId:
+            response = requests.get(f'{USERS_URL}{objectId}?props=avatar')
+            if response.status_code == 200:
+                json_resp = json.loads(response.text)
+                my_avatar = json_resp.get('avatar')
+
+        # Получение своего местоположения
+        my_location = None
+        if objectId:
+            response = requests.get(f'{USERS_URL}{objectId}?props=myLocation')
+            if response.status_code == 200:
+                json_resp = json.loads(response.text)
+                my_location = json_resp.get('myLocation')
+
+        # Запрос на получение друзей
+        friends_url = f'{DATA_URL}friends'
+        response = requests.get(friends_url)
+
+        if response.status_code == 200:
+            potential_friends = json.loads(response.text)
+            friends = []
+            friend_requests = []
+            for user in potential_friends:
+                n1 = user.get('nickname1', None)
+                n2 = user.get('nickname2', None)
+                initiator = user.get('initiator', None)
+                if not initiator:
+                    if nickname == n1:
+                        friends.append(n2)
+                    elif nickname == n2:
+                        friends.append(n1)
+                elif initiator != nickname:
+                    if nickname == n1:
+                        friend_requests.append(n2)
+                    elif nickname == n2:
+                        friend_requests.append(n1)
+
+            users_url = f'{DATA_URL}Users'
+            response = requests.get(users_url)
+            users = json.loads(response.text)
+            friends_data = []
+            for friend in friends:
+                for user in users:
+                    if user['nickname'] == friend:
+                        friends_data.append({'nickname': user['nickname'], 'avatar': user['avatar'], 'location': user['myLocation']})
+
+            friend_requests_data = []
+            for friend_request in friend_requests:
+                for user in users:
+                    if user['nickname'] == friend_request:
+                        friend_requests_data.append({'nickname': user['nickname'], 'avatar': user['avatar'], 'location': user['myLocation']})
+
+        return render_template('friends_gallery.html', friends=friends_data, friends_requests=friend_requests_data, nickname=nickname, my_location=my_location, my_avatar=my_avatar)
+
+
+@app.route('/add_friend', methods=['POST'])
+def add_friend():
+    if 'nickname' in session:
+        nickname = session['nickname']
+        friend_nickname = request.form.get('friend_nickname')
+
+        # Отправка запроса в друзья
+        data = {
+            'nickname1': nickname,
+            'nickname2': friend_nickname,
+            'initiator': nickname
+        }
+        response = requests.post(USERS_URL, json=data)
+        if response.status_code == 200:
+            return jsonify({'message': 'Friend request sent'})
+        else:
+            return jsonify({'message': 'Error sending friend request'}), 400
+    else:
+        return redirect('/login')
+
+
+@app.route('/accept_friend', methods=['POST'])
+def accept_friend():
+    if 'nickname' in session:
+        nickname = session['nickname']
+        friend_nickname = request.form.get('friend_nickname')
+
+        # Принятие запроса в друзья
+        friends_url = f'{USERS_URL}?where=nickname1%3D%27{friend_nickname}%27%20AND%20nickname2%3D%27{nickname}%27%20AND%20initiator%3D%27{friend_nickname}%27'
+        response = requests.get(friends_url)
+        if response.status_code == 200:
+            friends_data = json.loads(response.text)
+            if friends_data:
+                friend_request_id = friends_data[0]['objectId']
+                update_url = f'{USERS_URL}/{friend_request_id}'
+                update_data = {'initiator': None}
+                update_response = requests.put(update_url, json=update_data)
+                if update_response.status_code == 200:
+                    return jsonify({'message': 'Friend request accepted'})
+        return jsonify({'message': 'Error accepting friend request'}), 400
+    else:
+        return redirect('/login')
+
+
+@app.route('/delete_friend', methods=['POST'])
+def delete_friend():
+    if 'nickname' in session:
+        nickname = session['nickname']
+        friend_nickname = request.form.get('friend_nickname')
+
+        # Удаление друга
+        friends_url = f'{USERS_URL}?where=(nickname1%3D%27{nickname}%27%20AND%20nickname2%3D%27{friend_nickname}%27)%20OR%20(nickname1%3D%27{friend_nickname}%27%20AND%20nickname2%3D%27{nickname}%27)'
+        response = requests.get(friends_url)
+        if response.status_code == 200:
+            friends_data = json.loads(response.text)
+            if friends_data:
+                friend_request_id = friends_data[0]['objectId']
+                delete_url = f'{USERS_URL}/{friend_request_id}'
+                delete_response = requests.delete(delete_url)
+                if delete_response.status_code == 200:
+                    return jsonify({'message': 'Friend deleted'})
+        return jsonify({'message': 'Error deleting friend'}), 400
+    else:
+        return redirect('/login')
+
+
+
 
 @app.route('/add_place', methods=['POST'])
 def add_place():
@@ -412,6 +596,26 @@ def delete_place():
     }
     response = requests.delete(url, headers=headers)
     return redirect('/to_places')
+
+@app.route('/like_place', methods=['POST'])
+def like_place():
+    objectId = request.form.get('objectId')
+    url = f'{DATA_URL}Place/{objectId}'
+    headers = {
+        'user-token': session['user-token']
+    }
+    response = requests.get(url, headers=headers)
+    places = json.loads(response.text)
+    likes = places['likes'] + 1
+
+    url = f'{DATA_URL}Place/upsert'
+    data = {'objectId': objectId,
+            'likes': likes
+            }
+    response = requests.put(url, json=data)
+    data = {'objectId': request.form.get('objectId'),
+            'likes': likes}
+    return(jsonify(data))
 
 @app.route('/search_places', methods=['GET'])
 def search_places():
@@ -464,6 +668,8 @@ def save_place(place_id):
             return jsonify({'status': 'error', 'message': response.text}), response.status_code
     else:
         return jsonify({'status': 'error', 'message': 'Unauthorized'}), 401
+
+
 
 
 if __name__ == '__main__':
